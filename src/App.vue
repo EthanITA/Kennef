@@ -1,28 +1,97 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar height="100" app color="white" dark elevation="0" class="px-16">
+      <div class="d-flex align-center">
+        <v-img alt="Kennef Logotype" class="mt-3 hidden-sm-and-down" contain src="./assets/logotype.svg" width="150" />
+      </div>
+
+      <div class="btns-l ml-16">
+        <v-btn class="mr-2" v-for="link in links" :key="link.title" @click="shopPanel = !shopPanel" text
+          color="secondary">
+          <span>{{ link.title }}</span>
+        </v-btn>
+        <v-btn text color="secondary">
+          <v-icon>mdi-magnify</v-icon>
+
+        </v-btn>
+
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <div class="btns-r">
+        <v-btn text color="secondary">
+          <v-icon>mdi-account-outline</v-icon>
+        </v-btn>
+
+        <v-btn text color="secondary">
+          <v-icon>mdi-shopping-outline</v-icon>
+        </v-btn>
+      </div>
+    </v-app-bar>
+
+    <v-main>
+      <Categories />
+      <!-- <Home /> -->
+    </v-main>
+    <VFooterComponent />
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import VFooterComponent from "./components/VFooterComponent.vue";
+import Categories from "./components/VCategories.vue"
+// import Home from "./components/VHome.vue"
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
-  }
-}
+    // Home,
+    Categories,
+    VFooterComponent
+  },
+
+  data() {
+    return {
+      shopPanel : false,
+      links: [
+        {
+          link: "#",
+          title: "Shop",
+        },
+        {
+          link: "#",
+          title: "Chi Siamo",
+        },
+        {
+          link: "#",
+          title: "COntattaci",
+        }
+      ]
+    }
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap');
+
+$font-family: "Nunito Sans";
+$primary : #EA5734;
+$secondary : #003F4B;
+
+@mixin textColor($color: $primary) {
+  color: $color;
+}
+
+.v-application {
+  [class*='text-'] {
+    @include textColor($color : $secondary);
+    font-family: $font-family, sans-serif !important;
+  }
+
+  font-family: $font-family,
+  sans-serif !important;
 }
 </style>
