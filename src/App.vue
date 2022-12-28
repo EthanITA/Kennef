@@ -31,8 +31,10 @@
     </v-app-bar>
 
     <v-main>
-      <Categories />
+      <!-- <Categories /> -->
       <!-- <Home /> -->
+      <!-- <Account /> -->
+      <Profile />
     </v-main>
     <VFooterComponent />
   </v-app>
@@ -40,21 +42,25 @@
 
 <script>
 import VFooterComponent from "./components/VFooterComponent.vue";
-import Categories from "./components/VCategories.vue"
+// import Categories from "./components/VCategories.vue"
 // import Home from "./components/VHome.vue"
+// import Account  from "./components/VAccount.vue"
+import Profile  from "./components/VProfile.vue"
 
 export default {
   name: 'App',
 
   components: {
     // Home,
-    Categories,
+    // Categories,
+    // Account,
+    Profile,
     VFooterComponent
   },
 
   data() {
     return {
-      shopPanel : false,
+      shopPanel: false,
       links: [
         {
           link: "#",

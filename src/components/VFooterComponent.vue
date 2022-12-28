@@ -1,5 +1,5 @@
 <template>
-  <v-footer app padless absolute color="secondary">
+  <v-footer app absolute color="secondary">
     <v-container>
       <v-row no-gutters class="px-16 pt-12 pb-14">
         <v-col col="12" md="4" lg="4" xl="4">
@@ -25,7 +25,7 @@
           <v-list dark color="secondary">
             <v-list-item v-for="item in usefulLinks" :key="item.name" link>
               <v-list-item-content>
-                <v-list-item-title class="text-subtitle-1 font-weight-regular white--text">{{ item.name }}</v-list-item-title>
+                <v-list-item-title class="text-h6 font-weight-thin white--text">{{ item.name }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -37,7 +37,7 @@
           <v-list dark color="secondary">
             <v-list-item v-for="item in agencyLinks" :key="item.name" link>
               <v-list-item-content>
-                <v-list-item-title class="text-subtitle-1 font-weight-regular white--text">{{ item.name }}</v-list-item-title>
+                <v-list-item-title class="text-h6 font-weight-thin white--text">{{ item.name }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>

@@ -65,6 +65,7 @@ export default {
 .v-card--reveal {
   align-items: center;
   bottom: 0;
+  transform : scale(1.2);
   justify-content: center;
   position: absolute;
   width: 100%;
