@@ -45,7 +45,7 @@
         <v-lazy>
             <div class="d-flex flex-column brand-list pt-16">
                 <h2 class="mb-11 text-h5 font-weight-regular align-self-center">
-                    Cerca tra i migliori brand
+                Cerca tra i migliori brand
                 </h2>
                 <v-row class="flex-child mb-16">
                     <v-col v-for="brand in brands" :key="brand.name" class="d-flex" cols="12" md="2" lg="2" xl="2">

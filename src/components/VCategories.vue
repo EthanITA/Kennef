@@ -18,6 +18,7 @@
       <v-row no-gutters justify="center" class="py-8">
         <v-col v-for="category in categories"  class="d-flex" :key="category.name" cols="12" md="2" lg="2" xl="2">
           <v-hover v-slot="{ hover }">
+            <!-- OPACITY TRANSITION ON HOVER IMG ON FRONT, BACK LIGHT GREY -->
             <v-img :src="category.img" width="100">
               <v-expand-transition>
                 <div v-if="hover"
@@ -26,7 +27,7 @@
                 </div>
               </v-expand-transition>
             </v-img>
-          </v-hover>
+            </v-hover>
         </v-col>
       </v-row>
     </v-container>
@@ -69,5 +70,6 @@ export default {
   justify-content: center;
   position: absolute;
   width: 100%;
+  z-index : 1;
 }
 </style>

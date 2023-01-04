@@ -34,7 +34,10 @@
       <!-- <Categories /> -->
       <!-- <Home /> -->
       <!-- <Account /> -->
-      <Profile />
+      <!-- <Profile /> -->
+      <!-- <Orders /> -->
+      <!-- <Products /> -->
+    <Cart />
     </v-main>
     <VFooterComponent />
   </v-app>
@@ -45,7 +48,10 @@ import VFooterComponent from "./components/VFooterComponent.vue";
 // import Categories from "./components/VCategories.vue"
 // import Home from "./components/VHome.vue"
 // import Account  from "./components/VAccount.vue"
-import Profile  from "./components/VProfile.vue"
+// import Profile  from "./components/VProfile.vue"
+// import Orders from "./components/VOrders.vue"
+// import Products from "./components/VProducts.vue";
+import Cart from "./components/VCart.vue";
 
 export default {
   name: 'App',
@@ -54,7 +60,10 @@ export default {
     // Home,
     // Categories,
     // Account,
-    Profile,
+    // Profile,
+    // Orders,
+    // Products,
+    Cart,
     VFooterComponent
   },
 
