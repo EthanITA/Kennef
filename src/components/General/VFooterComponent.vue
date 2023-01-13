@@ -73,7 +73,7 @@
       <v-row no-gutters class="py-8 px-16">
         <v-toolbar height="100" color="secondary" dark elevation="0" >
           <div>
-            <v-img alt="Kennef Logotype" class="hidden-sm-and-down" contain src="../assets/logotype-white.svg"
+            <v-img alt="Kennef Logotype" class="hidden-sm-and-down" contain src="@/assets/logotype-white.svg"
               width="131" />
           </div>
 
@@ -141,25 +141,25 @@ export default {
       paymentsMethods: [
         {
           name: "visa",
-          src: require("../assets/payment/Visa.svg"),
+          src: require("@/assets/payment/Visa.svg"),
         },
         {
           name: "paypal",
-          src: require("../assets/payment/Paypal.svg"),
+          src: require("@/assets/payment/Paypal.svg"),
         },
         {
           name: "mastercard",
-          src: require("../assets/payment/Mastercard.svg"),
+          src: require("@/assets/payment/Mastercard.svg"),
         },
         {
           name: "klarna",
-          src: require("../assets/payment/Klarna.svg"),
+          src: require("@/assets/payment/Klarna.svg"),
         }
       ],
       shippingMethods: [
         {
           name: "dhl",
-          src: require("../assets/dhl.svg"),
+          src: require("@/assets/dhl.svg"),
         },
       ],
       links: [

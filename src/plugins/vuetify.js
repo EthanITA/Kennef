@@ -1,12 +1,12 @@
 import Vue from "vue";
 import Vuetify from "vuetify/lib/framework";
-import IconCamion from "@/components/IconCamion.vue";
-import IconKennef from "@/components/IconKennef.vue";
-import IconKey from "@/components/IconKey.vue";
-import IconShield from "@/components/IconShield.vue";
-import IconCart from "@/components/IconCart.vue";
-import IconInstagram from "@/components/IconInstagram.vue";
-import IconFacebook from "@/components/IconFacebook.vue";
+import IconCamion from "@/components/Icons/IconCamion.vue";
+import IconKennef from "@/components/Icons/IconKennef.vue";
+import IconKey from "@/components/Icons/IconKey.vue";
+import IconShield from "@/components/Icons/IconShield.vue";
+import IconCart from "@/components/Icons/IconCart.vue";
+import IconInstagram from "@/components/Icons/IconInstagram.vue";
+import IconFacebook from "@/components/Icons/IconFacebook.vue";
 Vue.use(Vuetify);
 
 export default new Vuetify({

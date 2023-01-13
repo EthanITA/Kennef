@@ -15,7 +15,7 @@
                 </v-sheet>
             </v-col>
             <v-col class="d-flex justify-end">
-                <v-img class="mr-10" src="../assets/landing.png" max-width="700">
+                <v-img class="mr-10" src="@/assets/landing.png" max-width="700">
                 </v-img>
             </v-col>
         </v-row>
@@ -95,51 +95,51 @@ export default {
             brands: [
                 {
                     name: 'Autel',
-                    img: require('../assets/brand/Autel.svg'),
+                    img: require('@/assets/brand/Autel.svg'),
                 },
                 {
                     name: 'Beta',
-                    img: require('../assets/brand/Beta.svg'),
+                    img: require('@/assets/brand/Beta.svg'),
                 },
                 {
                     name: 'Comet',
-                    img: require('../assets/brand/Comet.svg'),
+                    img: require('@/assets/brand/Comet.svg'),
                 },
                 {
                     name: 'Fasano',
-                    img: require('../assets/brand/Fasano.svg'),
+                    img: require('@/assets/brand/Fasano.svg'),
                 },
                 {
                     name: 'Fervi',
-                    img: require('../assets/brand/Fervi.svg'),
+                    img: require('@/assets/brand/Fervi.svg'),
                 },
                 {
                     name: 'Fiac',
-                    img: require('../assets/brand/Fiac.svg'),
+                    img: require('@/assets/brand/Fiac.svg'),
                 },
                 {
                     name: 'Lavor',
-                    img: require('../assets/brand/Lavor.svg'),
+                    img: require('@/assets/brand/Lavor.svg'),
                 },
                 {
                     name: 'Milwaukee',
-                    img: require('../assets/brand/Milwaukee.svg'),
+                    img: require('@/assets/brand/Milwaukee.svg'),
                 },
                 {
                     name: 'Omcn',
-                    img: require('../assets/brand/Omcn.svg'),
+                    img: require('@/assets/brand/Omcn.svg'),
                 },
                 {
                     name: 'Total',
-                    img: require('../assets/brand/Total.svg'),
+                    img: require('@/assets/brand/Total.svg'),
                 },
                 {
                     name: 'Upower',
-                    img: require('../assets/brand/Upower.svg'),
+                    img: require('@/assets/brand/Upower.svg'),
                 },
                 {
                     name: 'Utility',
-                    img: require('../assets/brand/Utility.svg'),
+                    img: require('@/assets/brand/Utility.svg'),
                 },
             ]
         }

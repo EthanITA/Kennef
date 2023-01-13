@@ -37,21 +37,23 @@
       <!-- <Profile /> -->
       <!-- <Orders /> -->
       <!-- <Products /> -->
-    <Cart />
+      <!-- <Cart /> -->
+      <Shop />
     </v-main>
     <VFooterComponent />
   </v-app>
 </template>
 
 <script>
-import VFooterComponent from "./components/VFooterComponent.vue";
+import VFooterComponent from "./components/General/VFooterComponent.vue";
 // import Categories from "./components/VCategories.vue"
-// import Home from "./components/VHome.vue"
-// import Account  from "./components/VAccount.vue"
+// import Home from "./components/Home/VHome.vue"
+  // import Account  from "./components/VAccount.vue"
 // import Profile  from "./components/VProfile.vue"
 // import Orders from "./components/VOrders.vue"
 // import Products from "./components/VProducts.vue";
-import Cart from "./components/VCart.vue";
+// import Cart from "./components/VCart.vue";
+import Shop from "./components/Shop/VShop.vue";
 
 export default {
   name: 'App',
@@ -63,7 +65,8 @@ export default {
     // Profile,
     // Orders,
     // Products,
-    Cart,
+    // Cart,
+    Shop,
     VFooterComponent
   },
 

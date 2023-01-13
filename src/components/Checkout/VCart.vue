@@ -43,7 +43,8 @@
                   <v-spacer></v-spacer>
                   <v-col class="text-end" cols="8" md="8" lg="8" xl="8">
                     <p class="text-h6 secondary--text font-weight-semibold text-uppercase text-decoration-underline">
-                      0.00 €</p>
+                      0.00 €
+                    </p>
                     <p class="text-end text--secondary font-weigth-regular text-caption">Iva inclusa + costi di spedizione</p>
                   </v-col>
                 </v-row>
