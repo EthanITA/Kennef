@@ -48,7 +48,7 @@
 import VFooterComponent from "./components/General/VFooterComponent.vue";
 // import Categories from "./components/VCategories.vue"
 // import Home from "./components/Home/VHome.vue"
-  // import Account  from "./components/VAccount.vue"
+// import Account  from "./components/VAccount.vue"
 // import Profile  from "./components/VProfile.vue"
 // import Orders from "./components/VOrders.vue"
 // import Products from "./components/VProducts.vue";
