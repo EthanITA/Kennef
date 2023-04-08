@@ -31,14 +31,14 @@
     </v-app-bar>
 
     <v-main>
-      <!-- <Categories /> -->
+      <Categories />
       <!-- <Home /> -->
       <!-- <Account /> -->
       <!-- <Profile /> -->
-      <!-- <Orders /> -->
+      <Orders />
       <!-- <Products /> -->
       <!-- <Cart /> -->
-      <Shop />
+      <!-- <Shop /> -->
     </v-main>
     <VFooterComponent />
   </v-app>
@@ -46,14 +46,14 @@
 
 <script>
 import VFooterComponent from "./components/General/VFooterComponent.vue";
-// import Categories from "./components/VCategories.vue"
+// import Categories from "./components/Categories/VCategories.vue"
 // import Home from "./components/Home/VHome.vue"
-// import Account  from "./components/VAccount.vue"
-// import Profile  from "./components/VProfile.vue"
-// import Orders from "./components/VOrders.vue"
+// import Account  from "./components/Account/VAccount.vue"
+// import Profile  from "./components/Account/VProfile.vue"
+import Orders from "./components/Account/VOrders.vue"
 // import Products from "./components/VProducts.vue";
 // import Cart from "./components/VCart.vue";
-import Shop from "./components/Shop/VShop.vue";
+// import Shop from "./components/Shop/VShop.vue";
 
 export default {
   name: 'App',
@@ -63,10 +63,10 @@ export default {
     // Categories,
     // Account,
     // Profile,
-    // Orders,
+    Orders,
     // Products,
     // Cart,
-    Shop,
+    // Shop,
     VFooterComponent
   },
 

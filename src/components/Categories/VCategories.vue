@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-parallax dark src="../assets/categoriesBackground.png">
+    <!-- <v-parallax dark src="../assets/categoriesBackground.png"> -->
       <v-row>
         <v-col align-self="center" cols="12" offset-md="1" lg="6" xl="6">
           <p class="text-h6 white--text font-weight-regular ml-1 mt-5">
@@ -12,21 +12,21 @@
           </v-btn>
         </v-col>
       </v-row>
-    </v-parallax>
+    <!-- </v-parallax> -->
     <v-container fluid>
       <h3 class="text-center text-h4 font-weight-regular">Categories</h3>
       <v-row no-gutters justify="center" class="py-8">
         <v-col v-for="category in categories"  class="d-flex" :key="category.name" cols="12" md="2" lg="2" xl="2">
           <v-hover v-slot="{ hover }">
             <!-- OPACITY TRANSITION ON HOVER IMG ON FRONT, BACK LIGHT GREY -->
-            <v-img :src="category.img" width="100">
+            <!-- <v-img :src="category.img" width="100"> -->
               <v-expand-transition>
                 <div v-if="hover"
                   class="d-flex transition-fast-in-fast-out primary v-card--reveal text-subtitle-1 white--text"
                   style="height : 100%;"> {{ category.name }}
                 </div>
               </v-expand-transition>
-            </v-img>
+            <!-- </v-img> -->
             </v-hover>
         </v-col>
       </v-row>
@@ -42,19 +42,19 @@ export default {
       categories: [
         {
           name: "Abbigliamento",
-          img: require("../assets/categories/Abbigliamento.png")
+          // img: require("../assets/categories/Abbigliamento.png")
         },
         {
           name: "Automotive",
-          img: require("../assets/categories/Automotive.png")
+          // img: require("../assets/categories/Automotive.png")
         },
         {
           name: "Metallo",
-          img: require("../assets/categories/Metallo.png")
+          // img: require("../assets/categories/Metallo.png")
         },
         {
           name: "Utensili",
-          img: require("../assets/categories/Utensili.png")
+          // img: require("../assets/categories/Utensili.png")
         },
       ]
     }
