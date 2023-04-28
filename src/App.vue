@@ -1,7 +1,7 @@
 <template>
 	<v-app>
 		<Header />
-		<v-main>
+		<v-main class="mb-10">
 			<v-container fluid>
 				<router-view />
 			</v-container>
