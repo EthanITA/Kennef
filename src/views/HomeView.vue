@@ -49,15 +49,9 @@
 
 <script setup>
 import VFooterComponent from '../components/General/VFooterComponent.vue'
-// import Categories from "./components/Categories/VCategories.vue"
 import Home from '../components/Home/VHome.vue'
-// import Account  from "./components/Account/VAccount.vue"
-// import Profile  from "./components/Account/VProfile.vue"
-// import Orders from "../components/Account/VOrders.vue"
-// import Products from "./components/VProducts.vue";
-// import Cart from "./components/VCart.vue";
-// import Shop from "./components/Shop/VShop.vue";
 
+const b = 1
 const shopPanel = false
 const links = [
 	{
