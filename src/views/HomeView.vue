@@ -3,5 +3,5 @@
 </template>
 
 <script lang="ts" setup>
-import Home from '../components/Home/VHome.vue'
+import Home from '@/components/Home/Landing.vue'
 </script>

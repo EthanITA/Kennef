@@ -27,7 +27,8 @@ $secondary: #003f4b;
 }
 
 .v-application {
-	[class*='text-'] {
+	h1,
+	p {
 		@include textColor($color: $secondary);
 		font-family: $font-family, sans-serif !important;
 	}
