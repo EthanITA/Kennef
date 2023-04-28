@@ -57,91 +57,84 @@
 	</v-container>
 </template>
 
-<script>
-export default {
-	name: 'VHome',
-	data() {
-		return {
-			info: [
-				{
-					title: 'Esperienza',
-					description: 'Consulenza tecnica su scelta e utilizzo di utensili, attrezzature e materiali.',
-					icon: '$kennef'
-				},
-				{
-					title: 'Rapidità',
-					description: 'Consegna in 48H in tutta Italia.',
-					icon: '$camion'
-				},
-				{
-					title: 'Assistenza',
-					description: 'Siamo a disposizione sia prima che dopo la vendita.',
-					icon: '$key'
-				},
-				{
-					title: 'Convenienza',
-					description: 'Scontistica per grandi forniture.',
-					icon: '$cart'
-				},
-				{
-					title: 'Sicurezza',
-					description: 'Con Kennef sei al sicuro! Hai 14 giorni per il diritto di recesso e garanzia.',
-					icon: '$shield'
-				}
-			],
-			brands: [
-				{
-					name: 'Autel',
-					img: require('@/assets/brand/Autel.svg')
-				},
-				{
-					name: 'Beta',
-					img: require('@/assets/brand/Beta.svg')
-				},
-				{
-					name: 'Comet',
-					img: require('@/assets/brand/Comet.svg')
-				},
-				{
-					name: 'Fasano',
-					img: require('@/assets/brand/Fasano.svg')
-				},
-				{
-					name: 'Fervi',
-					img: require('@/assets/brand/Fervi.svg')
-				},
-				{
-					name: 'Fiac',
-					img: require('@/assets/brand/Fiac.svg')
-				},
-				{
-					name: 'Lavor',
-					img: require('@/assets/brand/Lavor.svg')
-				},
-				{
-					name: 'Milwaukee',
-					img: require('@/assets/brand/Milwaukee.svg')
-				},
-				{
-					name: 'Omcn',
-					img: require('@/assets/brand/Omcn.svg')
-				},
-				{
-					name: 'Total',
-					img: require('@/assets/brand/Total.svg')
-				},
-				{
-					name: 'Upower',
-					img: require('@/assets/brand/Upower.svg')
-				},
-				{
-					name: 'Utility',
-					img: require('@/assets/brand/Utility.svg')
-				}
-			]
-		}
+<script lang="ts" setup>
+const info = [
+	{
+		title: 'Esperienza',
+		description: 'Consulenza tecnica su scelta e utilizzo di utensili, attrezzature e materiali.',
+		icon: '$kennef'
+	},
+	{
+		title: 'Rapidità',
+		description: 'Consegna in 48H in tutta Italia.',
+		icon: '$camion'
+	},
+	{
+		title: 'Assistenza',
+		description: 'Siamo a disposizione sia prima che dopo la vendita.',
+		icon: '$key'
+	},
+	{
+		title: 'Convenienza',
+		description: 'Scontistica per grandi forniture.',
+		icon: '$cart'
+	},
+	{
+		title: 'Sicurezza',
+		description: 'Con Kennef sei al sicuro! Hai 14 giorni per il diritto di recesso e garanzia.',
+		icon: '$shield'
 	}
-}
+]
+const brands = [
+	{
+		name: 'Autel',
+		img: require('@/assets/brand/Autel.svg')
+	},
+	{
+		name: 'Beta',
+		img: require('@/assets/brand/Beta.svg')
+	},
+	{
+		name: 'Comet',
+		img: require('@/assets/brand/Comet.svg')
+	},
+	{
+		name: 'Fasano',
+		img: require('@/assets/brand/Fasano.svg')
+	},
+	{
+		name: 'Fervi',
+		img: require('@/assets/brand/Fervi.svg')
+	},
+	{
+		name: 'Fiac',
+		img: require('@/assets/brand/Fiac.svg')
+	},
+	{
+		name: 'Lavor',
+		img: require('@/assets/brand/Lavor.svg')
+	},
+	{
+		name: 'Milwaukee',
+		img: require('@/assets/brand/Milwaukee.svg')
+	},
+	{
+		name: 'Omcn',
+		img: require('@/assets/brand/Omcn.svg')
+	},
+	{
+		name: 'Total',
+		img: require('@/assets/brand/Total.svg')
+	},
+	{
+		name: 'Upower',
+		img: require('@/assets/brand/Upower.svg')
+	},
+	{
+		name: 'Utility',
+		img: require('@/assets/brand/Utility.svg')
+	}
+]
 </script>
 
 <style lang="scss"></style>
