@@ -113,83 +113,78 @@
 	</v-footer>
 </template>
 
-<script>
-export default {
-	name: 'VFooterComponent',
-	data() {
-		return {
-			emailInput: '',
-			usefulLinks: [
-				{
-					name: 'Contatti',
-					link: '#'
-				},
-				{
-					name: 'Termini e Condizioni',
-					link: '#'
-				},
-				{
-					name: 'Spedizioni e Resi',
-					link: '#'
-				},
-				{
-					name: 'FAQ',
-					link: '#'
-				}
-			],
-			agencyLinks: [
-				{
-					name: 'Chi Siamo',
-					link: '#'
-				},
-				{
-					name: 'Store',
-					link: '#'
-				}
-			],
-			paymentsMethods: [
-				{
-					name: 'visa',
-					src: require('@/assets/payment/Visa.svg')
-				},
-				{
-					name: 'paypal',
-					src: require('@/assets/payment/Paypal.svg')
-				},
-				{
-					name: 'mastercard',
-					src: require('@/assets/payment/Mastercard.svg')
-				},
-				{
-					name: 'klarna',
-					src: require('@/assets/payment/Klarna.svg')
-				}
-			],
-			shippingMethods: [
-				{
-					name: 'dhl',
-					src: require('@/assets/dhl.svg')
-				}
-			],
-			links: [
-				{
-					link: '#',
-					title: 'IMPRINT'
-				},
-				{
-					link: '#',
-					title: 'DATA PROTECTION'
-				},
-				{
-					link: '#',
-					title: 'COOKIES'
-				},
-				{
-					link: '#',
-					title: 'TAKE BACKS'
-				}
-			]
-		}
+<script lang="ts" setup>
+const emailInput = ''
+const usefulLinks = [
+	{
+		name: 'Contatti',
+		link: '#'
+	},
+	{
+		name: 'Termini e Condizioni',
+		link: '#'
+	},
+	{
+		name: 'Spedizioni e Resi',
+		link: '#'
+	},
+	{
+		name: 'FAQ',
+		link: '#'
 	}
-}
+]
+const agencyLinks = [
+	{
+		name: 'Chi Siamo',
+		link: '#'
+	},
+	{
+		name: 'Store',
+		link: '#'
+	}
+]
+const paymentsMethods = [
+	{
+		name: 'visa',
+		src: require('@/assets/payment/Visa.svg')
+	},
+	{
+		name: 'paypal',
+		src: require('@/assets/payment/Paypal.svg')
+	},
+	{
+		name: 'mastercard',
+		src: require('@/assets/payment/Mastercard.svg')
+	},
+	{
+		name: 'klarna',
+		src: require('@/assets/payment/Klarna.svg')
+	}
+]
+const shippingMethods = [
+	{
+		name: 'dhl',
+		src: require('@/assets/dhl.svg')
+	}
+]
+const links = [
+	{
+		link: '#',
+		title: 'IMPRINT'
+	},
+	{
+		link: '#',
+		title: 'DATA PROTECTION'
+	},
+	{
+		link: '#',
+		title: 'COOKIES'
+	},
+	{
+		link: '#',
+		title: 'TAKE BACKS'
+	}
+]
 </script>
+
+<style scoped></style>

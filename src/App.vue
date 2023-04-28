@@ -1,8 +1,19 @@
 <template>
-	<div id="app">
-		<router-view />
-	</div>
+	<v-app>
+		<Header />
+		<v-main>
+			<v-container fluid>
+				<router-view />
+			</v-container>
+		</v-main>
+		<Footer />
+	</v-app>
 </template>
+
+<script lang="ts" setup>
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
+</script>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap');
@@ -24,4 +35,3 @@ $secondary: #003f4b;
 	font-family: $font-family, sans-serif !important;
 }
 </style>
-<script lang="ts" setup></script>
