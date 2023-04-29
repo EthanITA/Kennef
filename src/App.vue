@@ -2,7 +2,7 @@
 	<v-app>
 		<Header />
 		<v-main class="mb-10">
-			<v-container fluid>
+			<v-container class="px-0" fluid>
 				<router-view />
 			</v-container>
 		</v-main>
