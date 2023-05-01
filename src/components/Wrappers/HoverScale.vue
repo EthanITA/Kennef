@@ -1,6 +1,7 @@
 <template>
 	<v-hover v-slot="{ hover }">
 		<selected
+			:background-color="backgroundColor"
 			:selected="hover"
 			:style="{
 				'--scale-factor': `${scaleFactor ?? 1.1}`,
@@ -19,6 +20,7 @@ import Selected from '@/components/Wrappers/Selected.vue'
 const props = defineProps<{
 	scaleFactor?: number
 	transition?: number
+	backgroundColor?: string
 }>()
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-	<div :class="{ selected }">
+	<div :class="{ selected }" :style="{ '--background-color': backgroundColor }">
 		<slot />
 	</div>
 </template>
@@ -7,10 +7,10 @@
 <script lang="ts" setup>
 const props = defineProps<{
 	selected: boolean
+	backgroundColor?: string
 }>()
 </script>
 <style lang="sass" scoped>
-$backgroundColor: rgba(134, 134, 134, 0.1)
 .selected
-  background-color: $backgroundColor
+  background-color: var(--background-color, rgba(134, 134, 134, 0.1))
 </style>
