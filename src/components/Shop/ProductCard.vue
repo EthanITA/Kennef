@@ -1,9 +1,9 @@
 <template>
 	<v-hover v-slot="{ hover }">
-		<HoverScale :scale-factor="1.01" :transition="0.1" background-color="rgba(134, 134, 134, 0.05)" class="pa-4">
+		<HoverScale :scale-factor="1.01" :transition="0.1" background-color="rgba(134, 134, 134, 0.05)" class="pa-2">
 			<v-img
 				:alt="product.name"
-				:aspect-ratio="1"
+				:aspect-ratio="0.8"
 				:src="props.product.image"
 				:style="{ 'display: none': !props.product.image }"
 				class="grey"
