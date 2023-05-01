@@ -12,4 +12,8 @@ export default class {
 	get soldOut(): boolean {
 		return !this.quantity || this.quantity <= 0
 	}
+
+	get hasOffer(): boolean {
+		return false
+	}
 }
