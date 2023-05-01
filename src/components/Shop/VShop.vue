@@ -1,22 +1,13 @@
 <template>
-	<v-container>
-		<v-row>
-			<ProductCard v-for="product in productList" :key="product.id" />
-		</v-row>
-	</v-container>
+	<v-row>
+		<v-col :cols="2" />
+		<v-col>
+			<GroupedProductsCard />
+		</v-col>
+		<v-col :cols="2" />
+	</v-row>
 </template>
 
-<script>
-export default {
-	name: 'VShop',
-	props: {
-		productList: {
-			type: Array,
-			required: true
-		}
-	},
-	data() {
-		return {}
-	}
-}
+<script lang="ts" setup>
+import GroupedProductsCard from '@/components/Shop/GroupedProductsCard.vue'
 </script>
