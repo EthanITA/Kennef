@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import Selected from '@/Selected.vue'
+import Selected from '@/components/Wrappers/Selected.vue'
 </script>
 
 <style lang="sass" scoped>

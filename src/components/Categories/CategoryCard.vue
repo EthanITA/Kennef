@@ -8,7 +8,7 @@
 	</HoverScale>
 </template>
 <script lang="ts" setup>
-import HoverScale from '@/components/HoverScale.vue'
+import HoverScale from '@/components/Wrappers/HoverScale.vue'
 
 const props = defineProps<{
 	category: {
