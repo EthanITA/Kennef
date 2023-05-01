@@ -4,14 +4,14 @@
 			<v-img
 				:alt="product.name"
 				:aspect-ratio="0.8"
-				:src="props.product.image"
-				:style="{ 'display: none': !props.product.image }"
+				:src="product.image"
+				:style="{ 'display: none': !product.image }"
 				class="grey"
 			>
 				<v-container>
 					<v-row>
-						<ProductBadge v-if="props.product.soldOut" class="blue-grey"> sold out </ProductBadge>
-						<ProductBadge v-else-if="props.product.hasOffer" class="primary"> offerta </ProductBadge>
+						<ProductBadge v-if="product.soldOut" class="blue-grey"> sold out </ProductBadge>
+						<ProductBadge v-else-if="product.hasOffer" class="primary"> offerta </ProductBadge>
 					</v-row>
 				</v-container>
 			</v-img>
@@ -20,14 +20,14 @@
 			</p>
 			<v-container>
 				<v-row>
-					<p class="font-weight-semibold">{{ props.product.category || '-' }}</p>
+					<p class="font-weight-semibold">{{ product.category || '-' }}</p>
 					<v-spacer />
 					<p
-						v-if="props.product.price"
+						v-if="product.price"
 						:class="{ 'primary--text': hover }"
 						class="font-weight-semibold text-decoration-underline"
 					>
-						{{ props.product.price | currency }}
+						{{ product.price | currency }}
 					</p>
 				</v-row>
 			</v-container>
@@ -36,13 +36,12 @@
 </template>
 
 <script lang="ts" setup>
-import Product from '@/models/Product'
-import product from '@/models/Product'
+import ProductModel from '@/models/Product'
 import HoverScale from '@/components/Wrappers/HoverScale.vue'
 import ProductBadge from '@/components/Shop/ProductBadge.vue'
 
 const props = defineProps<{
-	product: Product
+	product: ProductModel
 }>()
 </script>
 
