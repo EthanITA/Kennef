@@ -1,18 +1,20 @@
 <template>
-	<div class="hover-scale">
-		<slot />
-	</div>
+	<v-hover v-slot="{ hover }">
+		<selected :selected="hover" class="hover-scale">
+			<slot />
+		</selected>
+	</v-hover>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import Selected from '@/Selected.vue'
+</script>
 
 <style lang="sass" scoped>
 $transition: transform 0.3s ease
 $transform: scale(1.1)
-$backgroundColor: rgba(134, 134, 134, 0.1)
 .hover-scale
   transition: $transition
   &:hover
     transform: $transform
-    background-color: $backgroundColor
 </style>
