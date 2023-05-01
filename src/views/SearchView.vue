@@ -1,7 +1,9 @@
 <template>
-	<div>a</div>
+	<VShop />
 </template>
 
-<script setup></script>
+<script setup>
+import VShop from '@/components/Shop/VShop.vue'
+</script>
 
 <style scoped></style>
