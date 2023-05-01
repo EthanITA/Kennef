@@ -1,6 +1,13 @@
 <template>
 	<v-hover v-slot="{ hover }">
-		<selected :selected="hover" class="hover-scale">
+		<selected
+			:selected="hover"
+			:style="{
+				'--scale-factor': `${scaleFactor ?? 1.1}`,
+				'--transition': `${transition ?? 0.3}s`
+			}"
+			class="hover-scale"
+		>
 			<slot />
 		</selected>
 	</v-hover>
@@ -8,13 +15,18 @@
 
 <script lang="ts" setup>
 import Selected from '@/components/Wrappers/Selected.vue'
+
+const props = defineProps<{
+	scaleFactor?: number
+	transition?: number
+}>()
 </script>
 
 <style lang="sass" scoped>
-$transition: transform 0.3s ease
-$transform: scale(1.1)
+$transition: var(--transition, 0.3s)
+$scaleFactor: var(--scale-factor, 1.1)
 .hover-scale
-  transition: $transition
+  transition: transform $transition ease
   &:hover
-    transform: $transform
+    transform: scale($scaleFactor)
 </style>
