@@ -15,24 +15,19 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 </script>
 
-<style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap');
+<style lang="sass">
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap')
+@import '@/assets/variables'
 
-$font-family: 'Nunito Sans';
-$primary: #ea5734;
-$secondary: #003f4b;
 
-@mixin textColor($color: $primary) {
-	color: $color;
-}
 
-.v-application {
+
+.v-application
 	h1,
-	p {
-		@include textColor($color: $secondary);
-		font-family: $font-family, sans-serif !important;
-	}
+	p
+		@include textColor($color: $secondary)
+		font-family: $font-family, sans-serif !important
 
-	font-family: $font-family, sans-serif !important;
-}
+
+	font-family: $font-family, sans-serif !important
 </style>
