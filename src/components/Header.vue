@@ -25,11 +25,11 @@
 		</div>
 
 		<div class="btns-r">
-			<v-btn color="secondary" text>
+			<v-btn color="secondary" text x-small>
 				<v-icon>mdi-account-outline</v-icon>
 			</v-btn>
 
-			<v-btn color="secondary" text>
+			<v-btn color="secondary" text x-small>
 				<v-icon>mdi-shopping-outline</v-icon>
 			</v-btn>
 		</div>
