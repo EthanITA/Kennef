@@ -10,7 +10,7 @@
 			/>
 		</div>
 
-		<div class="btns-l ml-16">
+		<div class="d-flex ml-16 flex-grow-1 align-center">
 			<v-btn
 				v-for="link in links"
 				:key="link.title"
@@ -21,12 +21,8 @@
 			>
 				<span>{{ link.title }}</span>
 			</v-btn>
-			<v-btn color="secondary" text>
-				<v-icon>mdi-magnify</v-icon>
-			</v-btn>
+			<SearchButton />
 		</div>
-
-		<v-spacer />
 
 		<div class="btns-r">
 			<v-btn color="secondary" text>
@@ -41,6 +37,8 @@
 </template>
 
 <script lang="ts" setup>
+import SearchButton from '@/components/kennef/SearchButton.vue'
+
 const shopPanel = false
 const links = [
 	{
