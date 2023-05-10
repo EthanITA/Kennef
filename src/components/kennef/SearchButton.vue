@@ -3,7 +3,7 @@
 		<v-btn v-if="!enableInput" color="secondary" text @click="enableInput = !enableInput">
 			<v-icon>mdi-magnify</v-icon>
 		</v-btn>
-		<Autocomplete v-else v-model="search" />
+		<Autocomplete v-else v-model="search" @clear="enableInput = !enableInput" />
 	</div>
 </template>
 

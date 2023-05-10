@@ -4,16 +4,16 @@
 		style="background-color: #f6f6f6; padding: 0 12px; overflow: hidden; position: relative"
 	>
 		<v-autocomplete
-			:label="focused || modelValue ? '' : 'Cerca su Kennef'"
+			:label="focused || value ? '' : 'Cerca su Kennef'"
 			:menu-props="{ nudgeWidth: 32, nudgeLeft: 16, nudgeTop: -4, offsetY: true, closeOnClick: true }"
-			:modelValue="modelValue"
+			:search-input="value"
 			class="custom-search-field pa-1"
 			color="secondary"
 			hide-details
 			hide-no-data
 			@blur="focused = false"
 			@focus="() => (focused = true)"
-			@update:modelValue="$emit('update:modelValue', $event)"
+			@update:search-input="$emit('input', $event)"
 		>
 			<template #prepend-inner>
 				<v-icon class="px-1 secondary--text">mdi-magnify</v-icon>
@@ -23,7 +23,7 @@
 					style="color: #9e9e9e"
 					@click="
 						() => {
-							$emit('update:modelValue', '')
+							$emit('input', '')
 							$emit('clear')
 						}
 					"
@@ -40,11 +40,11 @@ import { ref } from 'vue'
 const focused = ref(false)
 
 const props = defineProps<{
-	modelValue?: string
+	value?: string
 	loading?: boolean
 }>()
 
-defineEmits(['update:modelValue', 'clear'])
+defineEmits(['input', 'clear'])
 </script>
 <style lang="sass" scoped>
 @import '@/assets/variables'
