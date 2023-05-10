@@ -4,17 +4,30 @@
 		style="background-color: #f6f6f6; padding: 0 12px; overflow: hidden; position: relative"
 	>
 		<v-autocomplete
-			:label="focused || value ? '' : 'Cerca su Kennef'"
+			:items="items"
+			:label="focused || _value ? '' : 'Cerca su Kennef'"
 			:menu-props="{ nudgeWidth: 32, nudgeLeft: 16, nudgeTop: -4, offsetY: true, closeOnClick: true }"
-			:search-input="value"
+			:search-input="_value"
 			class="custom-search-field pa-1"
 			color="secondary"
 			hide-details
 			hide-no-data
+			no-filter
 			@blur="focused = false"
-			@focus="() => (focused = true)"
-			@update:search-input="$emit('input', $event)"
+			@focus="focused = true"
+			@input="$emit('search', $event)"
+			@keydown.enter="$emit('search', _value)"
+			@update:search-input="
+				(e) => {
+					_value = ''
+					_value = e
+					$emit('input', e)
+				}
+			"
 		>
+			<template v-if="customItem" #item="{ item }">
+				<slot :item="item" />
+			</template>
 			<template #prepend-inner>
 				<v-icon class="px-1 secondary--text">mdi-magnify</v-icon>
 			</template>
@@ -42,9 +55,12 @@ const focused = ref(false)
 const props = defineProps<{
 	value?: string
 	loading?: boolean
+	items?: any[]
+	customItem?: boolean
 }>()
 
-defineEmits(['input', 'clear'])
+const _value = ref(props.value || '')
+defineEmits(['input', 'clear', 'search'])
 </script>
 <style lang="sass" scoped>
 @import '@/assets/variables'
