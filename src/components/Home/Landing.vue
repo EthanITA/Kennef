@@ -1,5 +1,5 @@
 <template>
-	<v-container class="pt-10 px-16 mx-16">
+	<v-container class="pt-10 px-16" style="width: 80%">
 		<v-row>
 			<v-col class="d-flex pt-16">
 				<LandingCardAction>
@@ -10,7 +10,7 @@
 					</template>
 				</LandingCardAction>
 			</v-col>
-			<v-col class="d-flex justify-end">
+			<v-col :cols="8" class="d-flex justify-end">
 				<v-img max-width="700" src="@/assets/BigClaw.png" />
 			</v-col>
 		</v-row>
