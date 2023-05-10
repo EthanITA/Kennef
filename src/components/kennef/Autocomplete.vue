@@ -4,6 +4,7 @@
 		style="background-color: #f6f6f6; padding: 0 12px; overflow: hidden; position: relative"
 	>
 		<v-autocomplete
+			ref="autocomplete"
 			:items="items"
 			:label="focused || _value ? '' : 'Cerca su Kennef'"
 			:menu-props="{ nudgeWidth: 32, nudgeLeft: 16, nudgeTop: -4, offsetY: true, closeOnClick: true }"
@@ -13,10 +14,20 @@
 			hide-details
 			hide-no-data
 			no-filter
-			@blur="focused = false"
+			@blur="$emit('clear')"
 			@focus="focused = true"
-			@input="$emit('search', $event)"
-			@keydown.enter="$emit('search', _value)"
+			@input="
+				(e) => {
+					$emit('search', e)
+					autocomplete?.blur?.()
+				}
+			"
+			@keydown.enter="
+				() => {
+					$emit('search', _value)
+					autocomplete?.blur?.()
+				}
+			"
 			@update:search-input="
 				(e) => {
 					_value = e
@@ -50,6 +61,7 @@
 import { ref } from 'vue'
 
 const focused = ref(false)
+const autocomplete = ref<HTMLSelectElement>()
 
 const props = defineProps<{
 	value?: string
