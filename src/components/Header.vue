@@ -1,6 +1,6 @@
 <template>
-	<v-app-bar app class="px-16" color="white" dark elevation="0" height="100">
-		<div class="d-flex align-center">
+	<v-app-bar app class="px-4" color="white" dark elevation="0" height="100">
+		<a class="d-flex align-center" @click="$router.push('/')">
 			<v-img
 				alt="Kennef Logotype"
 				class="mt-3 hidden-sm-and-down"
@@ -8,9 +8,9 @@
 				src="../assets/logotype.svg"
 				width="150"
 			/>
-		</div>
+		</a>
 
-		<div class="d-flex ml-16 flex-grow-1 align-center">
+		<div class="d-flex ml-4 flex-grow-1 align-center">
 			<v-btn
 				v-for="link in links"
 				:key="link.title"
@@ -24,7 +24,7 @@
 			<SearchButton />
 		</div>
 
-		<div class="btns-r">
+		<div class="btns-r ml-12">
 			<v-btn color="secondary" text x-small>
 				<v-icon>mdi-account-outline</v-icon>
 			</v-btn>
