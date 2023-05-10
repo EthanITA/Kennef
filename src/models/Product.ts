@@ -1,4 +1,4 @@
-export default class {
+class Product {
 	constructor(
 		public id: string,
 		public name: string,
@@ -16,4 +16,15 @@ export default class {
 	get hasOffer(): boolean {
 		return false
 	}
+
+	static getRandomProducts(): Product[] {
+		return [
+			new this('Camicia', 'Abbigliamento', 10, 'description', 'https://picsum.photos/200/300', 'Camicia', 12),
+			new this('Pantaloni', 'Pantaloni', 10, 'description', 'https://picsum.photos/200/300', 'Pantaloni', 12),
+			new this('Pantaloni', 'Abbigliamento', 10, 'description', 'https://picsum.photos/200/300', 'Pantaloni', 12),
+			new this('Calzini', 'Calzini', 10, 'description', 'https://picsum.photos/200/300', 'Calzini', 12)
+		]
+	}
 }
+
+export default Product
