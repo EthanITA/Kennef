@@ -5,7 +5,9 @@
 		</v-btn>
 		<Autocomplete
 			v-else
+			v-model="search"
 			:items="items"
+			:label="(value) => value?.name || value"
 			:loading="isLoading"
 			custom-item
 			@clear="enableInput = !enableInput"
@@ -33,7 +35,7 @@ const enableInput = ref(false)
 const search = ref('')
 const items = ref<Product[]>([])
 const isLoading = ref(false)
-const searchProducts = _.debounce((query?: string) => {
+const searchProducts = _.debounce((query?: string | Product) => {
 	if (!query) {
 		items.value = []
 		return
@@ -42,7 +44,9 @@ const searchProducts = _.debounce((query?: string) => {
 	setTimeout(() => {
 		// TODO
 		const productList = Product.getRandomProducts()
-		items.value = [...productList.filter((p) => p.name.toUpperCase().includes(query.toUpperCase()))]
+		const isString = (query as any)?.toUpperCase?.()
+		const q = isString ? (query as string) : (query as Product).name
+		items.value = [...productList.filter((p) => p.name.toUpperCase().includes(q.toUpperCase()))]
 		console.log(items.value)
 		isLoading.value = false
 	}, 1000)

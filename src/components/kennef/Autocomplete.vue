@@ -7,7 +7,7 @@
 			:items="items"
 			:label="focused || _value ? '' : 'Cerca su Kennef'"
 			:menu-props="{ nudgeWidth: 32, nudgeLeft: 16, nudgeTop: -4, offsetY: true, closeOnClick: true }"
-			:search-input="_value"
+			:search-input="label?.(value) || value"
 			class="custom-search-field pa-1"
 			color="secondary"
 			hide-details
@@ -19,7 +19,6 @@
 			@keydown.enter="$emit('search', _value)"
 			@update:search-input="
 				(e) => {
-					_value = ''
 					_value = e
 					$emit('input', e)
 				}
@@ -57,6 +56,7 @@ const props = defineProps<{
 	loading?: boolean
 	items?: any[]
 	customItem?: boolean
+	label?: (item: any) => any
 }>()
 
 const _value = ref(props.value || '')
