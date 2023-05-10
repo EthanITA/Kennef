@@ -3,7 +3,7 @@
 		<HoverScale
 			:scale-factor="1.01"
 			:transition="0.1"
-			background-color="rgba(134, 134, 134, 0.05)"
+			background-color="rgba(134, 134, 134, 0.2)"
 			class="pa-2"
 			style="cursor: pointer"
 		>
@@ -12,7 +12,7 @@
 				:aspect-ratio="0.8"
 				:src="product.image"
 				:style="{ 'display: none': !product.image }"
-				class="grey"
+				style="background-color: #f6f6f6"
 			>
 				<v-container>
 					<v-row>
