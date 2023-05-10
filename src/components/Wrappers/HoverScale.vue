@@ -29,6 +29,8 @@ $transition: var(--transition, 0.3s)
 $scaleFactor: var(--scale-factor, 1.1)
 .hover-scale
   transition: transform $transition ease
+
   &:hover
     transform: scale($scaleFactor)
+    transition-delay: 50ms
 </style>
