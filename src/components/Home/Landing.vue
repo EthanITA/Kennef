@@ -1,5 +1,5 @@
 <template>
-	<v-container class="pt-10 px-16">
+	<v-container class="pt-10 px-16 mx-16">
 		<v-row>
 			<v-col class="d-flex pt-16">
 				<LandingCardAction>
