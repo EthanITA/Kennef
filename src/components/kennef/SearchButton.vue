@@ -57,9 +57,9 @@ const goToShop = (query: any) => {
 	const isString = (query as any)?.toUpperCase?.()
 	if (isString) {
 		router.push({
-			name: 'search',
+			name: 'shop',
 			query: {
-				query: query as string
+				search: query as string
 			}
 		})
 	} else {
