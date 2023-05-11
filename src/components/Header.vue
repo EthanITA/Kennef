@@ -6,22 +6,27 @@
 				class="mt-3 hidden-sm-and-down"
 				contain
 				src="../assets/logotype.svg"
-				width="150"
+				width="125"
 			/>
 		</a>
 
-		<div class="d-flex ml-4 flex-grow-1 align-center">
+		<div
+			:class="{ 'border-bottom': showPanel }"
+			class="d-flex ml-4 flex-grow-1 align-center fill-height"
+			style="position: relative"
+		>
 			<v-btn
 				v-for="link in links"
 				:key="link.title"
 				class="mr-2"
 				color="secondary"
 				text
-				@click="shopPanel = !shopPanel"
+				@click="showPanel = !showPanel"
 			>
 				<span>{{ link.title }}</span>
 			</v-btn>
 			<SearchButton />
+			<ShopPanel v-if="showPanel" class="navigation-container" />
 		</div>
 
 		<div class="btns-r ml-12">
@@ -38,8 +43,11 @@
 
 <script lang="ts" setup>
 import SearchButton from '@/components/kennef/SearchButton.vue'
+import { ref } from 'vue'
+import ShopPanel from '@/components/Header/ShopPanel.vue'
 
-const shopPanel = false
+const showPanel = ref(false)
+
 const links = [
 	{
 		link: '#',
@@ -51,9 +59,20 @@ const links = [
 	},
 	{
 		link: '#',
-		title: 'COntattaci'
+		title: 'Contatti'
 	}
 ]
 </script>
 
-<style scoped></style>
+<style lang="sass" scoped>
+@import '@/assets/variables.sass'
+.navigation-container
+  position: absolute
+  top: 95px
+  left: 0
+  padding-top: 25px
+  z-index: 100
+
+.border-bottom
+  @include borderBottom()
+</style>
