@@ -21,7 +21,7 @@
 				class="mr-2"
 				color="secondary"
 				text
-				@click="showPanel = !showPanel"
+				@click="linkClicked(link)"
 			>
 				<span>{{ link.title }}</span>
 			</v-btn>
@@ -43,11 +43,19 @@
 
 <script lang="ts" setup>
 import SearchButton from '@/components/kennef/SearchButton.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import ShopPanel from '@/components/Header/ShopPanel.vue'
+import { useRoute } from 'vue-router/composables'
 
 const showPanel = ref(false)
-
+const currentPath = ref(useRoute())
+watch(
+	currentPath.value,
+	() => {
+		showPanel.value = false
+	},
+	{ deep: true, immediate: true }
+)
 const links = [
 	{
 		link: '#',
@@ -62,6 +70,12 @@ const links = [
 		title: 'Contatti'
 	}
 ]
+
+const linkClicked = (link: any) => {
+	if (link.title === 'Shop') {
+		showPanel.value = !showPanel.value
+	}
+}
 </script>
 
 <style lang="sass" scoped>
