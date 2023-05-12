@@ -3,7 +3,9 @@
 		<v-row>
 			<v-col class="text-h4"> Top Seller</v-col>
 			<v-col class="text-right">
-				<Button medium outlined><span>S</span><span class="text-lowercase">copri di più</span></Button>
+				<Button medium outlined @click="$router.push('/shop')"
+					><span>S</span><span class="text-lowercase">copri di più</span></Button
+				>
 			</v-col>
 		</v-row>
 		<v-row>
