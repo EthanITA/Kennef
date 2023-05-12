@@ -6,6 +6,7 @@
 		class="rounded-0"
 		color="primary"
 		depressed
+		@click="$emit('click')"
 	>
 		<slot />
 	</v-btn>
@@ -17,6 +18,8 @@ const props = defineProps<{
 	medium?: boolean
 	small?: boolean
 }>()
+
+const emit = defineEmits(['click'])
 </script>
 
 <style scoped></style>
