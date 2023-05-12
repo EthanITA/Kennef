@@ -1,21 +1,20 @@
 <template>
 	<v-footer absolute app color="secondary">
-		<v-container>
-			<v-row class="px-16 pt-12 pb-14" no-gutters>
-				<v-col col="12" lg="4" md="4" xl="4">
+		<v-container class="px-14" style="width: 80%">
+			<v-row class="pt-12 pb-14" no-gutters>
+				<v-col cols="12" lg="6" md="6" xl="6">
 					<h3 class="white--text text-h5 font-weight-semibold">
 						Iscriviti alla nostra newsletter per rimanere aggiornato su offerte e promozioni.
 					</h3>
 				</v-col>
-				<v-spacer></v-spacer>
-				<v-col col="12" lg="3" md="3" xl="3">
+				<v-col cols="12" lg="6" md="6" xl="6">
 					<div class="d-flex align-baseline">
 						<v-text-field
 							v-model="emailInput"
 							class="rounded-0"
 							clearable
 							color="primary"
-							label="Email"
+							label="Indirizzo email"
 							outlined
 							solo
 						></v-text-field>
@@ -24,7 +23,7 @@
 				</v-col>
 			</v-row>
 			<v-divider dark></v-divider>
-			<v-row class="px-16 py-8" no-gutters>
+			<v-row class="py-8" no-gutters>
 				<v-col cols="12" lg="4" md="4" xl="4">
 					<h5 class="white--text text-h5 font-weight-semibold">Link Utili</h5>
 					<v-list color="secondary" dark>
@@ -51,7 +50,7 @@
 				</v-col>
 			</v-row>
 			<v-divider dark></v-divider>
-			<v-row class="px-16 py-8" no-gutters>
+			<v-row class="py-8" no-gutters>
 				<v-col cols="12" lg="4" md="4" xl="4">
 					<h5 class="white--text text-subtitle-1 font-weight-regular">Spedizioni</h5>
 					<div class="d-flex mt-5">
@@ -70,7 +69,7 @@
 				</v-col>
 			</v-row>
 			<v-divider dark></v-divider>
-			<v-row class="py-8 px-16" no-gutters>
+			<v-row class="py-8">
 				<v-toolbar color="secondary" dark elevation="0" height="100">
 					<div>
 						<v-img
@@ -82,13 +81,13 @@
 						/>
 					</div>
 
-					<div class="btns-l ml-16">
+					<div class="btns-l ml-12">
 						<v-btn
 							v-for="link in links"
 							:key="link.title"
 							:href="link.link"
-							class="mr-6"
 							color="white"
+							small
 							target="_blank"
 							text
 						>
