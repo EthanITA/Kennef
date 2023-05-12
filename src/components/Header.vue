@@ -30,11 +30,11 @@
 		</div>
 
 		<div class="btns-r ml-12">
-			<v-btn color="secondary" text x-small>
+			<v-btn color="secondary" text x-small @click="$router.push('/account')">
 				<v-icon>mdi-account-outline</v-icon>
 			</v-btn>
 
-			<v-btn color="secondary" text x-small>
+			<v-btn color="secondary" text x-small @click="$router.push('/cart')">
 				<v-icon>mdi-shopping-outline</v-icon>
 			</v-btn>
 		</div>

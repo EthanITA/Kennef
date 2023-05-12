@@ -6,7 +6,7 @@
 					<template #title> Dal bullone in su </template>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In etiam adipiscing ac congue.</p>
 					<template #action>
-						<Button> Vai allo shop </Button>
+						<Button @click="$router.push('/shop')"> Vai allo shop </Button>
 					</template>
 				</LandingCardAction>
 			</v-col>
