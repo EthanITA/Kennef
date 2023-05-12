@@ -2,11 +2,9 @@
 	<v-container fluid>
 		<h3 class="text-center text-h4 font-weight-regular">Categorie</h3>
 		<v-row class="py-8" justify="center">
-			<v-col :cols="2" />
-			<v-col v-for="category in categories" :key="category.name" :cols="2">
+			<v-col v-for="category in categories" :key="category.name" cols="3">
 				<CategoryCard :category="category" />
 			</v-col>
-			<v-col :cols="2" />
 		</v-row>
 	</v-container>
 </template>

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<CategoriesLanding />
-		<VCategories />
+		<VCategories class="main-container" />
 	</div>
 </template>
 
@@ -10,4 +10,9 @@ import VCategories from '@/components/Categories/VCategories.vue'
 import CategoriesLanding from '@/components/Categories/CategoriesLanding.vue'
 </script>
 
-<style scoped></style>
+<style lang="sass" scoped>
+@import '@/assets/variables.sass'
+.main-container
+	@include mainContainer
+	margin-bottom: 16px
+</style>
