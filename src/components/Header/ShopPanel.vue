@@ -1,9 +1,14 @@
 <template>
 	<v-container class="white">
 		<v-row>
-			<v-col v-for="categoryList in categoriesList" :cols="3">
+			<v-col v-for="categoryList in categoriesList" :key="categoryList.name" :cols="3">
 				<p class="primary--text font-weight-bold">{{ categoryList.name }}</p>
-				<router-link v-for="subCat in categoryList.subs" :to="subCat.url" style="text-decoration: none">
+				<router-link
+					v-for="subCat in categoryList.subs"
+					:key="subCat.name"
+					:to="subCat.url"
+					style="text-decoration: none"
+				>
 					<p style="line-height: 1.3">{{ subCat.name }}</p>
 				</router-link>
 			</v-col>
