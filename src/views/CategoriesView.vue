@@ -14,5 +14,5 @@ import CategoriesLanding from '@/components/Categories/CategoriesLanding.vue'
 @import '@/assets/variables.sass'
 .main-container
 	@include mainContainer
-	margin-bottom: 16px
+	margin-bottom: 64px
 </style>

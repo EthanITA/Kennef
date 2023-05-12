@@ -3,7 +3,9 @@
 		<h3 class="text-center text-h4 font-weight-regular">Categorie</h3>
 		<v-row class="py-8" justify="center">
 			<v-col v-for="category in categories" :key="category.name" cols="3">
-				<CategoryCard :category="category" />
+				<div style="cursor: pointer" @click="$router.push(`/shop?category=${category.name}`)">
+					<CategoryCard :category="category" />
+				</div>
 			</v-col>
 		</v-row>
 	</v-container>
