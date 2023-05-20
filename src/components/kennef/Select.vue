@@ -7,6 +7,7 @@
 		dense
 		outlined
 		style="border-radius: 0"
+		v-bind="$attrs"
 		@input="$emit('input', $event)"
 	/>
 </template>
