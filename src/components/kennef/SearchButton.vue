@@ -9,6 +9,7 @@
 			:items="items"
 			:label="(value) => value?.name || value"
 			:loading="isLoading"
+			autofocus
 			custom-item
 			@clear="enableInput = !enableInput"
 			@input="searchProducts"

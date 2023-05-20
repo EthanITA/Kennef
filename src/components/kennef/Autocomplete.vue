@@ -5,6 +5,7 @@
 	>
 		<v-autocomplete
 			ref="autocomplete"
+			:autofocus="autofocus"
 			:items="items"
 			:label="focused || _value ? '' : 'Cerca su Kennef'"
 			:menu-props="{ nudgeWidth: 32, nudgeLeft: 16, nudgeTop: -4, offsetY: true, closeOnClick: true }"
@@ -69,6 +70,7 @@ const props = defineProps<{
 	items?: any[]
 	customItem?: boolean
 	label?: (item: any) => any
+	autofocus?: boolean
 }>()
 
 const _value = ref(props.value || '')
