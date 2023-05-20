@@ -26,11 +26,4 @@ import Footer from '@/components/Footer.vue'
     @include textColor($color: $secondary)
     font-family: $font-family, sans-serif !important
   font-family: $font-family, sans-serif !important
-
-.v-list.v-select-list.v-sheet
-  background-color: #f6f6f6 !important
-
-.v-menu__content.v-menu__content--fixed.menuable__content__active.v-autocomplete__content
-  background-color: #f6f6f6 !important
-  box-shadow: none !important
 </style>
