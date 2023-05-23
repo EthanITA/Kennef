@@ -5,22 +5,17 @@
 				<v-container fluid>
 					<v-list>
 						<template>
-							<v-list-item v-for="item in profileInfo" :key="item.name">
+							<v-list-item :key="profileInfo.name">
 								<v-list-item-avatar>
 									<v-icon x-large>
-										{{ item.avatar }}
+										{{ profileInfo.avatar }}
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-row>
 										<v-col cols="6" lg="4" md="4" xl="4">
-											<v-list-item-title v-html="item.name"></v-list-item-title>
-											<v-list-item-subtitle v-html="item.email"></v-list-item-subtitle>
-										</v-col>
-										<v-col cols="6" lg="2" md="2" xl="2">
-											<v-btn color="primary" elevation="0" icon>
-												<v-icon>mdi-logout</v-icon>
-											</v-btn>
+											<v-list-item-title v-html="profileInfo.name"></v-list-item-title>
+											<v-list-item-subtitle v-html="profileInfo.email"></v-list-item-subtitle>
 										</v-col>
 									</v-row>
 								</v-list-item-content>
@@ -38,10 +33,23 @@
 		</v-row>
 
 		<v-row class="my-16" justify="center">
-			<v-col v-for="item in cards" :key="item.title" cols="12" lg="3" md="3" xl="3">
-				<!-- TO DO : INSERT HOVER BEHAVIOUR  -->
-				<v-sheet class="ml-4" elevation="0">
-					<v-row align="baseline">
+			<v-col
+				v-for="item in cards"
+				:key="item.title"
+				v-ripple
+				:style="{
+					backgroundColor: hover[item.title] ? 'rgba(182,182,182,0.27)' : 'white'
+				}"
+				cols="12"
+				lg="3"
+				md="3"
+				style="cursor: pointer; border-radius: 4px; user-select: none"
+				xl="3"
+				@mouseleave="hover[item.title] = false"
+				@mouseover="hover[item.title] = true"
+			>
+				<v-sheet class="ml-4" elevation="0" style="background-color: transparent" tile>
+					<v-row align="baseline" style="gap: 1rem">
 						<v-col class="ml-4 mt-3" cols="12" lg="1" md="1" xl="1">
 							<v-icon color="secondary">{{ item.icon }}</v-icon>
 						</v-col>
@@ -51,43 +59,49 @@
 						</v-col>
 					</v-row>
 				</v-sheet>
+				<v-spacer />
 			</v-col>
 		</v-row>
 	</v-container>
 </template>
 
-<script>
-export default {
-	name: 'VProfile',
-	data() {
-		return {
-			profileInfo: [
-				{
-					name: 'Francesco Morleo',
-					avatar: 'mdi-account-circle',
-					email: 'francesco.morleoo@gmail.com'
-				}
-			],
-			cards: [
-				{
-					title: 'I miei ordini',
-					description: 'Restituisci o acquista nuovamente degli articoli.',
-					icon: 'mdi-phone-outline'
-				},
-				{
-					title: 'Profilo',
-					description: 'Modifica i tuoi dati personali.',
-					icon: 'mdi-account-outline'
-				},
-				{
-					title: 'Sicurezza',
-					description: 'Modifica la tua password',
-					icon: 'mdi-lock-outline'
-				}
-			]
-		}
+<script lang="ts" setup>
+import Vue, { ref } from 'vue'
+
+const profileInfo = ref({
+	name: 'Francesco Morleo',
+	avatar: 'mdi-account-circle',
+	email: 'francesco.morleoo@gmail.com'
+})
+
+const cards = ref([
+	{
+		title: 'I miei ordini',
+		description: 'Restituisci o acquista nuovamente degli articoli.',
+		icon: 'mdi-package-variant-closed'
+	},
+	{
+		title: 'Profilo',
+		description: 'Modifica i tuoi dati personali.',
+		icon: 'mdi-account-outline'
+	},
+	{
+		title: 'Sicurezza',
+		description: 'Modifica la tua password',
+		icon: 'mdi-lock-outline'
 	}
-}
+])
+const hover = Vue.observable(
+	cards.value.reduce<{
+		[key: string]: boolean
+	}>((acc, curr) => {
+		acc[curr.title] = false
+		return acc
+	}, {})
+)
 </script>
 
-<style></style>
+<style lang="sass">
+.gray
+	background-color: #5d2929
+</style>

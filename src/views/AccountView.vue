@@ -1,7 +1,9 @@
 <template>
-	<div>a</div>
+	<VAccount />
 </template>
 
-<script setup></script>
+<script setup>
+import VAccount from '@/components/Account/VAccount.vue'
+</script>
 
 <style scoped></style>
