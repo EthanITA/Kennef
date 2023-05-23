@@ -1,5 +1,5 @@
 <template>
-	<v-hover v-slot="{ hover }">
+	<v-hover v-slot="{ hover }" v-ripple>
 		<selected
 			:background-color="backgroundColor"
 			:selected="hover"
