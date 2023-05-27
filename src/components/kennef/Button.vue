@@ -1,5 +1,7 @@
 <template>
 	<v-btn
+		:disabled="loading || disabled"
+		:loading="loading"
 		:outlined="outlined"
 		:small="small"
 		:x-large="!(medium || small)"
@@ -17,6 +19,8 @@ const props = defineProps<{
 	outlined?: boolean
 	medium?: boolean
 	small?: boolean
+	loading?: boolean
+	disabled?: boolean
 }>()
 
 const emit = defineEmits(['click'])
