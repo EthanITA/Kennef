@@ -1,5 +1,5 @@
 <template>
-	<v-footer v-if="showFooter && component" :color="component.name === 'MainFooterContent' ? 'secondary' : 'white'">
+	<v-footer v-if="showFooter && component" :color="component.__name === 'MainFooterContent' ? 'secondary' : 'white'">
 		<component :is="component" class="px-14" style="width: 80%" />
 	</v-footer>
 </template>
