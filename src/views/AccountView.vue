@@ -1,5 +1,5 @@
 <template>
-	<VAccount />
+	<VAccount style="width: 80%" />
 </template>
 
 <script setup>

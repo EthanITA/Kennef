@@ -1,7 +1,7 @@
 <template>
 	<v-container fluid>
-		<v-row align="center" justify="center" no-gutters>
-			<v-col cols="12" lg="6" md="6" xl="6">
+		<v-row align="center" justify="center">
+			<v-col cols="12" lg="9" md="9" xl="9">
 				<v-container fluid>
 					<v-list>
 						<template>
@@ -24,14 +24,14 @@
 					</v-list>
 				</v-container>
 			</v-col>
-			<v-col align="start" cols="12" lg="3" md="3" xl="3">
+			<v-col align-self="start" cols="12" lg="3" md="3" xl="3">
 				<v-btn class="text-subtitle-1 font-weight-semibold" color="primary" text x-large>
 					<v-icon class="mr-8" left x-large>mdi-face-agent</v-icon>
 					Hai bisogno di assistenza ?
 				</v-btn>
 			</v-col>
 		</v-row>
-
+		<v-divider />
 		<v-row class="my-16" justify="center">
 			<v-col
 				v-for="item in cards"
@@ -41,10 +41,11 @@
 					backgroundColor: hover[item.title] ? 'rgba(182,182,182,0.27)' : 'white'
 				}"
 				cols="12"
-				lg="3"
-				md="3"
+				lg="4"
+				md="4"
 				style="cursor: pointer; border-radius: 4px; user-select: none"
-				xl="3"
+				xl="4"
+				@click="$router.push(item.url)"
 				@mouseleave="hover[item.title] = false"
 				@mouseover="hover[item.title] = true"
 			>
@@ -78,17 +79,20 @@ const cards = ref([
 	{
 		title: 'I miei ordini',
 		description: 'Restituisci o acquista nuovamente degli articoli.',
-		icon: 'mdi-package-variant-closed'
+		icon: 'mdi-package-variant-closed',
+		url: '/account/orders'
 	},
 	{
 		title: 'Profilo',
 		description: 'Modifica i tuoi dati personali.',
-		icon: 'mdi-account-outline'
+		icon: 'mdi-account-outline',
+		url: '/account/profile'
 	},
 	{
 		title: 'Sicurezza',
 		description: 'Modifica la tua password',
-		icon: 'mdi-lock-outline'
+		icon: 'mdi-lock-outline',
+		url: '/account/security'
 	}
 ])
 const hover = Vue.observable(
