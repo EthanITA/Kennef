@@ -1,5 +1,10 @@
 <template>
-	<v-text-field class="custom-search-field" hide-details v-bind="props" @input="$emit('input', $event)" />
+	<v-text-field
+		class="custom-search-field"
+		hide-details
+		v-bind="{ ...$attrs, ...props }"
+		@input="$emit('input', $event)"
+	/>
 </template>
 
 <script lang="ts" setup>
@@ -19,6 +24,8 @@ defineEmits(['input'])
   @include textColor($color: $secondary !important)
 
 .custom-search-field ::v-deep input[type="text"]
+  padding-top: 1rem
+  font: normal 1.1rem $font-family
   @include textColor($color: $secondary !important)
 
 .custom-search-field ::v-deep .v-input__slot:before
