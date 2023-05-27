@@ -19,7 +19,14 @@ const showFooter = ref(true)
 type path = string
 
 const hideFooterPaths: path[] = []
-const minimalistPaths: path[] = ['/account', '/checkout', '/checkout/success']
+const minimalistPaths: path[] = [
+	'/account',
+	'/account/security',
+	'/account/profile',
+	'/account/orders',
+	'/checkout',
+	'/checkout/success'
+]
 
 watch(
 	currentPath.value,
