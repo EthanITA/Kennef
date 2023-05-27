@@ -40,7 +40,7 @@
 		</div>
 
 		<v-btn v-else color="primary" text x-small @click="$router.push('/cart')">
-			<v-icon>mdi-logout </v-icon>
+			<v-icon>mdi-logout</v-icon>
 		</v-btn>
 	</v-app-bar>
 </template>
@@ -54,11 +54,14 @@ import { useRoute } from 'vue-router/composables'
 const showPanel = ref(false)
 const showLogout = ref(false)
 const currentPath = ref(useRoute())
+
+const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart', '/checkout']
+
 watch(
 	currentPath.value,
 	() => {
 		showPanel.value = false
-		showLogout.value = currentPath.value.path === '/account'
+		showLogout.value = logoutPaths.includes(currentPath.value.path)
 	},
 	{ deep: true, immediate: true }
 )
