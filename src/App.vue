@@ -19,6 +19,10 @@ import Footer from '@/components/Footer.vue'
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap')
 @import '@/assets/variables'
 
+.bordered
+  max-width: 100%
+  border: thin solid rgba(0, 0, 0, .12)
+  transition: inherit
 
 .v-application
   h1,
@@ -26,4 +30,11 @@ import Footer from '@/components/Footer.vue'
     @include textColor($color: $secondary)
     font-family: $font-family, sans-serif !important
   font-family: $font-family, sans-serif !important
+
+.flex-col
+  display: flex
+  flex-direction: column
+
+.gap-1
+  gap: 1rem
 </style>

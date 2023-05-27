@@ -39,7 +39,7 @@
 			</v-btn>
 		</div>
 
-		<v-btn v-else color="primary" text x-small @click="$router.push('/cart')">
+		<v-btn v-else color="primary" text x-small @click="$router.push('/')">
 			<v-icon>mdi-logout</v-icon>
 		</v-btn>
 	</v-app-bar>

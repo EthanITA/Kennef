@@ -1,9 +1,9 @@
 <template>
-	<VAccount />
+	<VProfile style="width: 80%" />
 </template>
 
 <script setup>
-import VAccount from '@/components/Account/VAccount.vue'
+import VProfile from '@/components/Account/VProfile.vue'
 </script>
 
 <style scoped></style>
