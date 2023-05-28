@@ -16,11 +16,9 @@
 						<v-spacer />
 						<v-col v-for="(item, i) in prod.getImages().slice(0, 5)" :key="i" cols="2">
 							<v-card
-								:ripple="false"
 								:style="activeImage === i && 'border-bottom: 3px #003f4b solid;'"
-								class="mx-2 rounded-0 pb-2"
+								class="mx-2 rounded-0"
 								flat
-								style="background-color: transparent"
 								@click="setActiveImage(i)"
 							>
 								<v-img :aspect-ratio="1" :src="item" />
@@ -32,18 +30,32 @@
 			</v-col>
 			<v-col class="pl-16" cols="12" lg="6" md="6" xl="6">
 				<div class="product-name">
-					<h3 class="text-h4 secondary--text font-weight-regular">Cacciavite a croce Generico</h3>
+					<h3 class="text-h4 secondary--text font-weight-regular">{{ prod.name }}</h3>
 					<h3 class="text-subtitle-2 grey--text font-weight-regular">SKU : FG 187/GR</h3>
 				</div>
-				<div class="my-10 d-flex align-center">
-					<Price :price="13.99" class="py-0" />
+				<v-divider class="my-5" />
+				<div class="d-flex align-center">
+					<Price :price="13.99" class="py-0 text-h6" />
 					<span class="ml-4 text-caption grey--text font-weight-semibold">IVA INCLUSA</span>
 				</div>
-				<div class="colours d-flex">
-					<v-sheet color="grey lighten-2" style="width: 50px; height: 50px"></v-sheet>
-					<v-sheet color="grey lighten-2" style="width: 50px; height: 50px"></v-sheet>
+				<v-divider class="my-5" />
+
+				<div class="mb-8">
+					<v-row class="d-flex">
+						<v-col v-for="(cat, idx) in prod.otherCategories" :key="idx" :cols="2">
+							<v-card
+								:style="activeProductCategory === idx && 'border: 3px #003f4b solid !important;'"
+								class="rounded-0"
+								color="grey lighten-2"
+								outlined
+								@click="setActiveProductCategory(idx)"
+							>
+								<v-img :aspect-ratio="1" :src="cat.image" />
+							</v-card>
+						</v-col>
+					</v-row>
+					<p class="mt-2">Colore : {{ prod.otherCategories[activeProductCategory].name }}</p>
 				</div>
-				<p class="mt-2 text-subtitle-2 secondary--text font-weight-thin">Colore : giallo</p>
 				<v-select
 					:items="prod.sizes"
 					class="rounded-0"
@@ -112,9 +124,14 @@ const items = [
 ]
 
 const activeImage = ref<number>(0)
+const activeProductCategory = ref<number>(0)
 
 const setActiveImage = (index: number) => {
 	activeImage.value = index
+}
+
+const setActiveProductCategory = (index: number) => {
+	activeProductCategory.value = index
 }
 
 const prod = Product.getRandomProducts()[0]

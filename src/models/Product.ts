@@ -1,6 +1,12 @@
 type Spec = {
 	text: string
 }
+
+interface ProductCategory {
+	name: string
+	image: string
+}
+
 class Product {
 	constructor(
 		public id: string,
@@ -13,7 +19,7 @@ class Product {
 		public quantity?: number,
 		public sizes?: string[],
 		public specs?: Spec[],
-		public otherCategories?: string[]
+		public otherCategories?: ProductCategory[]
 	) {}
 
 	get soldOut(): boolean {
@@ -35,6 +41,11 @@ class Product {
 		]
 		const sizes = ['24', '32', '48', '52', '64']
 		const images = ['https://picsum.photos/200/300', 'https://picsum.photos/200/300']
+		const colors = ['red', 'blue', 'green', 'yellow', 'black', 'white']
+		const otherCategories = images.map((image, index) => ({
+			name: colors[Math.floor(Math.random() * colors.length)],
+			image
+		}))
 		return [
 			new this(
 				'Camicia',
@@ -47,7 +58,7 @@ class Product {
 				12,
 				sizes,
 				specs,
-				images
+				otherCategories
 			),
 			new this(
 				'Pantaloni',
@@ -60,7 +71,7 @@ class Product {
 				12,
 				sizes,
 				specs,
-				images
+				otherCategories
 			),
 			new this(
 				'Pantaloni',
@@ -73,7 +84,7 @@ class Product {
 				12,
 				sizes,
 				specs,
-				images
+				otherCategories
 			),
 			new this(
 				'Calzini',
@@ -86,7 +97,7 @@ class Product {
 				12,
 				sizes,
 				specs,
-				images
+				otherCategories
 			)
 		]
 	}
