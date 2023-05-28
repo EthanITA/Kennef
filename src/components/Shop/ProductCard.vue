@@ -29,13 +29,7 @@
 					<v-row>
 						<p class="font-weight-semibold">{{ product.category || '-' }}</p>
 						<v-spacer />
-						<p
-							v-if="product.price"
-							:class="{ 'primary--text': hover }"
-							class="font-weight-semibold text-decoration-underline"
-						>
-							{{ product.price | currency }}
-						</p>
+						<Price v-if="product.price" :class="{ 'primary--text': hover }" :price="product.price" />
 					</v-row>
 				</v-container>
 			</HoverScale>
@@ -47,14 +41,9 @@
 import ProductModel from '@/models/Product'
 import HoverScale from '@/components/Wrappers/HoverScale.vue'
 import ProductBadge from '@/components/Shop/ProductBadge.vue'
+import Price from '@/components/kennef/Price.vue'
 
 const props = defineProps<{
 	product: ProductModel
 }>()
 </script>
-
-<style lang="sass" scoped>
-@import '@/assets/variables.sass'
-.text-decoration-underline
-	text-underline-offset: 0.5rem
-</style>

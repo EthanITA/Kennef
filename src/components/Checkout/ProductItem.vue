@@ -45,34 +45,13 @@
 	</v-container>
 </template>
 
-<script>
-export default {
-	name: 'ProductItem',
-	props: {
-		product: {
-			type: Object,
-			required: true
-		}
-		// img: {
-		//   type: String,
-		//   required: true
-		// },
-		// name: {
-		//   type: String,
-		//   required: true
-		// },
-		// qty: {
-		//   type: Number,
-		//   required: true
-		// },
-		// price: {
-		//   type: Number,
-		//   required: true
-		// },
-		// sku: {
-		//   type: String,
-		//   required: false
-		// }
-	}
-}
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const product = ref({
+	name: 'Nome prodotto',
+	sku: 'SKU',
+	qty: 1,
+	price: 10
+})
 </script>
