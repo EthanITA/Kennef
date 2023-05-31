@@ -1,7 +1,9 @@
 <template>
-	<div>a</div>
+	<VCart />
 </template>
 
-<script setup></script>
+<script setup>
+import VCart from '@/components/Checkout/VCart.vue'
+</script>
 
 <style scoped></style>

@@ -1,12 +1,12 @@
 <template>
 	<v-btn
+		:color="color || 'primary'"
 		:disabled="loading || disabled"
 		:loading="loading"
 		:outlined="outlined"
 		:small="small"
 		:x-large="!(medium || small)"
 		class="rounded-0"
-		color="primary"
 		depressed
 		@click="$emit('click')"
 	>
@@ -21,6 +21,7 @@ const props = defineProps<{
 	small?: boolean
 	loading?: boolean
 	disabled?: boolean
+	color?: string
 }>()
 
 const emit = defineEmits(['click'])

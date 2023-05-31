@@ -37,4 +37,7 @@ import Footer from '@/components/Footer.vue'
 
 .gap-1
   gap: 1rem
+
+.gap-0\.5
+  gap: 0.5rem
 </style>
