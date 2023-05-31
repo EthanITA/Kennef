@@ -11,7 +11,7 @@
 			:loading="isLoading"
 			autofocus
 			custom-item
-			@clear="enableInput = !enableInput"
+			@clear="enableInput = false"
 			@input="searchProducts"
 			@search="goToShop"
 		>
