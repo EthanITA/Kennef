@@ -13,6 +13,7 @@ class Product {
 		public name: string,
 		public price: number,
 		public description?: string,
+		public sku?: string,
 		public image?: string,
 		public otherImages?: string[],
 		public category?: string,
@@ -46,60 +47,22 @@ class Product {
 			name: colors[Math.floor(Math.random() * colors.length)],
 			image
 		}))
-		return [
-			new this(
-				'Camicia',
-				'Abbigliamento',
-				10,
-				'description',
-				'https://picsum.photos/200/300',
-				images,
-				'Camicia',
-				12,
-				sizes,
-				specs,
-				otherCategories
-			),
-			new this(
-				'Pantaloni',
-				'Pantaloni',
-				10,
-				'description',
-				'https://picsum.photos/200/300',
-				images,
-				'Pantaloni',
-				12,
-				sizes,
-				specs,
-				otherCategories
-			),
-			new this(
-				'Pantaloni',
-				'Abbigliamento',
-				10,
-				'description',
-				'https://picsum.photos/200/300',
-				images,
-				'Pantaloni',
-				12,
-				sizes,
-				specs,
-				otherCategories
-			),
-			new this(
-				'Calzini',
-				'Calzini',
-				10,
-				'description',
-				'https://picsum.photos/200/300',
-				images,
-				'Calzini',
-				12,
-				sizes,
-				specs,
-				otherCategories
-			)
+		const params = [
+			'Camicia',
+			'Abbigliamento',
+			10,
+			'description',
+			'Sku: FG 22/S6',
+			'https://picsum.photos/200/300',
+			images,
+			'Camicia',
+			12,
+			sizes,
+			specs,
+			otherCategories
 		]
+		//@ts-ignore
+		return [new this(...params), new this(...params), new this(...params), new this(...params)]
 	}
 
 	public getImages(): string[] {
