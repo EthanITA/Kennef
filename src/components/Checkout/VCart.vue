@@ -39,24 +39,26 @@ const items = [
 	{
 		text: 'Carrello',
 		disabled: false,
-		href: 'breadcrumbs_dashboard'
+		href: '/cart'
 	},
 	{
 		text: 'Informazioni',
-		disabled: false,
-		href: 'breadcrumbs_link_1'
+		disabled: true
 	},
 	{
 		text: 'Pagamento',
-		disabled: false,
-		href: 'breadcrumbs_link_2'
+		disabled: true
 	},
 
 	{
 		text: 'Spedizione',
-		disabled: true,
-		href: 'breadcrumbs_link_2'
+		disabled: true
 	}
 ]
 const products = Product.getRandomProducts()
 </script>
+<style scoped>
+>>> a.v-breadcrumbs__item {
+	color: #003f4b;
+}
+</style>

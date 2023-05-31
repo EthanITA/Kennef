@@ -29,19 +29,21 @@
 			<ShopPanel v-if="showPanel" class="navigation-container" />
 		</div>
 
-		<div v-if="!showLogout" class="btns-r ml-12">
-			<v-btn color="secondary" text x-small @click="$router.push('/account')">
-				<v-icon>mdi-account-outline</v-icon>
-			</v-btn>
+		<div v-if="!noIcons">
+			<div v-if="!showLogout" class="btns-r ml-12">
+				<v-btn color="secondary" text x-small @click="$router.push('/account')">
+					<v-icon>mdi-account-outline</v-icon>
+				</v-btn>
 
-			<v-btn color="secondary" text x-small @click="$router.push('/cart')">
-				<v-icon>mdi-shopping-outline</v-icon>
+				<v-btn color="secondary" text x-small @click="$router.push('/cart')">
+					<v-icon>mdi-shopping-outline</v-icon>
+				</v-btn>
+			</div>
+
+			<v-btn v-else color="primary" text x-small @click="$router.push('/')">
+				<v-icon>mdi-logout</v-icon>
 			</v-btn>
 		</div>
-
-		<v-btn v-else color="primary" text x-small @click="$router.push('/')">
-			<v-icon>mdi-logout</v-icon>
-		</v-btn>
 	</v-app-bar>
 </template>
 
@@ -54,14 +56,16 @@ import { useRoute } from 'vue-router/composables'
 const showPanel = ref(false)
 const showLogout = ref(false)
 const currentPath = ref(useRoute())
+const noIcons = ref(false)
 
 const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart', '/checkout']
-
+const noIconsPaths = ['/cart']
 watch(
 	currentPath.value,
 	() => {
 		showPanel.value = false
 		showLogout.value = logoutPaths.includes(currentPath.value.path)
+		noIcons.value = noIconsPaths.includes(currentPath.value.path)
 	},
 	{ deep: true, immediate: true }
 )
