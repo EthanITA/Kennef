@@ -64,6 +64,11 @@ const routes = [
 		path: '/order-completed',
 		name: 'order-completed',
 		component: () => import(/* webpackChunkName: "order-complete" */ '../views/OrderCompletedView.vue')
+	},
+	{
+		path: '/login',
+		name: 'login',
+		component: () => import(/* webpackChunkName: "order-complete" */ '../views/LoginView.vue')
 	}
 ]
 

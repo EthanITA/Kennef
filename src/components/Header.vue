@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar app class="px-4" color="white" dark elevation="0" height="100">
+	<v-app-bar v-if="!noHeader" app class="px-4" color="white" dark elevation="0" height="100">
 		<a class="d-flex align-center" @click="$router.push('/')">
 			<v-img
 				alt="Kennef Logotype"
@@ -57,15 +57,18 @@ const showPanel = ref(false)
 const showLogout = ref(false)
 const currentPath = ref(useRoute())
 const noIcons = ref(false)
+const noHeader = ref(false)
 
 const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart', '/checkout']
 const noIconsPaths = ['/cart']
+const noHeaderPaths = ['/login']
 watch(
 	currentPath.value,
 	() => {
 		showPanel.value = false
 		showLogout.value = logoutPaths.includes(currentPath.value.path)
 		noIcons.value = noIconsPaths.includes(currentPath.value.path)
+		noHeader.value = noHeaderPaths.includes(currentPath.value.path)
 	},
 	{ deep: true, immediate: true }
 )

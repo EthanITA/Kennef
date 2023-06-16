@@ -2,6 +2,7 @@
 	<v-btn
 		:color="color || 'primary'"
 		:disabled="loading || disabled"
+		:icon="icon"
 		:loading="loading"
 		:outlined="outlined"
 		:small="small"
@@ -22,6 +23,7 @@ const props = defineProps<{
 	loading?: boolean
 	disabled?: boolean
 	color?: string
+	icon?: boolean
 }>()
 
 const emit = defineEmits(['click'])

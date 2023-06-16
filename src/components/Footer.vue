@@ -18,7 +18,7 @@ const showFooter = ref(true)
 
 type path = string
 
-const hideFooterPaths: path[] = []
+const hideFooterPaths: path[] = ['/login']
 const minimalistPaths: path[] = [
 	'/account',
 	'/account/security',
