@@ -1,11 +1,12 @@
 <template>
-	<p class="my-0 font-weight-semibold text-decoration-underline">
+	<p :class="{ 'text-decoration-underline': !noUnderline }" class="my-0 font-weight-semibold">
 		{{ price | currency }}
 	</p>
 </template>
 <script lang="ts" setup>
 const props = defineProps<{
 	price: number
+	noUnderline?: boolean
 }>()
 </script>
 

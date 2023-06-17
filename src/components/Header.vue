@@ -59,9 +59,9 @@ const currentPath = ref(useRoute())
 const noIcons = ref(false)
 const noHeader = ref(false)
 
-const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart', '/checkout']
+const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart']
 const noIconsPaths = ['/cart']
-const noHeaderPaths = ['/login']
+const noHeaderPaths = ['/login', '/checkout']
 watch(
 	currentPath.value,
 	() => {

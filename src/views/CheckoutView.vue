@@ -1,7 +1,9 @@
 <template>
-	<div>a</div>
+	<Checkout />
 </template>
 
-<script setup></script>
+<script setup>
+import Checkout from '@/components/Checkout/Checkout.vue'
+</script>
 
 <style scoped></style>
