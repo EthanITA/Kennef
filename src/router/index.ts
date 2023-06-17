@@ -69,6 +69,11 @@ const routes = [
 		path: '/login',
 		name: 'login',
 		component: () => import(/* webpackChunkName: "order-complete" */ '../views/LoginView.vue')
+	},
+	{
+		path: '/not-found',
+		name: 'not-found',
+		component: () => import(/* webpackChunkName: "order-complete" */ '../views/NotFoundView.vue')
 	}
 ]
 
@@ -76,6 +81,14 @@ const router = new VueRouter({
 	mode: 'history',
 	base: process.env.BASE_URL,
 	routes
+})
+
+router.beforeEach((to, _, next) => {
+	if (routes.find((route) => route.name === to.name)) {
+		next()
+	} else {
+		next({ name: 'not-found' })
+	}
 })
 
 export default router
