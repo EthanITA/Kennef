@@ -1,7 +1,9 @@
 <template>
-	<div>a</div>
+	<VOrders />
 </template>
 
-<script setup></script>
+<script setup>
+import VOrders from '@/components/Account/VOrders.vue'
+</script>
 
 <style scoped></style>
