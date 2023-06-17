@@ -7,7 +7,9 @@
 				class="mt-3 hidden-sm-and-down mx-auto"
 				contain
 				src="../assets/logotype.svg"
+				style="cursor: pointer"
 				width="125"
+				@click="$router.push('/')"
 			/>
 			<div class="my-8 d-flex flex-column">
 				<p class="ma-0 mx-auto font-weight-regular text-h5">Ciao!</p>
