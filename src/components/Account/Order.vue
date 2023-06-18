@@ -1,6 +1,6 @@
 <template>
 	<v-row>
-		<v-col>
+		<v-col class="flex-grow-0">
 			<v-img
 				:alt="product.name"
 				:aspect-ratio="1"
