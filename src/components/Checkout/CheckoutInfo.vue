@@ -13,6 +13,7 @@
 							@cancel="$router.push('/cart')"
 							@next="currentStep++"
 							@prev="currentStep--"
+							@submit="$router.push('/order-completed')"
 						/>
 					</v-stepper-content>
 				</div>
