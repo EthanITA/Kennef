@@ -6,7 +6,19 @@
 			</v-col>
 			<v-spacer />
 			<v-col>
-				<Select :items="filters" class="rounded-0" hide-details label="Filtra"></Select>
+				<v-select
+					:items="filters"
+					class="rounded-0"
+					color="secondary"
+					dense
+					filters-text="text"
+					filters-value="value"
+					hide-details
+					label="Filtra"
+					outlined
+					return-object
+					single-line
+				></v-select>
 			</v-col>
 		</v-row>
 		<v-divider class="my-2" />
@@ -18,8 +30,8 @@
 </template>
 
 <script setup>
-import Select from '@/components/kennef/Select.vue'
 import Order from '@/components/Account/Order.vue'
+import { ref } from 'vue'
 
 const filters = [
 	{
@@ -39,4 +51,5 @@ const filters = [
 		value: 30
 	}
 ]
+const selectedFilter = ref(filters[0].text)
 </script>
