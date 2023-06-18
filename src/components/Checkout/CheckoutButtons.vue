@@ -1,7 +1,7 @@
 <template>
 	<v-container>
 		<v-sheet class="pa-4 flex-col gap-0.5">
-			<Button>checkout</Button>
+			<Button @click="$router.push('/checkout')">checkout</Button>
 			<PaypalButton />
 			<PaypalButton instalment />
 		</v-sheet>

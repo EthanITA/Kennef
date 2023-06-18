@@ -1,26 +1,28 @@
 <template>
 	<v-container class="d-flex">
 		<v-spacer />
-		<v-sheet class="pa-4 flex-col gap-0.5 d-flex grow">
-			<v-img
-				alt="Kennef Logotype"
-				class="mt-3 hidden-sm-and-down mx-auto"
-				contain
-				src="../assets/logotype.svg"
-				style="cursor: pointer"
-				width="125"
-				@click="$router.push('/')"
-			/>
-			<div class="my-8 d-flex flex-column">
-				<p class="ma-0 mx-auto font-weight-regular text-h5">Ciao!</p>
-				<p class="mx-auto">Accedi per continuare.</p>
-			</div>
+		<v-sheet class="flex-col gap-0.5 d-flex grow">
+			<template v-if="!noHeader">
+				<v-img
+					alt="Kennef Logotype"
+					class="mt-3 hidden-sm-and-down mx-auto"
+					contain
+					src="../assets/logotype.svg"
+					style="cursor: pointer"
+					width="125"
+					@click="$router.push('/')"
+				/>
+				<div class="my-8 d-flex flex-column">
+					<p class="ma-0 mx-auto font-weight-regular text-h5">Ciao!</p>
+					<p class="mx-auto">Accedi per continuare.</p>
+				</div>
+			</template>
 			<div class="flex-col gap-0.5">
 				<div class="flex-col gap-0.5 pa-4">
 					<Textfield label="Email" type="email" />
 					<Textfield label="Password" type="password" />
 					<a class="ml-auto" href="#">Password dimenticata?</a>
-					<Button class="mt-6" medium>accedi</Button>
+					<Button class="mt-6" medium @click="$emit('login')">accedi</Button>
 				</div>
 				<div class="d-flex align-center mt-8">
 					<v-divider />
@@ -28,7 +30,7 @@
 					<v-divider />
 				</div>
 				<div class="mx-auto d-flex gap-1 my-8">
-					<Button class="rounded-circle" icon>
+					<Button class="rounded-circle" icon @click="$emit('login')">
 						<svg fill="none" height="48" viewBox="0 0 32 32" width="48" xmlns="http://www.w3.org/2000/svg">
 							<circle cx="16" cy="16" fill="white" r="15.5" stroke="#F6F6F6" />
 							<path
@@ -49,7 +51,7 @@
 							/>
 						</svg>
 					</Button>
-					<Button class="rounded-circle" icon>
+					<Button class="rounded-circle" icon @click="$emit('login')">
 						<svg fill="none" height="48" viewBox="0 0 32 32" width="48" xmlns="http://www.w3.org/2000/svg">
 							<circle cx="16" cy="16" fill="white" r="15.5" stroke="#F6F6F6" />
 							<path
@@ -59,7 +61,7 @@
 						</svg>
 					</Button>
 				</div>
-				<div class="d-flex font-weight-bold mx-auto">
+				<div v-if="!noFooter" class="d-flex font-weight-bold mx-auto">
 					<p>Non hai un account?</p>
 					<a class="ml-1" href="#">Registrati</a>
 				</div>
@@ -72,6 +74,13 @@
 <script lang="ts" setup>
 import Textfield from '@/components/kennef/Textfield.vue'
 import Button from '@/components/kennef/Button.vue'
+
+const props = defineProps<{
+	noHeader?: boolean
+	noFooter?: boolean
+}>()
+
+defineEmits(['login'])
 </script>
 
 <style scoped></style>
