@@ -1,7 +1,9 @@
 <template>
-	<div>a</div>
+	<OrderCompleted />
 </template>
 
-<script setup></script>
+<script setup>
+import OrderCompleted from '@/components/Checkout/OrderCompleted.vue'
+</script>
 
 <style scoped></style>

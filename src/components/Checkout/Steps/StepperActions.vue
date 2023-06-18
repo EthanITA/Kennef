@@ -2,7 +2,7 @@
 	<div>
 		<div v-if="!final">
 			<Button :disabled="!valid" medium @click="valid && $emit('next')">continua</Button>
-			<Button color="transparent" medium @click="$emit('prev')">indietro</Button>
+			<Button v-if="!noCancel" color="transparent" medium @click="$emit('prev')">indietro</Button>
 		</div>
 		<div v-else class="flex-col gap-1">
 			<Button :disabled="!valid" class="mt-2" medium @click="valid && $emit('submit')">conferma</Button>
@@ -22,6 +22,7 @@ import Button from '@/components/kennef/Button.vue'
 const props = defineProps<{
 	final?: boolean
 	valid?: boolean
+	noCancel?: boolean
 }>()
 
 defineEmits<{

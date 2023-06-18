@@ -45,4 +45,7 @@ const isCheckout = route.path === '/checkout'
 
 .gap-0\.5
   gap: 0.5rem
+
+.gap-2
+  gap: 2rem
 </style>

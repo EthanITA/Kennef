@@ -25,7 +25,7 @@ const minimalistPaths: path[] = [
 	'/account/profile',
 	'/account/orders',
 	'/checkout',
-	'/checkout/success'
+	'/order-completed'
 ]
 
 watch(

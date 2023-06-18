@@ -10,7 +10,7 @@ import StepperActions from '@/components/Checkout/Steps/StepperActions.vue'
 		<Textfield label="Nome" outlined type="email" />
 		<Textfield label="Cognome" outlined />
 		<Textfield label="Ragione sociale" outlined />
-		<StepperActions class="mt-8" valid @next="$emit('next')" @prev="$emit('prev')" />
+		<StepperActions class="mt-8" noCancel valid @next="$emit('next')" @prev="$emit('prev')" />
 	</div>
 </template>
 

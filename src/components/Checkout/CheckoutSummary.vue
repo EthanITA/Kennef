@@ -23,11 +23,13 @@
 			</v-col>
 		</v-row>
 		<v-divider />
-		<div class="d-flex gap-1 align-center">
-			<Textfield label="Codice sconto" outlined />
-			<Button> <v-icon x-large>mdi-arrow-right</v-icon> </Button>
-		</div>
-		<v-divider />
+		<template v-if="!completed">
+			<div class="d-flex gap-1 align-center">
+				<Textfield label="Codice sconto" outlined />
+				<Button> <v-icon x-large>mdi-arrow-right</v-icon> </Button>
+			</div>
+			<v-divider />
+		</template>
 		<div class="flex-col gap-0.5">
 			<div class="d-flex justify-space-between align-center">
 				<p class="ma-0">Subtotale</p>
@@ -42,11 +44,14 @@
 		<v-divider />
 		<div class="d-flex justify-space-between align-center">
 			<p class="ma-0">Totale</p>
-			<Price
-				:price="products.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)"
-				class="text-h6"
-				no-underline
-			/>
+			<div class="d-flex align-baseline gap-0.5">
+				<Price
+					:price="products.reduce((acc, cur) => acc + cur.price * cur.quantity, 0) + (shippingCost || 0)"
+					class="text-h6"
+					no-underline
+				/>
+				<span v-if="completed" class="body-2 font-weight-light">IVA inclusa</span>
+			</div>
 		</div>
 	</div>
 </template>
@@ -60,6 +65,7 @@ import Button from '@/components/kennef/Button.vue'
 const products = Product.getRandomProducts()
 const props = defineProps<{
 	shippingCost?: number
+	completed?: boolean
 }>()
 </script>
 
