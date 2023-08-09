@@ -8,8 +8,11 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
+    "@types/axios": "^0.14.0",
+    "axios": "^1.4.0",
     "core-js": "^3.8.3",
     "loadash": "^1.0.0",
+    "lodash": "^4.17.21",
     "pinia": "^2.1.6",
     "prettier": "^2.8.8",
     "sass-loader": "^13.2.2",

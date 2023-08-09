@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts" setup>
-import Product from '@/models/Product'
 import Button from '@/components/kennef/Button.vue'
 import GroupedProductsCard from '@/components/Shop/GroupedProductsCard.vue'
+import { Product } from '@/types/product'
 
 const props = defineProps<{
 	products: Product[]

@@ -16,7 +16,7 @@
 		</v-row>
 
 		<v-lazy v-if="topProducts.length">
-			<TopSellerProducts :products="topProducts.slice(0, 3)" class="mt-16" />
+			<TopSellerProducts :products="topProducts" class="mt-16" />
 		</v-lazy>
 		<v-lazy class="mt-16">
 			<KennefCharacteristics />
@@ -33,41 +33,18 @@ import Brands from '@/components/Home/Brands.vue'
 import KennefCharacteristics from '@/components/Home/KennefCharacteristics.vue'
 import Button from '@/components/kennef/Button.vue'
 import LandingCardAction from '@/components/LandingCardAction.vue'
-import { onMounted, ref } from 'vue'
-import Product from '@/models/Product'
+import { ref } from 'vue'
 import TopSellerProducts from '@/components/Home/TopSellerProducts.vue'
+import { Product } from '@/types/product'
+import { productsStore } from '@/store/products'
 
 const topProducts = ref<Product[]>([])
-
-onMounted(() => {
-	topProducts.value = [
-		new Product(
-			'1',
-			'Cacciavite a croce \n' + 'FF Group',
-			10,
-			'AAA',
-			require('@/assets/examples/screwdriver.png'),
-			'Categoria',
-			5
-		),
-		new Product(
-			'2',
-			'Cacciavite a croce \n' + 'FF Group',
-			10,
-			'AAA',
-			require('@/assets/examples/screwdriver.png'),
-			'Categoria',
-			5
-		),
-		new Product(
-			'3',
-			'Cacciavite a croce \n' + 'FF Group',
-			10,
-			'AAA',
-			require('@/assets/examples/screwdriver.png'),
-			'Categoria',
-			5
-		)
-	]
-})
+productsStore()
+	.getProducts({
+		'searchCriteria[pageSize]': 3,
+		'searchCriteria[sortOrders][0][field]': 'visibility'
+	})
+	.then((res: Product[]) => {
+		topProducts.value = res
+	})
 </script>

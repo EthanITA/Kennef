@@ -11,14 +11,14 @@
 				<v-img
 					:alt="product.name"
 					:aspect-ratio="0.8"
-					:src="product.image"
-					:style="{ 'display: none': !product.image }"
+					:src="store.getImgUrl(product)"
+					:style="{ 'display: none': !product.media_gallery_entries[0].file }"
 					style="background-color: #f6f6f6"
 				>
 					<v-container>
 						<v-row>
-							<ProductBadge v-if="product.soldOut" class="blue-grey"> sold out </ProductBadge>
-							<ProductBadge v-else-if="product.hasOffer" class="primary"> offerta </ProductBadge>
+							<ProductBadge v-if="!product.stock?.is_in_stock" class="blue-grey"> sold out </ProductBadge>
+							<ProductBadge v-else-if="false" class="primary"> offerta </ProductBadge>
 						</v-row>
 					</v-container>
 				</v-img>
@@ -27,7 +27,7 @@
 				</p>
 				<v-container>
 					<v-row>
-						<p class="font-weight-semibold">{{ product.category || '-' }}</p>
+						<p class="font-weight-semibold">{{ product.sku || '-' }}</p>
 						<v-spacer />
 						<Price v-if="product.price" :class="{ 'primary--text': hover }" :price="product.price" />
 					</v-row>
@@ -38,12 +38,15 @@
 </template>
 
 <script lang="ts" setup>
-import ProductModel from '@/models/Product'
+import { Product } from '@/types/product'
 import HoverScale from '@/components/Wrappers/HoverScale.vue'
 import ProductBadge from '@/components/Shop/ProductBadge.vue'
 import Price from '@/components/kennef/Price.vue'
+import { productsStore } from '@/store/products'
+
+const store = productsStore()
 
 const props = defineProps<{
-	product: ProductModel
+	product: Product
 }>()
 </script>

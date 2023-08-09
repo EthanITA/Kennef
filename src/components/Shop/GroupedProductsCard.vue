@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import ProductCard from '@/components/Shop/ProductCard.vue'
-import Product from '@/models/Product'
+import { Product } from '@/types/product'
 
 const props = defineProps<{
 	products: Product[]
