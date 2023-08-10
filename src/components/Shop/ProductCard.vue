@@ -12,7 +12,7 @@
 					:alt="product.name"
 					:aspect-ratio="0.8"
 					:src="store.getImgUrl(product)"
-					:style="{ 'display: none': !product.media_gallery_entries[0].file }"
+					:style="{ 'display: none': !store.getImgUrl(product) }"
 					style="background-color: #f6f6f6"
 				>
 					<v-container>
