@@ -7,6 +7,9 @@
 			</v-container>
 		</v-main>
 		<Footer />
+		<v-overlay v-show="loaderStore.loading" :opacity="0.1" color="primary">
+			<v-img id="loader" class="tw-animate-ping" height="64" src="@/assets/kennef_icon.svg" width="64" />
+		</v-overlay>
 	</v-app>
 </template>
 
@@ -14,15 +17,46 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { useRoute } from 'vue-router/composables'
+import loader from '@/store/loader'
+
+const loaderStore = loader()
 
 const route = useRoute()
 
 const isCheckout = route.path === '/checkout'
 </script>
+<style scoped>
+#loader {
+	-webkit-animation: pulse 2s infinite;
+	-moz-animation: pulse 2s infinite;
+	transform: scale(1.5);
+	animation: pulse 0.75s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.65);
+	}
+
+	70% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.65);
+	}
+}
+</style>
 
 <style lang="sass">
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap')
 @import '@/assets/variables'
+
+ul
+  list-style: disc !important
+
+strong
+  @apply tw-font-black #{!important}
 
 .bordered
   max-width: 100%
@@ -31,7 +65,8 @@ const isCheckout = route.path === '/checkout'
 
 .v-application
   h1,
-  p
+  p,
+  li
     @include textColor($color: $secondary)
     font-family: $font-family, sans-serif !important
   font-family: $font-family, sans-serif !important

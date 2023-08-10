@@ -11,8 +11,8 @@
 				<v-img
 					:alt="product.name"
 					:aspect-ratio="0.8"
-					:src="store.getImgUrl(product)"
-					:style="{ 'display: none': !store.getImgUrl(product) }"
+					:src="store.getImgUrl(product)[0]"
+					:style="{ 'display: none': !store.getImgUrl(product).length }"
 					style="background-color: #f6f6f6"
 				>
 					<v-container>

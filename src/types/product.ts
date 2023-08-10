@@ -50,11 +50,24 @@ export interface Product {
 interface ExtensionAttributes {
 	website_ids: number[]
 	category_links: CategoryLink[]
+	configurable_product_options: ConfigurableProductOption[]
+	configurable_product_links: number[]
 }
 
 interface CategoryLink {
 	position: number
 	category_id: string
+}
+
+interface ConfigurableProductOption {
+	id: number
+	attribute_id: string
+	label: string
+	position: number
+	values: {
+		value_index: number
+	}[]
+	product_id: number
 }
 
 interface MediaGalleryEntry {

@@ -8,13 +8,23 @@
 					<v-row style="height: 100%">
 						<v-col :cols="12">
 							<v-carousel v-model="activeImage" hide-delimiters show-arrows>
-								<v-carousel-item v-for="(item, i) in prod.getImages()" :key="i" :src="item" />
+								<v-carousel-item
+									v-for="(item, i) in store.getImgUrl(
+										(store.product?.configurable_products || [])[0]
+									)"
+									:key="i"
+									:src="item"
+								/>
 							</v-carousel>
 						</v-col>
 					</v-row>
 					<v-row>
 						<v-spacer />
-						<v-col v-for="(item, i) in prod.getImages().slice(0, 5)" :key="i" cols="2">
+						<v-col
+							v-for="(item, i) in store.getImgUrl((store.product?.configurable_products || [])[0])"
+							:key="i"
+							cols="2"
+						>
 							<v-card
 								:style="activeImage === i && 'border-bottom: 3px #003f4b solid;'"
 								class="mx-2 rounded-0"
@@ -30,19 +40,19 @@
 			</v-col>
 			<v-col class="pl-16" cols="12" lg="6" md="6" xl="6">
 				<div class="product-name">
-					<h3 class="text-h4 secondary--text font-weight-regular">{{ prod.name }}</h3>
-					<h3 class="text-subtitle-2 grey--text font-weight-regular">SKU : FG 187/GR</h3>
+					<h3 class="text-h4 secondary--text font-weight-regular">{{ store.product?.name }}</h3>
+					<h3 class="text-subtitle-2 grey--text font-weight-regular">SKU : {{ store.product?.sku }}</h3>
 				</div>
 				<v-divider class="my-5" />
 				<div class="d-flex align-center">
-					<Price :price="13.99" class="py-0 text-h6" />
+					<Price :price="productPrice" class="py-0 text-h6" />
 					<span class="ml-4 text-caption grey--text font-weight-semibold">IVA INCLUSA</span>
 				</div>
 				<v-divider class="my-5" />
 
 				<div class="mb-8">
 					<v-row class="d-flex">
-						<v-col v-for="(cat, idx) in prod.otherCategories" :key="idx" :cols="2">
+						<v-col v-for="(cat, idx) in store.product?.configurable_products || []" :key="idx" :cols="2">
 							<v-card
 								:style="activeProductCategory === idx && 'border: 3px #003f4b solid !important;'"
 								class="rounded-0"
@@ -50,21 +60,26 @@
 								outlined
 								@click="setActiveProductCategory(idx)"
 							>
-								<v-img :aspect-ratio="1" :src="cat.image" />
+								<v-img
+									v-if="store.getImgUrl(cat).length"
+									:aspect-ratio="1"
+									:src="store.getImgUrl(cat)[0]"
+								/>
 							</v-card>
 						</v-col>
 					</v-row>
-					<p class="mt-2">Colore : {{ prod.otherCategories[activeProductCategory].name }}</p>
+					<p class="mt-2">Colore : {{ store.product?.configurable_products[activeProductCategory].name }}</p>
 				</div>
 				<v-select
-					:items="prod.sizes"
+					v-model="selectedSize"
+					:items="sortBy(sizes.map((size) => attributes.sizes[size]))"
 					class="rounded-0"
 					color="primary"
 					dense
 					filled
 					filters-text="text"
 					filters-value="value"
-					label="Filtra"
+					label="Seleziona taglia"
 					return-object
 					single-line
 				></v-select>
@@ -73,27 +88,14 @@
 				</v-btn>
 				<h4 class="text-h4 secondary--text font-weight-regular my-6">Descrizione Prodotto</h4>
 				<v-sheet color="grey lighten-3" style="width: 100%; height: fit-content">
-					<div class="pa-4">
-						<h6 class="text-h6 secondary--text font-weight-semibold mt-6">Descrizione</h6>
-						<div
-							class="text-subtitle-1 secondary--text text--secondary font-weight-regular my-2"
-							style="width: 60%"
-						>
-							Impugnatura ergonomica morbida in bimateriale. Lama in acciaio al cromo-vanadio, punta nera.
-						</div>
-						<h6 class="text-h6 secondary--text font-weight-semibold mt-6">Scheda Tecnica</h6>
-						<div
-							class="text-subtitle-1 secondary--text text--secondary font-weight-regular my-2"
-							style="width: 60%"
-						>
-							<ul>
-								<li v-for="(item, i) in prod.specs" :key="i">
-									<span>{{ item.text }}</span
-									><span></span>
-								</li>
-							</ul>
-						</div>
-					</div>
+					<div
+						class="tw-p-4"
+						v-html="
+							(store.product?.custom_attributes || []).find(
+								({ attribute_code }) => attribute_code === 'short_description'
+							)?.value
+						"
+					/>
 				</v-sheet>
 			</v-col>
 		</v-row>
@@ -101,9 +103,31 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, ref } from 'vue'
+import { productsStore } from '@/store/products'
+import { useRoute } from 'vue-router/composables'
+import { sortBy, toNumber } from 'lodash'
+import { attributeStore } from '@/store/attributes'
 import Price from '@/components/kennef/Price.vue'
-import Product from '@/models/Product'
-import { ref } from 'vue'
+
+const store = productsStore()
+const attributes = attributeStore()
+
+store.getProduct(toNumber(useRoute().params.id as string))
+attributes.getSizes()
+attributes.getColors()
+
+const selectedSize = ref<string | null>(null)
+
+const sizes = computed<string[]>(() =>
+	(store.product?.configurable_products || []).map((p) => store.getSize(p)).filter((size) => size)
+)
+const productPrice = computed<number>(() => {
+	const products = store.product?.configurable_products || []
+	if (!selectedSize.value) return products[0]?.price || 0
+	const selectedSizeValue = Object.entries(attributes.sizes).find(([_, value]) => value === selectedSize.value)?.[0]
+	return products.find((p) => store.getSize(p) === selectedSizeValue)?.price || 0
+})
 
 const items = [
 	{
@@ -133,21 +157,9 @@ const setActiveImage = (index: number) => {
 const setActiveProductCategory = (index: number) => {
 	activeProductCategory.value = index
 }
-
-const prod = Product.getRandomProducts()[0]
 </script>
 
 <style scoped>
-.colours {
-	gap: 12px;
-}
-
-ul {
-	list-style: none;
-	margin-left: 0;
-	padding-left: 0;
-}
-
 .v-image .v-responsive .v-carousel__item .theme--light ::v-deep {
 	height: 100% !important;
 }
