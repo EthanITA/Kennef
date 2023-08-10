@@ -26,21 +26,6 @@ export interface StockItemResponse {
 	is_decimal_divided: boolean
 	stock_status_changed_auto: number
 }
-export interface ProductQuery {
-	'searchCriteria[filterGroups][0][filters][0][field]'?: string
-
-	'searchCriteria[filterGroups][0][filters][0][value]'?: string
-
-	'searchCriteria[filterGroups][0][filters][0][conditionType]'?: string
-
-	'searchCriteria[sortOrders][0][field]'?: string
-
-	'searchCriteria[sortOrders][0][direction]'?: string
-
-	'searchCriteria[pageSize]'?: number
-
-	'searchCriteria[currentPage]'?: number
-}
 
 export interface Product {
 	id: number
@@ -85,4 +70,19 @@ interface MediaGalleryEntry {
 interface CustomAttribute {
 	attribute_code: string
 	value: string | string[]
+}
+export interface ProductQuery {
+	'searchCriteria[filterGroups][0][filters][0][field]'?: keyof Product
+
+	'searchCriteria[filterGroups][0][filters][0][value]'?: string
+
+	'searchCriteria[filterGroups][0][filters][0][conditionType]'?: string
+
+	'searchCriteria[sortOrders][0][field]'?: keyof Product
+
+	'searchCriteria[sortOrders][0][direction]'?: string
+
+	'searchCriteria[pageSize]'?: number
+
+	'searchCriteria[currentPage]'?: number
 }
