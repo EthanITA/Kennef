@@ -1,7 +1,7 @@
 <template>
 	<v-row no-gutters>
 		<v-col v-for="(product, index) in products" :key="index" class="pa-0" cols="4">
-			<ProductCard :key="product.id" :product="product" />
+			<ProductCard :key="product.id" :product="product" class="tw-h-full" />
 		</v-col>
 	</v-row>
 </template>

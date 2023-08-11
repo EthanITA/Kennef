@@ -5,7 +5,7 @@
 				:scale-factor="1.015"
 				:transition="0.1"
 				background-color="rgba(134, 134, 134, 0.2)"
-				class="pa-2"
+				class="pa-2 tw-h-full"
 				style="cursor: pointer"
 			>
 				<v-img
