@@ -54,6 +54,7 @@ const isCheckout = route.path === '/checkout'
 
 ul
   list-style: disc !important
+  margin-bottom: 2rem !important
 
 strong
   @apply tw-font-black #{!important}
@@ -66,7 +67,8 @@ strong
 .v-application
   h1,
   p,
-  li
+  li,
+  table
     @include textColor($color: $secondary)
     font-family: $font-family, sans-serif !important
   font-family: $font-family, sans-serif !important
