@@ -6,6 +6,5 @@ Vue.filter('currency', (value: number) => {
 			style: 'currency',
 			currency: 'EUR'
 		})
-		.replace('.', ',')
 		.replace('€', '€ ')
 })
