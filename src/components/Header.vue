@@ -26,7 +26,7 @@
 				<span>{{ link.title }}</span>
 			</v-btn>
 			<SearchButton />
-			<ShopPanel v-if="showPanel" class="navigation-container" />
+			<ShopPanel v-show="showPanel" class="navigation-container" />
 		</div>
 
 		<div v-if="!noIcons">
@@ -62,6 +62,7 @@ const noHeader = ref(false)
 const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart']
 const noIconsPaths = ['/cart']
 const noHeaderPaths = ['/login', '/checkout']
+
 watch(
 	currentPath.value,
 	() => {

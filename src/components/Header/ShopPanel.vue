@@ -1,19 +1,23 @@
 <template>
-	<v-container class="white">
+	<v-container class="white tw-shadow-xl">
 		<v-row>
-			<v-col v-for="categoryList in categoriesList" :key="categoryList.name" :cols="3">
-				<p class="primary--text font-weight-bold">{{ categoryList.name }}</p>
+			<v-col
+				v-for="category in sortBy(store.topLevelCategories, 'name')"
+				:key="category.id"
+				:cols="12 / Math.max(store.topLevelCategories.length, 5)"
+			>
+				<p class="primary--text font-weight-bold">{{ category.name }}</p>
 				<router-link
-					v-for="subCat in categoryList.subs"
-					:key="subCat.name"
-					:to="subCat.url"
+					v-for="subcategory in sortBy(store.parentCategories[category.id] || [], 'name')"
+					:key="subcategory.id"
+					:to="`/shop?category=${subcategory.id}`"
 					style="text-decoration: none"
 				>
-					<p style="line-height: 1.3">{{ subCat.name }}</p>
+					<p style="line-height: 1.3">{{ subcategory.name }}</p>
 				</router-link>
 			</v-col>
 		</v-row>
-		<v-row>
+		<v-row v-if="false">
 			<v-col>
 				<p class="primary--text font-weight-bold">{{ brandsList.name }}</p>
 				<v-row>
@@ -34,8 +38,13 @@
 	</v-container>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { brands } from '@/global'
+import { categoriesStore } from '@/store/categories'
+import { sortBy } from 'lodash'
+
+const store = categoriesStore()
+store.getCategories()
 
 interface ShopPanelCategory {
 	name: string
@@ -45,42 +54,12 @@ interface ShopPanelCategory {
 	}[]
 }
 
-const categoriesList = ref<ShopPanelCategory[]>([
-	{
-		name: 'Abbigliamento',
-		subs: []
-	},
-	{
-		name: 'Automotive',
-		subs: []
-	},
-	{
-		name: 'Lavorazione metallo',
-		subs: []
-	},
-	{
-		name: 'Utensileria',
-		subs: []
-	}
-])
-
 const brandsList = ref<ShopPanelCategory>({
 	name: 'Brands',
 	subs: brands.map((b) => ({
 		name: b,
 		url: `/shop?brand=${b}`
 	}))
-})
-
-onMounted(() => {
-	const subs = ['Categoria 1', 'Categoria 2', 'Categoria 3', 'Categoria 4', 'Categoria 5']
-
-	categoriesList.value.forEach((c) => {
-		c.subs = subs.map((s) => ({
-			name: s,
-			url: `/shop?category=${s}`
-		}))
-	})
 })
 </script>
 

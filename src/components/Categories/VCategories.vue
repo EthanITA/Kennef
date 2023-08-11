@@ -13,7 +13,9 @@
 
 <script lang="ts" setup>
 import CategoryCard from '@/components/Categories/CategoryCard.vue'
+import { categoriesStore } from '@/store/categories'
 
+const store = categoriesStore()
 const categories = [
 	{
 		name: 'Abbigliamento',
