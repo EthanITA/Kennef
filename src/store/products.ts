@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { kennef_axios } from '@/store/api'
 import { Product, ProductQuery } from '@/types/product'
 import { stocksStore } from '@/store/stocks'
-import _ from 'lodash'
+import _, { sortBy } from 'lodash'
 
 export const productsStore = defineStore('products', () => {
 	const stocks = stocksStore()
@@ -60,7 +60,7 @@ export const productsStore = defineStore('products', () => {
 			.map((res: any) => res.value[0])
 		product.value = {
 			...prod,
-			configurable_products
+			configurable_products: sortBy(configurable_products, 'name')
 		}
 	}
 

@@ -9,9 +9,7 @@
 						<v-col :cols="12">
 							<v-carousel v-model="activeImage" hide-delimiters show-arrows>
 								<v-carousel-item
-									v-for="(item, i) in store.getImgUrl(
-										(store.product?.configurable_products || [])[0]
-									)"
+									v-for="(item, i) in store.getImgUrl(selectedProduct)"
 									:key="i"
 									:src="item"
 								/>
@@ -45,7 +43,7 @@
 				</div>
 				<v-divider class="my-5" />
 				<div class="d-flex align-center">
-					<Price :price="productPrice" class="py-0 text-h6" />
+					<Price :price="selectedProduct?.price || 0" class="py-0 text-h6" />
 					<span class="ml-4 text-caption grey--text font-weight-semibold">IVA INCLUSA</span>
 				</div>
 				<v-divider class="my-5" />
@@ -54,6 +52,7 @@
 					<v-row class="d-flex">
 						<v-col v-for="(cat, idx) in store.product?.configurable_products || []" :key="idx" :cols="2">
 							<v-card
+								:disabled="!cat.stock?.is_in_stock"
 								:style="activeProductCategory === idx && 'border: 3px #003f4b solid !important;'"
 								class="rounded-0"
 								color="grey lighten-2"
@@ -68,9 +67,13 @@
 							</v-card>
 						</v-col>
 					</v-row>
-					<p class="mt-2">Colore : {{ store.product?.configurable_products[activeProductCategory].name }}</p>
+					<p v-if="selectedProduct" class="mt-2">
+						Configurazione:
+						<span class="font-weight-bold">{{ selectedProduct.name }}</span>
+					</p>
 				</div>
 				<v-select
+					v-if="false"
 					v-model="selectedSize"
 					:items="sortBy(sizes.map((size) => attributes.sizes[size]))"
 					class="rounded-0"
@@ -103,12 +106,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { productsStore } from '@/store/products'
 import { useRoute } from 'vue-router/composables'
 import { sortBy, toNumber } from 'lodash'
 import { attributeStore } from '@/store/attributes'
 import Price from '@/components/kennef/Price.vue'
+import { Product } from '@/types/product'
 
 const store = productsStore()
 const attributes = attributeStore()
@@ -122,14 +126,20 @@ const selectedSize = ref<string | null>(null)
 const sizes = computed<string[]>(() =>
 	(store.product?.configurable_products || []).map((p) => store.getSize(p)).filter((size) => size)
 )
-const productPrice = computed<number>(() => {
-	const products = store.product?.configurable_products || []
-	if (!selectedSize.value) return products[0]?.price || 0
-	const selectedSizeValue = Object.entries(attributes.sizes).find(([_, value]) => value === selectedSize.value)?.[0]
-	return products.find((p) => store.getSize(p) === selectedSizeValue)?.price || 0
+
+const activeImage = ref<number>(0)
+const activeProductCategory = ref<number>(0)
+const selectedProduct = computed<Product | undefined>(() => {
+	const prods = store.product?.configurable_products || []
+	return prods[activeProductCategory.value]
 })
 
-const items = [
+watch(selectedProduct, (product) => {
+	if (!product) return
+	selectedSize.value = store.getSize(product)
+})
+
+const items = computed(() => [
 	{
 		text: 'Home',
 		disabled: false,
@@ -141,14 +151,11 @@ const items = [
 		href: '/shop'
 	},
 	{
-		text: 'Cacciavite generico',
+		text: store.product?.name || '',
 		disabled: true,
 		href: 'breadcrumbs_link_2'
 	}
-]
-
-const activeImage = ref<number>(0)
-const activeProductCategory = ref<number>(0)
+])
 
 const setActiveImage = (index: number) => {
 	activeImage.value = index
