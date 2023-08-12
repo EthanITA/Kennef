@@ -12,7 +12,12 @@
 					<v-sheet color="white" style="width: 100%; height: 100%">
 						<v-row>
 							<v-col cols="12" lg="12" md="12" xl="12">
-								<ProductItem v-for="product in products" :key="product.name" :product="product" />
+								<ProductItem
+									v-for="item in store.cart?.items || []"
+									:key="item.item_id"
+									:medias="store.medias[item.sku]"
+									:product="item"
+								/>
 							</v-col>
 						</v-row>
 					</v-sheet>
@@ -21,7 +26,11 @@
 			<v-col cols="12" lg="4" md="4" style="height: 80vh" xl="4">
 				<!-- RIGHT COL -->
 				<div class="flex-col" style="height: 100%">
-					<CartPrice :discount="0" :price="14.44" class="flex-grow-1" />
+					<CartPrice
+						:discount="store.total?.discount_amount || 0"
+						:price="store.total?.subtotal_incl_tax || 0"
+						class="flex-grow-1"
+					/>
 					<CheckoutButtons />
 				</div>
 			</v-col>
@@ -31,9 +40,11 @@
 
 <script lang="ts" setup>
 import ProductItem from './ProductItem.vue'
-import Product from '@/models/Product'
 import CartPrice from '@/components/Checkout/CartPrice.vue'
 import CheckoutButtons from '@/components/Checkout/CheckoutButtons.vue'
+import { useCart } from '@/store/cart'
+
+const store = useCart()
 
 const items = [
 	{
@@ -55,7 +66,6 @@ const items = [
 		disabled: true
 	}
 ]
-const products = Product.getRandomProducts()
 </script>
 <style scoped>
 >>> a.v-breadcrumbs__item {

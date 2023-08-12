@@ -2,7 +2,7 @@
 	<div class="d-flex">
 		<Select
 			v-for="(filter, idx) in filters"
-			:key="filter.name"
+			:key="idx"
 			v-model="filter.model"
 			:background-color="filter.model ? 'secondary' : ''"
 			:class="{ 'pr-4': idx !== filters.length - 1 }"

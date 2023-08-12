@@ -63,6 +63,8 @@ export const productsStore = defineStore('products', () => {
 			configurable_products: sortBy(configurable_products, 'name')
 		}
 	}
+	const getMedias = (sku: Product['sku']) =>
+		kennef_axios.get<Product['media_gallery_entries']>(`products/${sku}/media`).then((res) => res.data)
 
 	watch(current_page, (val) => {
 		if (!val) return
@@ -92,6 +94,7 @@ export const productsStore = defineStore('products', () => {
 		getSize: (prod: Product): string => {
 			const size = prod.custom_attributes.find((attr) => attr.attribute_code === 'taglia')
 			return (size?.value as string) ?? ''
-		}
+		},
+		getMedias
 	}
 })

@@ -41,33 +41,32 @@
 import GroupedProductsCard from '@/components/Shop/GroupedProductsCard.vue'
 
 import Button from '@/components/kennef/Button.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import FilterBar from '@/components/Shop/FilterBar.vue'
-import { brands } from '@/global'
 import { productsStore } from '@/store/products'
+import { categoriesStore } from '@/store/categories'
+import { differenceBy, sortBy, toNumber } from 'lodash'
+import { useRoute } from 'vue-router/composables'
 
 const store = productsStore()
 store.getFirstPage()
 const enableFilter = ref<boolean>(false)
-const filters = ref<
+
+const { categories, topLevelCategories, idCategories } = categoriesStore()
+
+const filters = computed<
 	{
 		name: string
 		model: any
 		placeholder?: string
 		options: string[] | any
 	}[]
->([
-	{
-		name: 'Brand',
-		model: '',
-		placeholder: 'Brand',
-		options: brands
-	},
+>(() => [
 	{
 		name: 'Categoria',
-		model: '',
+		model: idCategories[toNumber(useRoute().query.category)]?.name || '',
 		placeholder: 'Categoria',
-		options: []
+		options: sortBy(differenceBy(categories, topLevelCategories, 'id').map((c) => c.name))
 	},
 	{
 		name: 'Fascia di prezzo',
