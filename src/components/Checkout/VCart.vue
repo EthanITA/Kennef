@@ -53,6 +53,7 @@ import ProductItem from './ProductItem.vue'
 import CartPrice from '@/components/Checkout/CartPrice.vue'
 import CheckoutButtons from '@/components/Checkout/CheckoutButtons.vue'
 import { useCart } from '@/store/cart'
+import { onMounted } from 'vue'
 
 const store = useCart()
 
@@ -76,6 +77,8 @@ const items = [
 		disabled: true
 	}
 ]
+
+onMounted(store.getCart)
 </script>
 <style scoped>
 >>> a.v-breadcrumbs__item {

@@ -86,7 +86,15 @@
 					return-object
 					single-line
 				></v-select>
-				<v-btn block class="rounded-0" color="primary" depressed large>
+				<v-btn
+					:disabled="!selectedProduct?.sku || addingToCart"
+					block
+					class="rounded-0"
+					color="primary"
+					depressed
+					large
+					@click="addToCart"
+				>
 					<span class="white--text text-button font-weight-semibold"> Aggiungi al carrello </span>
 				</v-btn>
 				<h4 class="text-h4 secondary--text font-weight-regular my-6">Descrizione Prodotto</h4>
@@ -109,10 +117,11 @@
 import { computed, ref, watch } from 'vue'
 import { productsStore } from '@/store/products'
 import { useRoute } from 'vue-router/composables'
-import { sortBy, toNumber } from 'lodash'
+import { debounce, sortBy, toNumber } from 'lodash'
 import { attributeStore } from '@/store/attributes'
 import Price from '@/components/kennef/Price.vue'
 import { Product } from '@/types/product'
+import { useCart } from '@/store/cart'
 
 const store = productsStore()
 const attributes = attributeStore()
@@ -133,6 +142,14 @@ const selectedProduct = computed<Product | undefined>(() => {
 	const prods = store.product?.configurable_products || []
 	return prods[activeProductCategory.value]
 })
+const addingToCart = ref<boolean>(false)
+const addToCart = debounce(() => {
+	if (!selectedProduct.value?.sku) return
+	addingToCart.value = true
+	useCart()
+		.addToCart({ sku: selectedProduct.value.sku, qty: 1 })
+		.then(() => (addingToCart.value = false))
+}, 100)
 
 watch(selectedProduct, (product) => {
 	if (!product) return

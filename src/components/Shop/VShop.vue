@@ -41,7 +41,7 @@
 import GroupedProductsCard from '@/components/Shop/GroupedProductsCard.vue'
 
 import Button from '@/components/kennef/Button.vue'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import FilterBar from '@/components/Shop/FilterBar.vue'
 import { productsStore } from '@/store/products'
 import { categoriesStore } from '@/store/categories'
@@ -49,7 +49,6 @@ import { differenceBy, sortBy, toNumber } from 'lodash'
 import { useRoute } from 'vue-router/composables'
 
 const store = productsStore()
-store.getFirstPage()
 const enableFilter = ref<boolean>(false)
 
 const { categories, topLevelCategories, idCategories } = categoriesStore()
@@ -75,4 +74,5 @@ const filters = computed<
 		options: []
 	}
 ])
+onMounted(store.getFirstPage)
 </script>

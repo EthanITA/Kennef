@@ -48,7 +48,7 @@ export const useCart = defineStore('cart', () => {
 					quote_id: cartId.value
 				}
 			})
-			.then((res) => (cart.value?.items || []).push(res.data))
+			.then(getCart)
 	const removeItem = async (itemId: CartItem['item_id']) =>
 		kennef_axios.delete(`carts/${cartId.value}/items/${itemId}`).then(getCart)
 
