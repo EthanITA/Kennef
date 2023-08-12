@@ -11,13 +11,23 @@
 				<v-container>
 					<v-sheet color="white" style="width: 100%; height: 100%">
 						<v-row>
-							<v-col cols="12" lg="12" md="12" xl="12">
+							<v-col v-if="(store.cart?.items || []).length" cols="12" lg="12" md="12" xl="12">
 								<ProductItem
-									v-for="item in store.cart?.items || []"
+									v-for="item in store.cart?.items"
 									:key="item.item_id"
 									:medias="store.medias[item.sku]"
 									:product="item"
 								/>
+							</v-col>
+							<v-col
+								v-else
+								class="tw-flex tw-justify-center tw-items-center tw-p-32"
+								cols="12"
+								lg="12"
+								md="12"
+								xl="12"
+							>
+								<p class="tw-text-2xl ma-0">Il tuo carrello è vuoto</p>
 							</v-col>
 						</v-row>
 					</v-sheet>
