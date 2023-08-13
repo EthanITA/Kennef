@@ -14,6 +14,7 @@ export const usePreference = (name = 'default') => {
 		watch(refs, () => {
 			const preference = useLocalStorage<Record<string, any>>('preferenceStore', {})
 			preference.value[name] = reactive(refsObject)
+			window.localStorage.setItem('preferenceStore', JSON.stringify(preference.value))
 		})
 	}
 	return {

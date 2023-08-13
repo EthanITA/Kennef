@@ -14,11 +14,13 @@ export const useCart = defineStore('cart', () => {
 	const cartId = ref<Cart['id']>(0)
 	const cart = ref<Cart>()
 	const total = ref<CartTotal>()
-	const getCart = () =>
-		Promise.allSettled([
-			kennef_axios.get<Cart>(`carts/${cartId.value}`).then((res) => (cart.value = res.data)),
-			getTotal()
-		])
+	const getCart = () => {
+		if (cartId.value)
+			return Promise.allSettled([
+				kennef_axios.get<Cart>(`carts/${cartId.value}`).then((res) => (cart.value = res.data)),
+				getTotal()
+			])
+	}
 
 	const createCart = () => kennef_axios.post<string>('carts').then((res) => (cartId.value = toNumber(res.data)))
 	const medias = ref<Record<Product['sku'], string[]>>({})
@@ -39,8 +41,9 @@ export const useCart = defineStore('cart', () => {
 	const getTotal = async () =>
 		kennef_axios.get<CartTotal>(`carts/${cartId.value}/totals`).then((res) => (total.value = res.data))
 
-	const addToCart = async ({ sku, qty }: AddToCartPayload) =>
-		kennef_axios
+	const addToCart = async ({ sku, qty }: AddToCartPayload) => {
+		if (!cartId.value) await createCart()
+		return await kennef_axios
 			.post<CartItem>(`carts/${cartId.value}/items`, {
 				cartItem: {
 					sku,
@@ -49,6 +52,7 @@ export const useCart = defineStore('cart', () => {
 				}
 			})
 			.then(getCart)
+	}
 	const removeItem = async (itemId: CartItem['item_id']) =>
 		kennef_axios.delete(`carts/${cartId.value}/items/${itemId}`).then(getCart)
 
@@ -64,7 +68,7 @@ export const useCart = defineStore('cart', () => {
 
 	watch(cartId, getCart)
 	watch(
-		() => cart.value?.items_count,
+		() => [cart.value?.items, cartId.value],
 		() => cart.value?.items && getMedias(cart.value.items)
 	)
 
