@@ -31,7 +31,7 @@
 
 		<div v-if="!noIcons">
 			<div v-if="!showLogout" class="btns-r ml-12">
-				<v-btn color="secondary" text x-small @click="$router.push('/account')">
+				<v-btn v-if="false" color="secondary" text x-small @click="$router.push('/account')">
 					<v-icon>mdi-account-outline</v-icon>
 				</v-btn>
 

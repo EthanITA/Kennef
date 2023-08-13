@@ -1,5 +1,5 @@
 <template>
-	<VAccount style="width: 80%" />
+	<VAccount v-if="false" style="width: 80%" />
 </template>
 
 <script setup>

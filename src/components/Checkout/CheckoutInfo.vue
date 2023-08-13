@@ -23,7 +23,6 @@
 </template>
 
 <script lang="ts" setup>
-import LoginOrGuest from '@/components/Checkout/Steps/LoginOrGuest.vue'
 import Contacts from '@/components/Checkout/Steps/Contacts.vue'
 import Payment from '@/components/Checkout/Steps/Payment.vue'
 import Shipping from '@/components/Checkout/Steps/Shipping.vue'
@@ -31,10 +30,10 @@ import { ref } from 'vue'
 import ShippingMethod from '@/components/Checkout/Steps/ShippingMethod.vue'
 
 const steps = [
-	{
+	/*{
 		title: 'Autenticazione',
 		component: LoginOrGuest
-	},
+	},*/
 	{
 		title: 'Informazioni di contatto',
 		component: Contacts
