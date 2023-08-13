@@ -1,6 +1,6 @@
 <template>
 	<div class="flex-col gap-1">
-		<v-row v-for="product in store.cart?.items" align="center">
+		<v-row v-for="product in store.cart?.items" :key="product.item_id" align="center">
 			<v-col class="flex-grow-0">
 				<div style="position: relative">
 					<v-img
