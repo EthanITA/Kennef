@@ -84,7 +84,7 @@ export const productsStore = defineStore('products', () => {
 		getImgUrl: (prod?: Product): string[] => {
 			if (!prod?.media_gallery_entries?.length) return []
 			return prod.media_gallery_entries.map(
-				(media_gallery) => `${process.env.VUE_APP_MAGENTO_MEDIA}/${media_gallery.file}`
+				(media_gallery) => `${process.env.VUE_APP_MAGENTO_MEDIA}/product/${media_gallery.file}`
 			)
 		},
 		getFirstPage: () => {

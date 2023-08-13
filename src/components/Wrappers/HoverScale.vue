@@ -8,6 +8,7 @@
 				'--transition': `${transition ?? 0.3}s`
 			}"
 			class="hover-scale"
+			v-bind:class="$attrs.class"
 		>
 			<slot />
 		</selected>

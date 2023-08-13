@@ -60,6 +60,10 @@ export const categoriesStore = defineStore('categories', () => {
 		parentCategories,
 		idCategories,
 		topLevelCategories,
-		getCategories
+		getCategories,
+		getMediaUrl: (category: Category) => {
+			const url = category.custom_attributes.find((attr) => attr.attribute_code === 'image')?.value
+			return url ? `${process.env.VUE_APP_MAGENTO_URL}/${url}` : ''
+		}
 	}
 })
