@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { usePreference } from '@/store/preference'
 import { ref, watch } from 'vue'
 import { kennef_axios } from '@/store/api'
-import { groupBy, mapValues, toNumber } from 'lodash'
+import { groupBy, mapValues } from 'lodash'
 import { AddToCartPayload, Cart, CartItem, CartTotal } from '@/types/cart'
 import { Product } from '@/types/product'
 import { productsStore } from '@/store/products'
@@ -11,18 +11,18 @@ export const useCart = defineStore('cart', () => {
 	const { setWatcher } = usePreference('cart')
 	const prodStore = productsStore()
 
-	const cartId = ref<Cart['id']>(0)
+	const cartId = ref<Cart['id']>()
 	const cart = ref<Cart>()
 	const total = ref<CartTotal>()
 	const getCart = () => {
 		if (cartId.value)
 			return Promise.allSettled([
-				kennef_axios.get<Cart>(`carts/${cartId.value}`).then((res) => (cart.value = res.data)),
+				kennef_axios.get<Cart>(`guest-carts/${cartId.value}`).then((res) => (cart.value = res.data)),
 				getTotal()
 			])
 	}
 
-	const createCart = () => kennef_axios.post<string>('carts').then((res) => (cartId.value = toNumber(res.data)))
+	const createCart = () => kennef_axios.post<string>('guest-carts').then((res) => (cartId.value = res.data))
 	const medias = ref<Record<Product['sku'], string[]>>({})
 
 	const getMedias = async (items: CartItem[]) => {
@@ -39,12 +39,12 @@ export const useCart = defineStore('cart', () => {
 	}
 
 	const getTotal = async () =>
-		kennef_axios.get<CartTotal>(`carts/${cartId.value}/totals`).then((res) => (total.value = res.data))
+		kennef_axios.get<CartTotal>(`guest-carts/${cartId.value}/totals`).then((res) => (total.value = res.data))
 
 	const addToCart = async ({ sku, qty }: AddToCartPayload) => {
 		if (!cartId.value) await createCart()
 		return await kennef_axios
-			.post<CartItem>(`carts/${cartId.value}/items`, {
+			.post<CartItem>(`guest-carts/${cartId.value}/items`, {
 				cartItem: {
 					sku,
 					qty,
@@ -54,11 +54,11 @@ export const useCart = defineStore('cart', () => {
 			.then(getCart)
 	}
 	const removeItem = async (itemId: CartItem['item_id']) =>
-		kennef_axios.delete(`carts/${cartId.value}/items/${itemId}`).then(getCart)
+		kennef_axios.delete(`guest-carts/${cartId.value}/items/${itemId}`).then(getCart)
 
 	const updateItem = async (itemId: CartItem['item_id'], qty: number) =>
 		kennef_axios
-			.put(`carts/${cartId.value}/items/${itemId}`, {
+			.put(`guest-carts/${cartId.value}/items/${itemId}`, {
 				cartItem: {
 					qty,
 					quote_id: cartId.value

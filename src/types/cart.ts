@@ -76,7 +76,7 @@ export interface CartItem extends AddToCartPayload {
 }
 
 export interface Cart {
-	id: number
+	id: string
 	created_at: string
 	updated_at: string
 	is_active: boolean
