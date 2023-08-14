@@ -2,6 +2,7 @@
 	<v-text-field
 		class="custom-search-field"
 		hide-details
+		required
 		style="border-radius: 0"
 		v-bind="{ ...$attrs, ...props }"
 		@input="$emit('input', $event)"

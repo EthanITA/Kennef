@@ -23,11 +23,11 @@
 </template>
 
 <script lang="ts" setup>
-import Contacts from '@/components/Checkout/Steps/Contacts.vue'
 import Payment from '@/components/Checkout/Steps/Payment.vue'
 import Shipping from '@/components/Checkout/Steps/Shipping.vue'
 import { ref } from 'vue'
 import ShippingMethod from '@/components/Checkout/Steps/ShippingMethod.vue'
+import Contacts from '@/components/Checkout/Steps/Contacts.vue'
 
 const steps = [
 	/*{
@@ -39,7 +39,7 @@ const steps = [
 		component: Contacts
 	},
 	{
-		title: 'Informazioni di spedizione',
+		title: 'Indirizzo di Fatturazione',
 		component: Shipping
 	},
 	{

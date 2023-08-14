@@ -1,11 +1,13 @@
 <template>
 	<div>
 		<div v-if="!final">
-			<Button :disabled="!valid" medium @click="valid && $emit('next')">continua</Button>
-			<Button v-if="!noCancel" color="transparent" medium @click="$emit('prev')">indietro</Button>
+			<Button :disabled="!valid" medium type="submit" @click="valid && $emit('next')">continua</Button>
+			<Button v-if="!noCancel" color="transparent" medium type="reset" @click="$emit('prev')">indietro</Button>
 		</div>
 		<div v-else class="flex-col gap-1">
-			<Button :disabled="!valid" class="mt-2" medium @click="valid && $emit('submit')">conferma</Button>
+			<Button :disabled="!valid" class="mt-2" medium type="submit" @click="valid && $emit('submit')"
+				>conferma</Button
+			>
 			<Button class="align-center" color="transparent" small transparent>
 				<v-spacer />
 				<v-icon>mdi-chevron-left</v-icon>

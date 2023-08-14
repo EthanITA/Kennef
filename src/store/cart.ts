@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { usePreference } from '@/store/preference'
-import { ref, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { kennef_axios } from '@/store/api'
 import { groupBy, mapValues } from 'lodash'
-import { AddToCartPayload, Cart, CartItem, CartTotal } from '@/types/cart'
+import { AddToCartPayload, Cart, CartAddress, CartItem, CartTotal } from '@/types/cart'
 import { Product } from '@/types/product'
 import { productsStore } from '@/store/products'
 
@@ -14,12 +14,45 @@ export const useCart = defineStore('cart', () => {
 	const cartId = ref<Cart['id']>()
 	const cart = ref<Cart>()
 	const total = ref<CartTotal>()
+	const checkout = reactive<{
+		shippingAddress: CartAddress
+		billingAddress: CartAddress
+		shippingMethod: any
+		paymentMethod: any
+	}>({
+		// @ts-ignore
+		shippingAddress: {
+			street: []
+		},
+		// @ts-ignore
+		billingAddress: {
+			street: []
+		},
+		shippingMethod: {},
+		paymentMethod: {}
+	})
+
 	const getCart = () => {
 		if (cartId.value)
 			return Promise.allSettled([
 				kennef_axios.get<Cart>(`guest-carts/${cartId.value}`).then((res) => (cart.value = res.data)),
-				getTotal()
+				getTotal(),
+				getBillingAddress()
 			])
+	}
+
+	const getBillingAddress = () =>
+		kennef_axios
+			.get<CartAddress>(`guest-carts/${cartId.value}/billing-address`)
+			.then((res) => (checkout.billingAddress = res.data))
+
+	const setBillingAddress = () => {
+		checkout.billingAddress.id = undefined
+		return kennef_axios
+			.post(`guest-carts/${cartId.value}/billing-address`, {
+				address: checkout.billingAddress
+			})
+			.then(getBillingAddress)
 	}
 
 	const createCart = () => kennef_axios.post<string>('guest-carts').then((res) => (cartId.value = res.data))
@@ -76,11 +109,13 @@ export const useCart = defineStore('cart', () => {
 	return {
 		cartId,
 		cart,
+		checkout,
 		total,
 		medias,
 		createCart,
 		getCart,
 		addToCart,
+		setBillingAddress,
 		removeItem,
 		updateItem
 	}
