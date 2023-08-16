@@ -5,6 +5,7 @@
 		required
 		style="border-radius: 0"
 		v-bind="{ ...$attrs, ...props, ...$on, ...$emit }"
+		@blur="$emit('blur', $event)"
 		@input="$emit('input', $event)"
 	/>
 </template>
@@ -17,7 +18,7 @@ const props = defineProps<{
 	label?: string
 }>()
 
-defineEmits(['input'])
+defineEmits(['input', 'blur'])
 defineExpose<{
 	value: Ref<string | undefined>
 }>({

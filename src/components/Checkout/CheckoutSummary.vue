@@ -23,7 +23,7 @@
 			</v-col>
 		</v-row>
 		<v-divider />
-		<template v-if="!completed">
+		<template v-if="!completed && false">
 			<div class="d-flex gap-1 align-center">
 				<Textfield label="Codice sconto" outlined />
 				<Button> <v-icon x-large>mdi-arrow-right</v-icon> </Button>

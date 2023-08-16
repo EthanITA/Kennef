@@ -7,8 +7,14 @@
 			outlined
 		/>
 		<Textfield v-model="store.checkout.billingAddress.city" :rules="[(v) => !!v]" label="Città *" outlined />
-		<div class="tw-relative" tabindex="2" @click="regionMenu = !regionMenu">
-			<Textfield :rules="[(v) => !!v && region?.name === v]" :value="regionField" label="Provincia *" outlined />
+		<div class="tw-relative" tabindex="2" @blur="regionMenu = false" @click="regionMenu = true">
+			<Textfield
+				v-model="regionField"
+				:rules="[(v) => !!v && region?.name === v]"
+				label="Provincia *"
+				outlined
+				@input="regionMenu = true"
+			/>
 
 			<div class="tw-absolute tw-top-0 tw-right-0 tw-h-full tw-flex tw-items-center tw-pr-3">
 				<v-icon :class="{ 'tw-rotate-180': regionMenu }" class="transition-all">mdi-chevron-down</v-icon>
@@ -19,11 +25,11 @@
 				style="border-color: #9e9e9e !important"
 			>
 				<div
-					v-for="reg in italy?.available_regions || []"
+					v-for="reg in regionsList"
 					:key="reg.id"
 					v-ripple
 					class="tw-p-3 tw-py-3 tw-cursor-pointer tw-border-b tw-border-gray-300 tw-bg-white tw-text-body-1"
-					@click="store.checkout.billingAddress.region_id = toNumber(reg.id)"
+					@click.stop="store.checkout.billingAddress.region_id = toNumber(reg.id)"
 				>
 					<p class="ma-0">{{ reg.name }}</p>
 				</div>
@@ -77,6 +83,10 @@ const italy = computed<Country | undefined>(() => countriesStore.idCountry['IT']
 const region = computed<Country['available_regions'][number] | undefined>(() =>
 	(italy.value?.available_regions || []).find((r) => toNumber(r.id) === store.checkout.billingAddress.region_id)
 )
+const regionsList = computed(() =>
+	(italy.value?.available_regions || []).filter((r) => r.name.toLowerCase().includes(regionField.value.toLowerCase()))
+)
+
 watch(region, () => {
 	regionField.value = region.value?.name ?? ''
 	store.checkout.billingAddress = {
@@ -85,18 +95,21 @@ watch(region, () => {
 		region: region.value?.name,
 		region_code: region.value?.code
 	}
+	regionMenu.value = false
 })
 
 const validate = async () => {
 	if (valid.value) {
 		await store.setBillingAddress()
 		await store.getShippingMethods()
-		// @ts-ignore
-		emit('next')
 		if (!store.checkout.shippingMethods.length) {
+			await store.setShippingInformation()
+			await store.getPaymentMethods()
 			// @ts-ignore
 			emit('next')
 		}
+		// @ts-ignore
+		emit('next')
 	}
 }
 onMounted(countriesStore.getCountries)

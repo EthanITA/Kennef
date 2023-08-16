@@ -39,7 +39,10 @@ export const useCart = defineStore('cart', () => {
 	const getCart = () => {
 		if (cartId.value)
 			return Promise.allSettled([
-				kennef_axios.get<Cart>(`guest-carts/${cartId.value}`).then((res) => (cart.value = res.data)),
+				kennef_axios.get<Cart>(`guest-carts/${cartId.value}`).then((res) => {
+					if (res.data.is_active) cart.value = res.data
+					else cartId.value = undefined
+				}),
 				getTotal(),
 				getBillingAddress()
 			])
@@ -61,7 +64,7 @@ export const useCart = defineStore('cart', () => {
 		return kennef_axios
 			.post(`guest-carts/${cartId.value}/shipping-information`, {
 				addressInformation: {
-					shipping_address: checkout.shippingAddress,
+					shipping_address: checkout.billingAddress,
 					billing_address: checkout.billingAddress,
 					shipping_method_code: shippingMethod.value?.method_code,
 					shipping_carrier_code: shippingMethod.value?.carrier_code
@@ -69,6 +72,13 @@ export const useCart = defineStore('cart', () => {
 			})
 			.then(getCart)
 	}
+
+	const placeOrder = () =>
+		kennef_axios.put(`guest-carts/${cartId.value}/order`, {
+			paymentMethod: {
+				method: paymentMethod.value?.code
+			}
+		})
 
 	const setBillingAddress = () => {
 		checkout.billingAddress.id = undefined
@@ -145,6 +155,7 @@ export const useCart = defineStore('cart', () => {
 		shippingMethod,
 		paymentMethod,
 		createCart,
+		placeOrder,
 		getCart,
 		addToCart,
 		setShippingInformation,

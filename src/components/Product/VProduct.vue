@@ -125,7 +125,7 @@ import { useCart } from '@/store/cart'
 
 const store = productsStore()
 const attributes = attributeStore()
-
+const cartStore = useCart()
 store.getProduct(toNumber(useRoute().params.id as string))
 attributes.getSizes()
 attributes.getColors()
@@ -146,9 +146,7 @@ const addingToCart = ref<boolean>(false)
 const addToCart = debounce(() => {
 	if (!selectedProduct.value?.sku) return
 	addingToCart.value = true
-	useCart()
-		.addToCart({ sku: selectedProduct.value.sku, qty: 1 })
-		.then(() => (addingToCart.value = false))
+	cartStore.addToCart({ sku: selectedProduct.value.sku, qty: 1 }).then(() => (addingToCart.value = false))
 }, 100)
 
 watch(selectedProduct, (product) => {
