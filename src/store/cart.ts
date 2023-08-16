@@ -25,7 +25,8 @@ export const useCart = defineStore('cart', () => {
 		// @ts-ignore
 		shippingAddress: {
 			street: [],
-			country_id: 'IT'
+			country_id: 'IT',
+			region_id: 0
 		},
 		// @ts-ignore
 		billingAddress: {
@@ -64,7 +65,7 @@ export const useCart = defineStore('cart', () => {
 		return kennef_axios
 			.post(`guest-carts/${cartId.value}/shipping-information`, {
 				addressInformation: {
-					shipping_address: checkout.billingAddress,
+					shipping_address: checkout.shippingAddress,
 					billing_address: checkout.billingAddress,
 					shipping_method_code: shippingMethod.value?.method_code,
 					shipping_carrier_code: shippingMethod.value?.carrier_code

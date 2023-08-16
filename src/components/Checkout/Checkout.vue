@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 import CheckoutSummary from '@/components/Checkout/CheckoutSummary.vue'
 import CheckoutInfo from '@/components/Checkout/CheckoutInfo.vue'
+import { onMounted } from 'vue'
+import { useCart } from '@/store/cart'
+import { useRouter } from 'vue-router/composables'
+
+onMounted(() => {
+	if (!useCart().cartId) useRouter().push('/cart')
+})
 </script>
 
 <template>
