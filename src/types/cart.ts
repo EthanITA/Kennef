@@ -1,8 +1,26 @@
 import { Product } from '@/types/product'
 
+export interface PaymentMethod {
+	code: string
+	title: string
+}
+
+export interface ShippingMethod {
+	carrier_code: string
+	method_code: string | null
+	carrier_title: string
+	method_title?: string // Optional since it's not present in the first item of the payload
+	amount: number
+	base_amount: number
+	available: boolean
+	error_message: string
+	price_excl_tax: number
+	price_incl_tax: number
+}
+
 export interface CartAddress {
 	id?: number
-	region: string
+	region?: string
 	region_id?: number
 	region_code?: string
 	country_id?: string
@@ -82,6 +100,7 @@ interface TotalItem {
 	weee_tax_applied: any | null // This type is not specified in the provided data
 	name: string
 }
+
 interface TotalSegment {
 	code: string
 	title: string

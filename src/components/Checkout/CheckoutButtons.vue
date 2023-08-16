@@ -2,8 +2,10 @@
 	<v-container>
 		<v-sheet class="pa-4 flex-col gap-0.5">
 			<Button @click="$router.push('/checkout')">checkout</Button>
-			<PaypalButton />
-			<PaypalButton instalment />
+			<template v-if="false">
+				<PaypalButton />
+				<PaypalButton instalment />
+			</template>
 		</v-sheet>
 	</v-container>
 </template>

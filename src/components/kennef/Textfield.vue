@@ -4,18 +4,25 @@
 		hide-details
 		required
 		style="border-radius: 0"
-		v-bind="{ ...$attrs, ...props }"
+		v-bind="{ ...$attrs, ...props, ...$on, ...$emit }"
 		@input="$emit('input', $event)"
 	/>
 </template>
 
 <script lang="ts" setup>
+import { Ref, ref } from 'vue'
+
 const props = defineProps<{
 	value?: string
 	label?: string
 }>()
 
 defineEmits(['input'])
+defineExpose<{
+	value: Ref<string | undefined>
+}>({
+	value: ref(props.value)
+})
 </script>
 
 <style lang="sass" scoped>

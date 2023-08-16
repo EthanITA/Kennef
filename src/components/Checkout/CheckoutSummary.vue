@@ -37,12 +37,7 @@
 			</div>
 			<div class="d-flex justify-space-between align-center">
 				<p class="ma-0">Spedizione</p>
-				<Price
-					v-if="store.total?.shipping_incl_tax"
-					:price="store.total?.shipping_incl_tax || 0"
-					no-underline
-				/>
-				<p v-else class="ma-0 text-caption grey--text text--darken-2">Calcolo nel prossimo step</p>
+				<Price :price="store.total?.shipping_incl_tax || 0" no-underline />
 			</div>
 		</div>
 		<v-divider />

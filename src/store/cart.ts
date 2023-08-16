@@ -3,7 +3,7 @@ import { usePreference } from '@/store/preference'
 import { reactive, ref, watch } from 'vue'
 import { kennef_axios } from '@/store/api'
 import { groupBy, mapValues } from 'lodash'
-import { AddToCartPayload, Cart, CartAddress, CartItem, CartTotal } from '@/types/cart'
+import { AddToCartPayload, Cart, CartAddress, CartItem, CartTotal, PaymentMethod, ShippingMethod } from '@/types/cart'
 import { Product } from '@/types/product'
 import { productsStore } from '@/store/products'
 
@@ -14,22 +14,26 @@ export const useCart = defineStore('cart', () => {
 	const cartId = ref<Cart['id']>()
 	const cart = ref<Cart>()
 	const total = ref<CartTotal>()
+	const shippingMethod = ref<ShippingMethod>()
+	const paymentMethod = ref<PaymentMethod>()
 	const checkout = reactive<{
 		shippingAddress: CartAddress
 		billingAddress: CartAddress
-		shippingMethod: any
-		paymentMethod: any
+		shippingMethods: ShippingMethod[]
+		paymentMethods: PaymentMethod[]
 	}>({
 		// @ts-ignore
 		shippingAddress: {
-			street: []
+			street: [],
+			country_id: 'IT'
 		},
 		// @ts-ignore
 		billingAddress: {
-			street: []
+			street: [],
+			country_id: 'IT'
 		},
-		shippingMethod: {},
-		paymentMethod: {}
+		shippingMethods: [],
+		paymentMethods: []
 	})
 
 	const getCart = () => {
@@ -41,19 +45,45 @@ export const useCart = defineStore('cart', () => {
 			])
 	}
 
-	const getBillingAddress = () =>
+	const getShippingMethods = () =>
+		kennef_axios
+			.post(`guest-carts/${cartId.value}/estimate-shipping-methods`, {
+				address: checkout.billingAddress
+			})
+			.then((res) => (checkout.shippingMethods = res.data))
+	const getBillingAddress = () => {
 		kennef_axios
 			.get<CartAddress>(`guest-carts/${cartId.value}/billing-address`)
-			.then((res) => (checkout.billingAddress = res.data))
+			.then((res) => (checkout.billingAddress = { ...res.data, country_id: res.data.country_id ?? 'IT' }))
+	}
+
+	const setShippingInformation = () => {
+		return kennef_axios
+			.post(`guest-carts/${cartId.value}/shipping-information`, {
+				addressInformation: {
+					shipping_address: checkout.shippingAddress,
+					billing_address: checkout.billingAddress,
+					shipping_method_code: shippingMethod.value?.method_code,
+					shipping_carrier_code: shippingMethod.value?.carrier_code
+				}
+			})
+			.then(getCart)
+	}
 
 	const setBillingAddress = () => {
 		checkout.billingAddress.id = undefined
 		return kennef_axios
 			.post(`guest-carts/${cartId.value}/billing-address`, {
-				address: checkout.billingAddress
+				address: checkout.billingAddress,
+				useForShipping: true
 			})
 			.then(getBillingAddress)
 	}
+
+	const getPaymentMethods = () =>
+		kennef_axios
+			.get(`guest-carts/${cartId.value}/payment-methods`)
+			.then((res) => (checkout.paymentMethods = res.data))
 
 	const createCart = () => kennef_axios.post<string>('guest-carts').then((res) => (cartId.value = res.data))
 	const medias = ref<Record<Product['sku'], string[]>>({})
@@ -112,10 +142,15 @@ export const useCart = defineStore('cart', () => {
 		checkout,
 		total,
 		medias,
+		shippingMethod,
+		paymentMethod,
 		createCart,
 		getCart,
 		addToCart,
+		setShippingInformation,
 		setBillingAddress,
+		getShippingMethods,
+		getPaymentMethods,
 		removeItem,
 		updateItem
 	}

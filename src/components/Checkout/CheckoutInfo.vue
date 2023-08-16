@@ -9,6 +9,7 @@
 					<v-stepper-content :step="i + 1" style="border-left: 1px solid #e0e0e0">
 						<component
 							:is="step.component"
+							:is-selected="currentStep === i + 1"
 							class="mt-8"
 							@cancel="$router.push('/cart')"
 							@next="currentStep++"
