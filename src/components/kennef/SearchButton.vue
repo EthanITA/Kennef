@@ -1,6 +1,6 @@
 <template>
 	<div class="flex-grow-1">
-		<v-btn v-if="!enableInput" color="secondary" text @click="enableInput = !enableInput">
+		<v-btn v-if="!enableInput" color="secondary" text @click="enableInput = !enableInput || !!props.expanded">
 			<v-icon>mdi-magnify</v-icon>
 		</v-btn>
 		<Autocomplete
@@ -11,7 +11,7 @@
 			:loading="isLoading"
 			autofocus
 			custom-item
-			@clear="enableInput = false"
+			@clear="enableInput = !!expanded"
 			@input="searchProducts"
 			@search="goToShop"
 		>
@@ -31,9 +31,13 @@ import _ from 'lodash'
 import { productsStore } from '@/store/products'
 import { Product } from '@/types/product'
 
+const props = defineProps<{
+	expanded?: boolean
+}>()
+
 const router = useRouter()
 const store = productsStore()
-const enableInput = ref(false)
+const enableInput = ref(!!props.expanded)
 const search = ref('')
 const items = ref<Product[]>([])
 const isLoading = ref(false)

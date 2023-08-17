@@ -1,16 +1,32 @@
 <template>
-	<v-app-bar v-if="!noHeader" app class="px-4" color="white" dark elevation="0" height="100">
+	<v-app-bar
+		v-if="!noHeader"
+		:class="{
+			white: $vuetify.breakpoint.mdAndUp
+		}"
+		app
+		class="px-4"
+		elevation="0"
+		height="80"
+	>
+		<v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" class="tw-mr-4">
+			<v-icon large>mdi-menu</v-icon>
+		</v-app-bar-nav-icon>
 		<a class="d-flex align-center" @click="$router.push('/')">
 			<v-img
+				:src="
+					$vuetify.breakpoint.smAndDown
+						? require('../assets/mobile/Logo.svg')
+						: require('../assets/logotype.svg')
+				"
 				alt="Kennef Logotype"
-				class="mt-3 hidden-sm-and-down"
 				contain
-				src="../assets/logotype.svg"
 				width="125"
 			/>
 		</a>
 
 		<div
+			v-if="!$vuetify.breakpoint.smAndDown"
 			:class="{ 'border-bottom': showPanel }"
 			class="d-flex ml-4 flex-grow-1 align-center fill-height"
 			style="position: relative"
@@ -29,7 +45,7 @@
 			<ShopPanel v-show="showPanel" class="navigation-container" />
 		</div>
 
-		<div v-if="!noIcons">
+		<div v-if="!noIcons" class="tw-ml-auto">
 			<div v-if="!showLogout" class="btns-r ml-12">
 				<v-btn v-if="false" color="secondary" text x-small @click="$router.push('/account')">
 					<v-icon>mdi-account-outline</v-icon>

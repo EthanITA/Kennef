@@ -1,6 +1,6 @@
 <template>
 	<v-footer v-if="showFooter && component" :color="component.__name === 'MainFooterContent' ? 'secondary' : 'white'">
-		<component :is="component" class="px-14" style="width: 80%" />
+		<component :is="component" :class="{ 'px-14 tw-w-[80%]': $vuetify.breakpoint.mdAndUp }" />
 	</v-footer>
 </template>
 

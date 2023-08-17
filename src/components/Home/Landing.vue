@@ -1,8 +1,17 @@
 <template>
-	<v-container class="pt-10 px-16" style="width: 80%">
-		<v-row>
-			<v-col class="d-flex pt-16">
-				<LandingCardAction>
+	<v-container
+		:class="{
+			'px-16 pt-10 tw-w-[80%]': $vuetify.breakpoint.mdAndUp
+		}"
+	>
+		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4" expanded />
+		<v-row class="tw-relative overflow-x-hidden">
+			<v-col :md="4" class="d-flex pt-16 tw-absolute tw-z-2" cols="8">
+				<LandingCardAction
+					:class="{
+						'tw-w-[80%]': $vuetify.breakpoint.mdAndUp
+					}"
+				>
 					<template #title> Dal bullone in su </template>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In etiam adipiscing ac congue.</p>
 					<template #action>
@@ -10,12 +19,16 @@
 					</template>
 				</LandingCardAction>
 			</v-col>
-			<v-col :cols="8" class="d-flex justify-end">
-				<v-img max-width="700" src="@/assets/BigClaw.png" />
+			<v-col class="d-flex justify-end tw-ml-auto">
+				<v-img
+					:class="{ 'tw-left-[50%]': $vuetify.breakpoint.smAndDown }"
+					max-width="700"
+					src="@/assets/BigClaw.png"
+				/>
 			</v-col>
 		</v-row>
 
-		<v-lazy v-if="topProducts.length">
+		<v-lazy v-if="topProducts.length && $vuetify.breakpoint.mdAndUp">
 			<TopSellerProducts :products="topProducts" class="mt-16" />
 		</v-lazy>
 		<v-lazy class="mt-16">
@@ -37,6 +50,7 @@ import { ref } from 'vue'
 import TopSellerProducts from '@/components/Home/TopSellerProducts.vue'
 import { Product } from '@/types/product'
 import { productsStore } from '@/store/products'
+import SearchButton from '@/components/kennef/SearchButton.vue'
 
 const topProducts = ref<Product[]>([])
 productsStore()

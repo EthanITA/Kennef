@@ -1,5 +1,5 @@
 <template>
-	<v-sheet class="justify-start" color="white" elevation="0">
+	<v-sheet class="justify-start" color="transparent" elevation="0">
 		<h1 class="text-h3 font-weight-regular">
 			<slot name="title" />
 		</h1>

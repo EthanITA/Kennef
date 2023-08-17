@@ -2,7 +2,7 @@
 	<div class="d-flex flex-column brand-list pt-16">
 		<h2 class="mb-11 text-h5 font-weight-regular align-self-center">Cerca tra i migliori brand</h2>
 		<v-row class="flex-child mb-16">
-			<v-col v-for="brand in brands" :key="brand.name" class="d-flex" cols="12" lg="2" md="2" xl="2">
+			<v-col v-for="brand in brands" :key="brand.name" class="d-flex" cols="4" lg="2" md="2" xl="2">
 				<v-img :src="brand.img" class="mr-10" max-width="700"></v-img>
 			</v-col>
 		</v-row>
