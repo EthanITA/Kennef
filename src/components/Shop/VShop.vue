@@ -1,6 +1,10 @@
 <template>
-	<div class="tw-grid tw-justify-center">
-		<v-row>
+	<div
+		:class="{
+			'tw-grid tw-justify-center': store.products.length
+		}"
+	>
+		<v-row v-if="store.products.length">
 			<v-col :cols="2" class="d-flex mt-2">
 				<div class="mx-auto">
 					<Button :outlined="!enableFilter" medium @click="enableFilter = !enableFilter">
@@ -23,6 +27,7 @@
 			</v-col>
 			<v-col :cols="2" />
 		</v-row>
+		<NotFoundContent v-else />
 		<v-row class="justify-center">
 			<v-col :cols="4">
 				<v-pagination
@@ -48,6 +53,7 @@ import { productsStore } from '@/store/products'
 import { categoriesStore } from '@/store/categories'
 import { debounce, differenceBy, sortBy, toNumber } from 'lodash'
 import { useRoute } from 'vue-router/composables'
+import NotFoundContent from '@/components/Product/NoProducts.vue'
 
 const store = productsStore()
 const enableFilter = ref<boolean>(false)
