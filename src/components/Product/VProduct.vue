@@ -1,5 +1,5 @@
 <template>
-	<v-container>
+	<v-container class="tw-p-0">
 		<v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
 
 		<v-row>
@@ -24,8 +24,11 @@
 							cols="2"
 						>
 							<v-card
+								:class="{
+									'mx-2': $vuetify.breakpoint.mdAndUp
+								}"
 								:style="activeImage === i && 'border-bottom: 3px #003f4b solid;'"
-								class="mx-2 rounded-0"
+								class="rounded-0"
 								flat
 								@click="setActiveImage(i)"
 							>
@@ -36,7 +39,13 @@
 					</v-row>
 				</v-container>
 			</v-col>
-			<v-col class="pl-16" cols="12" lg="6" md="6" xl="6">
+			<v-col
+				:class="{ 'pl-16': $vuetify.breakpoint.mdAndUp, 'tw-px-8': $vuetify.breakpoint.mdAndDown }"
+				cols="12"
+				lg="6"
+				md="6"
+				xl="6"
+			>
 				<div class="product-name">
 					<h3 class="text-h4 secondary--text font-weight-regular">{{ store.product?.name }}</h3>
 					<h3 class="text-subtitle-2 grey--text font-weight-regular">SKU : {{ store.product?.sku }}</h3>
