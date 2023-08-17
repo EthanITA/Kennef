@@ -51,9 +51,16 @@
 					<v-icon>mdi-account-outline</v-icon>
 				</v-btn>
 
-				<v-btn color="secondary" text x-small @click="$router.push('/cart')">
-					<v-icon>mdi-shopping-outline</v-icon>
-				</v-btn>
+				<div class="tw-relative">
+					<v-btn color="secondary" text x-small @click="$router.push('/cart')">
+						<v-icon>mdi-shopping-outline</v-icon>
+					</v-btn>
+					<v-badge
+						v-if="store.cart?.items_qty"
+						:content="store.cart.items_qty"
+						class="tw-absolute tw-top-[8px] tw-right-[8px]"
+					/>
+				</div>
 			</div>
 
 			<v-btn v-else color="primary" text x-small @click="$router.push('/')">
@@ -68,6 +75,9 @@ import SearchButton from '@/components/kennef/SearchButton.vue'
 import { ref, watch } from 'vue'
 import ShopPanel from '@/components/Header/ShopPanel.vue'
 import { useRoute } from 'vue-router/composables'
+import { useCart } from '@/store/cart'
+
+const store = useCart()
 
 const showPanel = ref(false)
 const showLogout = ref(false)
