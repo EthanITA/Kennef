@@ -1,11 +1,11 @@
 <template>
-	<v-container class="grey lighten-4" fluid style="min-height: 80vh">
-		<v-row class="mx-16">
+	<v-container :class="{ 'grey lighten-4': $vuetify.breakpoint.mdAndUp }" fluid style="min-height: 80vh">
+		<v-row :class="{ 'mx-16': $vuetify.breakpoint.mdAndUp }">
 			<v-col cols="12" lg="12" md="12" xl="12">
 				<v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
 			</v-col>
 		</v-row>
-		<v-row class="mx-16" style="min-height: 80vh">
+		<v-row :class="{ 'mx-16': $vuetify.breakpoint.mdAndUp }" style="min-height: 80vh">
 			<v-col cols="12" lg="8" md="8" style="height: 100%" xl="8">
 				<!-- LEFT COL -->
 				<v-container>
