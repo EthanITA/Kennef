@@ -95,6 +95,13 @@ export const productsStore = defineStore('products', () => {
 			const size = prod.custom_attributes.find((attr) => attr.attribute_code === 'taglia')
 			return (size?.value as string) ?? ''
 		},
+		searchProducts: (query: string, args: ProductQuery = {}) =>
+			getProducts({
+				'searchCriteria[filterGroups][1][filters][0][field]': 'name',
+				'searchCriteria[filterGroups][1][filters][0][value]': `%${query}%`,
+				'searchCriteria[filterGroups][1][filters][0][condition_type]': 'like',
+				...args
+			}),
 		getMedias
 	}
 })

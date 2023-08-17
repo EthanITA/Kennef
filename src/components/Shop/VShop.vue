@@ -4,7 +4,8 @@
 			<v-col :cols="2" class="d-flex mt-2">
 				<div class="mx-auto">
 					<Button :outlined="!enableFilter" medium @click="enableFilter = !enableFilter">
-						<v-icon class="mr-1">mdi-filter-variant</v-icon>Filtri
+						<v-icon class="mr-1">mdi-filter-variant</v-icon>
+						Filtri
 					</Button>
 					<p
 						v-if="filters.some((filter) => filter.model)"
@@ -41,15 +42,25 @@
 import GroupedProductsCard from '@/components/Shop/GroupedProductsCard.vue'
 
 import Button from '@/components/kennef/Button.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import FilterBar from '@/components/Shop/FilterBar.vue'
 import { productsStore } from '@/store/products'
 import { categoriesStore } from '@/store/categories'
-import { differenceBy, sortBy, toNumber } from 'lodash'
+import { debounce, differenceBy, sortBy, toNumber } from 'lodash'
 import { useRoute } from 'vue-router/composables'
 
 const store = productsStore()
 const enableFilter = ref<boolean>(false)
+
+const route = useRoute()
+
+const queries = computed(() => route.query)
+
+const updateShop = debounce(() => {
+	if (queries.value.search) store.searchProducts((queries.value.search as string) || '')
+	else store.getFirstPage()
+}, 100)
+watch(queries, updateShop)
 
 const { categories, topLevelCategories, idCategories } = categoriesStore()
 
@@ -74,5 +85,5 @@ const filters = computed<
 		options: []
 	}
 ])
-onMounted(store.getFirstPage)
+onMounted(updateShop)
 </script>

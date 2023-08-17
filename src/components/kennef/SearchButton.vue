@@ -26,32 +26,27 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import Autocomplete from '@/components/kennef/Autocomplete.vue'
-import Product from '@/models/Product'
 import { useRouter } from 'vue-router/composables'
 import _ from 'lodash'
+import { productsStore } from '@/store/products'
+import { Product } from '@/types/product'
 
 const router = useRouter()
-
+const store = productsStore()
 const enableInput = ref(false)
 const search = ref('')
 const items = ref<Product[]>([])
 const isLoading = ref(false)
-const searchProducts = _.debounce((query?: string | Product) => {
+const searchProducts = _.debounce(async (query?: string) => {
 	if (!query) {
 		items.value = []
 		return
 	}
 	isLoading.value = true
-	setTimeout(() => {
-		// TODO
-		const productList = Product.getRandomProducts()
-		const isString = (query as any)?.toUpperCase?.()
-		const q = isString ? (query as string) : (query as Product).name
-		items.value = [...productList.filter((p) => p.name.toUpperCase().includes(q.toUpperCase()))]
-		console.log(items.value)
-		isLoading.value = false
-	}, 1000)
-	return
+	items.value = await store.searchProducts(query, {
+		'searchCriteria[pageSize]': 5
+	})
+	isLoading.value = false
 }, 500)
 
 const goToShop = (query: any) => {

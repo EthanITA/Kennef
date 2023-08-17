@@ -98,4 +98,6 @@ export interface ProductQuery {
 	'searchCriteria[pageSize]'?: number
 
 	'searchCriteria[currentPage]'?: number
+
+	[query: string]: string | number | undefined
 }
