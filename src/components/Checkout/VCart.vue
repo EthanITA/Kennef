@@ -35,7 +35,7 @@
 			</v-col>
 			<v-col cols="12" lg="4" md="4" style="height: 80vh" xl="4">
 				<!-- RIGHT COL -->
-				<div class="flex-col" style="height: 100%">
+				<div class="flex-col">
 					<CartPrice
 						:discount="store.total?.discount_amount || 0"
 						:price="store.total?.subtotal_incl_tax || 0"
