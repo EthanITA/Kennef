@@ -4,9 +4,16 @@
 			'tw-grid tw-justify-center': store.products.length
 		}"
 	>
+		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4 tw-px-2" expanded />
+
 		<v-row v-if="store.products.length">
-			<v-col :cols="2" class="d-flex mt-2">
-				<div class="mx-auto">
+			<v-col :cols="12" class="d-flex mt-2" md="2">
+				<div
+					:class="{
+						'mx-auto': $vuetify.breakpoint.mdAndUp,
+						'tw-pl-2': $vuetify.breakpoint.smAndDown
+					}"
+				>
 					<Button :outlined="!enableFilter" medium @click="enableFilter = !enableFilter">
 						<v-icon class="mr-1">mdi-filter-variant</v-icon>
 						Filtri
@@ -25,11 +32,11 @@
 				<FilterBar v-if="enableFilter" :filters="filters" class="ma-2" />
 				<GroupedProductsCard :products="store.products" />
 			</v-col>
-			<v-col :cols="2" />
+			<v-col v-if="$vuetify.breakpoint.mdAndUp" :cols="2" />
 		</v-row>
 		<NotFoundContent v-else />
 		<v-row class="justify-center">
-			<v-col :cols="4">
+			<v-col :cols="12" :md="4">
 				<v-pagination
 					v-if="store.total_count > 15"
 					v-model="store.current_page"
@@ -54,6 +61,7 @@ import { categoriesStore } from '@/store/categories'
 import { debounce, differenceBy, sortBy, toNumber } from 'lodash'
 import { useRoute } from 'vue-router/composables'
 import NotFoundContent from '@/components/Product/NoProducts.vue'
+import SearchButton from '@/components/kennef/SearchButton.vue'
 
 const store = productsStore()
 const enableFilter = ref<boolean>(false)

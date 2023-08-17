@@ -6,7 +6,7 @@
 	>
 		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4" expanded />
 		<v-row class="tw-relative overflow-x-hidden">
-			<v-col :md="4" class="d-flex pt-16 tw-absolute tw-z-2" cols="8">
+			<v-col :md="4" class="d-flex pt-16 tw-absolute tw-z-3" cols="8">
 				<LandingCardAction
 					:class="{
 						'tw-w-[80%]': $vuetify.breakpoint.mdAndUp
@@ -19,7 +19,7 @@
 					</template>
 				</LandingCardAction>
 			</v-col>
-			<v-col class="d-flex justify-end tw-ml-auto">
+			<v-col class="d-flex justify-end tw-ml-auto tw-pointer-events-none">
 				<v-img
 					:class="{ 'tw-left-[50%]': $vuetify.breakpoint.smAndDown }"
 					max-width="700"
