@@ -4,7 +4,6 @@
 			'px-16 pt-10 tw-w-[80%]': $vuetify.breakpoint.mdAndUp
 		}"
 	>
-		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4" expanded />
 		<v-row class="tw-relative overflow-x-hidden">
 			<v-col :md="4" class="d-flex pt-16 tw-absolute tw-z-2" cols="8">
 				<LandingCardAction
@@ -50,7 +49,6 @@ import { ref } from 'vue'
 import TopSellerProducts from '@/components/Home/TopSellerProducts.vue'
 import { Product } from '@/types/product'
 import { productsStore } from '@/store/products'
-import SearchButton from '@/components/kennef/SearchButton.vue'
 
 const topProducts = ref<Product[]>([])
 productsStore()

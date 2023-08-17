@@ -2,7 +2,8 @@
 	<v-app class="px-16">
 		<Header />
 		<v-main>
-			<v-container :class="''" class="px-0" fluid style="height: 100%">
+			<v-container class="px-0" fluid style="height: 100%">
+				<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4 tw-px-2" expanded />
 				<router-view />
 			</v-container>
 		</v-main>
@@ -18,6 +19,7 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { useRoute } from 'vue-router/composables'
 import loader from '@/store/loader'
+import SearchButton from '@/components/kennef/SearchButton.vue'
 
 const loaderStore = loader()
 
