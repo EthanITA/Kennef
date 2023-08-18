@@ -1,6 +1,6 @@
 <template>
 	<v-app-bar
-		v-if="!noHeader"
+		v-if="!noHeader || cartHeader"
 		:class="{
 			white: $vuetify.breakpoint.mdAndUp || cartHeader
 		}"
@@ -93,9 +93,10 @@ const noHeader = ref(false)
 const cartHeader = ref(false)
 
 const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart']
-const noIconsPaths = ['/cart']
+const noIconsPaths = ['/cart', '/checkout']
 const noHeaderPaths = ['/login', '/checkout']
 
+const checkouts = ['/checkout', 'cart']
 watch(
 	currentPath.value,
 	() => {
@@ -103,7 +104,7 @@ watch(
 		showLogout.value = logoutPaths.includes(currentPath.value.path)
 		noIcons.value = noIconsPaths.includes(currentPath.value.path)
 		noHeader.value = noHeaderPaths.includes(currentPath.value.path)
-		cartHeader.value = currentPath.value.path === '/cart'
+		cartHeader.value = checkouts.includes(currentPath.value.path)
 	},
 	{ deep: true, immediate: true }
 )

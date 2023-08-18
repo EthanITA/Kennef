@@ -12,17 +12,28 @@ onMounted(() => {
 
 <template>
 	<v-container class="pa-0 mx-0" style="height: 100%; max-width: 100%">
-		<v-row style="height: 100%">
-			<v-col>
+		<div
+			:class="{
+				'tw-flex-col-reverse': $vuetify.breakpoint.smAndDown
+			}"
+			class="tw-flex"
+			style="height: 100%"
+		>
+			<div class="tw-grow">
 				<CheckoutInfo />
-			</v-col>
-			<v-col class="grey lighten-3 pt-8">
-				<v-row class="pa-16">
-					<v-col cols="9">
+			</div>
+			<div
+				:class="{
+					'pt-8': $vuetify.breakpoint.mdAndUp
+				}"
+				class="tw-grow grey lighten-3"
+			>
+				<v-row :class="{ 'tw-pl-16': $vuetify.breakpoint.mdAndUp, 'tw-p-4': $vuetify.breakpoint.mdAndDown }">
+					<v-col cols="12" md="9">
 						<CheckoutSummary />
 					</v-col>
 				</v-row>
-			</v-col>
-		</v-row>
+			</div>
+		</div>
 	</v-container>
 </template>

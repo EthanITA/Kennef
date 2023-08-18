@@ -1,12 +1,19 @@
 <template>
-	<v-container style="width: 70%">
+	<v-container
+		:class="{
+			'tw-w-[70%]': $vuetify.breakpoint.mdAndUp
+		}"
+	>
 		<v-stepper v-model="currentStep" flat vertical>
 			<template v-for="(step, i) in steps">
 				<div v-show="currentStep === i + 1">
-					<v-stepper-step :step="i + 1">
+					<v-stepper-step v-if="$vuetify.breakpoint.mdAndUp" :step="i + 1">
 						<p class="ma-0">{{ step.title }}</p>
 					</v-stepper-step>
-					<v-stepper-content :step="i + 1" style="border-left: 1px solid #e0e0e0">
+					<v-stepper-content
+						:class="{ 'tw-border-l-[1px] tw-border-[#e0e0e0]': $vuetify.breakpoint.mdAndUp }"
+						:step="i + 1"
+					>
 						<component
 							:is="step.component"
 							:is-selected="currentStep === i + 1"
