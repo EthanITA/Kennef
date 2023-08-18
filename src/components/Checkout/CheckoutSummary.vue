@@ -1,6 +1,6 @@
 <template>
 	<div class="flex-col tw-gap-10">
-		<div v-if="$vuetify.breakpoint.smAndDown" class="tw-flex tw-justify-between">
+		<div v-if="$vuetify.breakpoint.smAndDown && !completed" class="tw-flex tw-justify-between">
 			<div class="tw-flex tw-gap-2 tw-items-center font-weight-bold" @click="showSummary = !showSummary">
 				<v-icon color="secondary">mdi-cart-outline</v-icon>
 				<p class="ma-0">Riepilogo ordine</p>
@@ -17,7 +17,7 @@
 				<Price :price="store.total?.grand_total || 0" class="text-h6" no-underline />
 			</div>
 		</div>
-		<div v-show="showSummary || $vuetify.breakpoint.mdAndUp" class="flex-col gap-1">
+		<div v-show="showSummary || $vuetify.breakpoint.mdAndUp || completed" class="flex-col gap-1">
 			<v-row v-for="product in store.cart?.items" :key="product.item_id" align="center">
 				<v-col class="flex-grow-0">
 					<div style="position: relative">
@@ -67,19 +67,21 @@
 				</div>
 			</div>
 		</div>
+		<div v-if="completed && $vuetify.breakpoint.smAndDown">
+			<AddressInfo />
+		</div>
 	</div>
 </template>
 <script lang="ts" setup>
-//@ts-ignore
 import Price from '@/components/kennef/Price.vue'
 import Textfield from '@/components/kennef/Textfield.vue'
 import Button from '@/components/kennef/Button.vue'
 import { useCart } from '@/store/cart'
 import { onMounted, ref } from 'vue'
+import AddressInfo from '@/components/Checkout/AddressInfo.vue'
 
 const store = useCart()
 const props = defineProps<{
-	shippingCost?: number
 	completed?: boolean
 }>()
 
