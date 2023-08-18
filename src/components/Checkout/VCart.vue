@@ -1,10 +1,11 @@
 <template>
 	<v-container
-		:class="{ 'grey lighten-4': $vuetify.breakpoint.mdAndUp, 'tw-h-full': $vuetify.breakpoint.mdAndDown }"
+		:class="{ 'tw-h-full tw-py-0': $vuetify.breakpoint.mdAndDown }"
+		class="grey lighten-4"
 		fluid
 		style="min-height: 80vh"
 	>
-		<v-row v-if="$vuetify.breakpoint.mdAndUp" class="mx-16">
+		<v-row class="mx-16">
 			<v-col cols="12" lg="12" md="12" xl="12">
 				<v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
 			</v-col>
@@ -41,7 +42,7 @@
 					</v-sheet>
 				</v-container>
 			</v-col>
-			<v-col cols="12" lg="4" md="4" style="height: 80vh" xl="4">
+			<v-col cols="12" lg="4" md="4" xl="4">
 				<!-- RIGHT COL -->
 				<div class="flex-col">
 					<CartPrice

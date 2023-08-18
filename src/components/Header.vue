@@ -2,20 +2,26 @@
 	<v-app-bar
 		v-if="!noHeader"
 		:class="{
-			white: $vuetify.breakpoint.mdAndUp
+			white: $vuetify.breakpoint.mdAndUp || cartHeader
 		}"
 		app
 		class="px-4"
 		elevation="0"
 		height="80"
 	>
-		<v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" class="tw-mr-4">
+		<v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown && !cartHeader" class="tw-mr-4">
 			<v-icon large>mdi-menu</v-icon>
 		</v-app-bar-nav-icon>
-		<a class="d-flex align-center" @click="$router.push('/')">
+		<a
+			:class="{
+				'tw-mx-auto': $vuetify.breakpoint.smAndDown && cartHeader
+			}"
+			class="d-flex align-center"
+			@click="$router.push('/')"
+		>
 			<v-img
 				:src="
-					$vuetify.breakpoint.smAndDown
+					$vuetify.breakpoint.smAndDown && !cartHeader
 						? require('../assets/mobile/Logo.svg')
 						: require('../assets/logotype.svg')
 				"
@@ -84,6 +90,7 @@ const showLogout = ref(false)
 const currentPath = ref(useRoute())
 const noIcons = ref(false)
 const noHeader = ref(false)
+const cartHeader = ref(false)
 
 const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart']
 const noIconsPaths = ['/cart']
@@ -96,6 +103,7 @@ watch(
 		showLogout.value = logoutPaths.includes(currentPath.value.path)
 		noIcons.value = noIconsPaths.includes(currentPath.value.path)
 		noHeader.value = noHeaderPaths.includes(currentPath.value.path)
+		cartHeader.value = currentPath.value.path === '/cart'
 	},
 	{ deep: true, immediate: true }
 )
