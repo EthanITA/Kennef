@@ -1,5 +1,8 @@
 <template>
-	<v-footer v-if="showFooter && component" :color="component.__name === 'MainFooterContent' ? 'secondary' : 'white'">
+	<v-footer
+		v-if="footer.show && showFooter && component"
+		:color="component.__name === 'MainFooterContent' ? 'secondary' : 'white'"
+	>
 		<component :is="component" :class="{ 'px-14 tw-w-[80%]': $vuetify.breakpoint.mdAndUp }" />
 	</v-footer>
 </template>
@@ -9,7 +12,9 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router/composables'
 import MainFooterContent from '@/components/Footer/MainFooterContent.vue'
 import MinimalisticFooterContent from '@/components/Footer/MinimalisticFooterContent.vue'
+import { useFooter } from '@/store/footer'
 
+const footer = useFooter()
 const component = ref<any | null>(null)
 
 const currentPath = ref(useRoute())
