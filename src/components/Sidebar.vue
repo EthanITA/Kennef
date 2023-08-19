@@ -42,7 +42,7 @@
 					<v-list-item-title>{{ item.title }}</v-list-item-title>
 				</v-list-item>
 			</v-list>
-			<div>
+			<v-list>
 				<v-list-group v-for="category in store.topLevelCategories" color="secodary">
 					<template #prependIcon>
 						<v-icon class="tw-pl-2">mdi-fruit-cherries</v-icon>
@@ -63,27 +63,29 @@
 						</v-list-item-title>
 					</v-list-item>
 				</v-list-group>
-			</div>
-			<v-list-group color="secodary">
-				<template #prependIcon>
-					<v-icon class="tw-pl-2">mdi-alpha-r-circle-outline</v-icon>
-				</template>
-				<template #activator>
-					<v-list-item>
-						<v-list-item-title>Brands</v-list-item-title>
+			</v-list>
+			<v-list>
+				<v-list-group color="secodary">
+					<template #prependIcon>
+						<v-icon class="tw-pl-2">mdi-alpha-r-circle-outline</v-icon>
+					</template>
+					<template #activator>
+						<v-list-item>
+							<v-list-item-title>Brands</v-list-item-title>
+						</v-list-item>
+					</template>
+					<v-list-item
+						v-for="brand in headerStore.navigationDrawer.brands"
+						ripple
+						@click="$router.push(brand.link)"
+					>
+						<v-list-item-avatar />
+						<v-list-item-title>
+							{{ brand.title }}
+						</v-list-item-title>
 					</v-list-item>
-				</template>
-				<v-list-item
-					v-for="brand in headerStore.navigationDrawer.brands"
-					ripple
-					@click="$router.push(brand.link)"
-				>
-					<v-list-item-avatar />
-					<v-list-item-title>
-						{{ brand.title }}
-					</v-list-item-title>
-				</v-list-item>
-			</v-list-group>
+				</v-list-group>
+			</v-list>
 			<v-list>
 				<v-list-item
 					v-for="item in headerStore.navigationDrawer.info"
