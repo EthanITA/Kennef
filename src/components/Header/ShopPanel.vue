@@ -44,7 +44,6 @@ import { categoriesStore } from '@/store/categories'
 import { sortBy } from 'lodash'
 
 const store = categoriesStore()
-store.getCategories()
 
 interface ShopPanelCategory {
 	name: string

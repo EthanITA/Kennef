@@ -5,12 +5,16 @@
 			white: $vuetify.breakpoint.mdAndUp || cartHeader
 		}"
 		app
-		class="px-4"
+		class="px-2"
 		elevation="0"
 		height="80"
 	>
-		<v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown && !cartHeader" class="tw-mr-4">
-			<v-icon large>mdi-menu</v-icon>
+		<v-app-bar-nav-icon
+			v-if="$vuetify.breakpoint.smAndDown && !cartHeader"
+			class="tw-mr-4"
+			@click="store.showNavigationDrawer = !store.showNavigationDrawer"
+		>
+			<v-icon color="secondary" large>mdi-menu</v-icon>
 		</v-app-bar-nav-icon>
 		<a
 			:class="{
@@ -33,12 +37,12 @@
 
 		<div
 			v-if="!$vuetify.breakpoint.smAndDown"
-			:class="{ 'border-bottom': showPanel }"
+			:class="{ 'border-bottom': store.showShopPanel }"
 			class="d-flex ml-4 flex-grow-1 align-center fill-height"
 			style="position: relative"
 		>
 			<v-btn
-				v-for="link in links"
+				v-for="link in store.links"
 				:key="link.title"
 				class="mr-2"
 				color="secondary"
@@ -48,7 +52,7 @@
 				<span>{{ link.title }}</span>
 			</v-btn>
 			<SearchButton />
-			<ShopPanel v-show="showPanel" class="navigation-container" />
+			<ShopPanel v-show="store.showShopPanel" class="navigation-container" />
 		</div>
 
 		<div v-if="!noIcons" class="tw-ml-auto">
@@ -62,8 +66,8 @@
 						<v-icon>mdi-shopping-outline</v-icon>
 					</v-btn>
 					<v-badge
-						v-if="store.cart?.items_qty"
-						:content="store.cart.items_qty"
+						v-if="cartStore.cart?.items_qty"
+						:content="cartStore.cart.items_qty"
 						class="tw-absolute tw-top-[8px] tw-right-[8px]"
 					/>
 				</div>
@@ -82,10 +86,13 @@ import { ref, watch } from 'vue'
 import ShopPanel from '@/components/Header/ShopPanel.vue'
 import { useRoute } from 'vue-router/composables'
 import { useCart } from '@/store/cart'
+import { useHeader } from '@/store/header'
+import { categoriesStore } from '@/store/categories'
 
-const store = useCart()
+const store = useHeader()
+const cartStore = useCart()
+categoriesStore().getCategories()
 
-const showPanel = ref(false)
 const showLogout = ref(false)
 const currentPath = ref(useRoute())
 const noIcons = ref(false)
@@ -96,11 +103,11 @@ const logoutPaths = ['/account', '/account/security', '/account/profile', '/acco
 const noIconsPaths = ['/cart', '/checkout']
 const noHeaderPaths = ['/login', '/checkout']
 
-const checkouts = ['/checkout', 'cart']
+const checkouts = ['/checkout', '/cart']
 watch(
 	currentPath.value,
 	() => {
-		showPanel.value = false
+		store.showShopPanel = false
 		showLogout.value = logoutPaths.includes(currentPath.value.path)
 		noIcons.value = noIconsPaths.includes(currentPath.value.path)
 		noHeader.value = noHeaderPaths.includes(currentPath.value.path)
@@ -108,24 +115,10 @@ watch(
 	},
 	{ deep: true, immediate: true }
 )
-const links = [
-	{
-		link: '#',
-		title: 'Shop'
-	},
-	{
-		link: '#',
-		title: 'Chi Siamo'
-	},
-	{
-		link: '#',
-		title: 'Contatti'
-	}
-]
 
 const linkClicked = (link: any) => {
 	if (link.title === 'Shop') {
-		showPanel.value = !showPanel.value
+		store.showShopPanel = !store.showShopPanel
 	}
 }
 </script>

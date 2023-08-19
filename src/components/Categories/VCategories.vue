@@ -8,7 +8,7 @@
 				</div>
 			</v-col>
 		</v-row>
-		<v-carousel class="tw-my-8" hide-delimiter-background hide-delimiters>
+		<v-carousel v-else class="tw-my-8" hide-delimiter-background hide-delimiters>
 			<v-carousel-item
 				v-for="item in store.topLevelCategories"
 				:key="item.id"

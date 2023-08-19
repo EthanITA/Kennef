@@ -1,7 +1,8 @@
 <template>
 	<v-app class="px-16">
+		<Sidebar />
 		<Header />
-		<v-main>
+		<v-main class="!tw-pt-[80px]">
 			<v-container :class="''" class="px-0" fluid style="height: 100%">
 				<router-view />
 			</v-container>
@@ -18,12 +19,11 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { useRoute } from 'vue-router/composables'
 import loader from '@/store/loader'
+import Sidebar from '@/components/Sidebar.vue'
 
 const loaderStore = loader()
 
 const route = useRoute()
-
-const isCheckout = route.path === '/checkout'
 </script>
 <style scoped>
 #loader {
