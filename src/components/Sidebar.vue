@@ -113,7 +113,6 @@ const store = categoriesStore()
 .v-list-item,
 .v-list-group >>> .v-list-group__header.v-list-item {
 	padding-left: 0 !important;
-	padding-right: 0 !important;
 }
 
 .v-list-item__title {
