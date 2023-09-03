@@ -54,7 +54,7 @@
 import GroupedProductsCard from '@/components/Shop/GroupedProductsCard.vue'
 
 import Button from '@/components/kennef/Button.vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import FilterBar from '@/components/Shop/FilterBar.vue'
 import { productsStore } from '@/store/products'
 import { categoriesStore } from '@/store/categories'
@@ -62,8 +62,12 @@ import { debounce, differenceBy, sortBy, toNumber } from 'lodash'
 import { useRoute } from 'vue-router/composables'
 import NotFoundContent from '@/components/Product/NoProducts.vue'
 import SearchButton from '@/components/kennef/SearchButton.vue'
+import { useFooter } from '@/store/footer'
+import { useVuetify } from '@/store/vuetify'
 
 const store = productsStore()
+const footerStore = useFooter()
+const vuetify = useVuetify()
 const enableFilter = ref<boolean>(false)
 
 const route = useRoute()
@@ -100,4 +104,11 @@ const filters = computed<
 	}
 ])
 onMounted(updateShop)
+
+watch(
+	() => vuetify.breakpoint?.smAndDown,
+	(v) => (footerStore.show = !v)
+)
+onMounted(() => (footerStore.show = !vuetify.breakpoint?.smAndDown))
+onUnmounted(() => (footerStore.show = false))
 </script>
