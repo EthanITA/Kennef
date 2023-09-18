@@ -19,14 +19,14 @@ onMounted(() => {
 			class="tw-flex"
 			style="height: 100%"
 		>
-			<div class="tw-grow">
+			<div class="tw-flex-1">
 				<CheckoutInfo />
 			</div>
 			<div
 				:class="{
 					'pt-8': $vuetify.breakpoint.mdAndUp
 				}"
-				class="tw-grow grey lighten-3"
+				class="tw-grow tw-flex-1 grey lighten-3"
 			>
 				<v-row :class="{ 'tw-pl-16': $vuetify.breakpoint.mdAndUp, 'tw-p-4': $vuetify.breakpoint.mdAndDown }">
 					<v-col cols="12" md="9">
