@@ -45,6 +45,9 @@ export interface Product {
 	tier_prices: any[]
 	custom_attributes: CustomAttribute[]
 	stock?: StockItemResponse
+	configurable_products?: Product[]
+	promo_price?: number
+	is_promo?: boolean
 }
 
 interface ExtensionAttributes {

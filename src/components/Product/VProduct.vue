@@ -52,7 +52,12 @@
 				</div>
 				<v-divider class="my-5" />
 				<div class="d-flex align-center">
-					<Price :price="selectedProduct?.price || 0" class="py-0 text-h6" />
+					<Price
+						v-if="selectedProduct?.promo_price"
+						:price="selectedProduct?.promo_price || 0"
+						class="py-0 text-h6"
+					/>
+					<Price v-else :price="selectedProduct?.price || 0" class="py-0 text-h6" />
 					<span class="ml-4 text-caption grey--text font-weight-semibold">IVA INCLUSA</span>
 				</div>
 				<v-divider class="my-5" />
@@ -148,6 +153,7 @@ const sizes = computed<string[]>(() =>
 const activeImage = ref<number>(0)
 const activeProductCategory = ref<number>(0)
 const selectedProduct = computed<Product | undefined>(() => {
+	if (store.product?.configurable_products?.length === 0) return store.product
 	const prods = store.product?.configurable_products || []
 	return prods[activeProductCategory.value]
 })

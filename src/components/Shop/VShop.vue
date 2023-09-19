@@ -28,9 +28,9 @@
 					</p>
 				</div>
 			</v-col>
-			<v-col>
+			<v-col cols="8">
 				<FilterBar v-if="enableFilter" :filters="filters" class="ma-2" />
-				<GroupedProductsCard :products="store.products" />
+				<GroupedProductsCard :products="store.products" class="grow" />
 			</v-col>
 			<v-col v-if="$vuetify.breakpoint.mdAndUp" :cols="2" />
 		</v-row>
@@ -76,6 +76,18 @@ const queries = computed(() => route.query)
 
 const updateShop = debounce(() => {
 	if (queries.value.search) store.searchProducts((queries.value.search as string) || '')
+	else if (queries.value.promo)
+		store.getProducts({
+			'searchCriteria[filter_groups][0][filters][0][field]': 'special_price',
+			'searchCriteria[filter_groups][0][filters][0][value]': '0',
+			'searchCriteria[filter_groups][0][filters][0][conditionType]': 'gt'
+		})
+	else if (queries.value.top_seller)
+		store.getProducts({
+			'searchCriteria[filter_groups][0][filters][0][field]': 'top_seller',
+			'searchCriteria[filter_groups][0][filters][0][value]': '1',
+			'searchCriteria[filter_groups][0][filters][0][conditionType]': 'eq'
+		})
 	else store.getFirstPage()
 }, 100)
 watch(queries, updateShop)

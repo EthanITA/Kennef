@@ -1,9 +1,9 @@
 <template>
 	<v-container>
 		<v-row>
-			<v-col class="text-h4"> Top Seller</v-col>
+			<v-col class="text-h4"> {{ label }} </v-col>
 			<v-col class="text-right">
-				<Button medium outlined @click="$router.push('/shop')"
+				<Button medium outlined @click="$router.push(url)"
 					><span>S</span><span class="text-lowercase">copri di più</span></Button
 				>
 			</v-col>
@@ -21,6 +21,8 @@ import { Product } from '@/types/product'
 
 const props = defineProps<{
 	products: Product[]
+	label: string
+	url: string
 }>()
 </script>
 

@@ -29,7 +29,10 @@
 		</v-row>
 
 		<v-lazy v-if="topProducts.length && $vuetify.breakpoint.mdAndUp">
-			<TopSellerProducts :products="topProducts" class="mt-16" />
+			<TopSellerProducts :products="topProducts" class="mt-16" label="Top Seller" url="/shop?top_seller=true" />
+		</v-lazy>
+		<v-lazy v-if="promoProducts.length && $vuetify.breakpoint.mdAndUp">
+			<TopSellerProducts :products="promoProducts" class="mt-16" label="Promozioni" url="/shop?promo=true" />
 		</v-lazy>
 		<v-lazy class="mt-16">
 			<KennefCharacteristics />
@@ -53,12 +56,27 @@ import { productsStore } from '@/store/products'
 import SearchButton from '@/components/kennef/SearchButton.vue'
 
 const topProducts = ref<Product[]>([])
+const promoProducts = ref<Product[]>([])
 productsStore()
 	.getProducts({
 		'searchCriteria[pageSize]': 3,
-		'searchCriteria[sortOrders][0][field]': 'visibility'
+		'searchCriteria[sortOrders][0][field]': 'visibility',
+		'searchCriteria[filter_groups][0][filters][0][field]': 'top_seller',
+		'searchCriteria[filter_groups][0][filters][0][value]': '1',
+		'searchCriteria[filter_groups][0][filters][0][conditionType]': 'eq'
 	})
 	.then((res: Product[]) => {
 		topProducts.value = res
+	})
+
+productsStore()
+	.getProducts({
+		'searchCriteria[pageSize]': 3,
+		'searchCriteria[filter_groups][0][filters][0][field]': 'special_price',
+		'searchCriteria[filter_groups][0][filters][0][value]': '0',
+		'searchCriteria[filter_groups][0][filters][0][conditionType]': 'gt'
+	})
+	.then((res: Product[]) => {
+		promoProducts.value = res
 	})
 </script>

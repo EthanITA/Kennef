@@ -18,7 +18,7 @@
 					<v-container>
 						<v-row>
 							<ProductBadge v-if="!product.stock?.is_in_stock" class="blue-grey"> sold out </ProductBadge>
-							<ProductBadge v-else-if="false" class="primary"> offerta </ProductBadge>
+							<ProductBadge v-else-if="product.is_promo" class="primary"> offerta </ProductBadge>
 						</v-row>
 					</v-container>
 				</v-img>
@@ -29,7 +29,12 @@
 					<v-row>
 						<p class="font-weight-semibold">{{ product.sku || '-' }}</p>
 						<v-spacer />
-						<Price v-if="product.price" :class="{ 'primary--text': hover }" :price="product.price" />
+						<Price
+							v-if="product.promo_price"
+							:class="{ 'primary--text': hover }"
+							:price="product.promo_price"
+						/>
+						<Price v-else-if="product.price" :class="{ 'primary--text': hover }" :price="product.price" />
 					</v-row>
 				</v-container>
 			</HoverScale>

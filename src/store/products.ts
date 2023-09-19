@@ -11,11 +11,7 @@ export const productsStore = defineStore('products', () => {
 	const current_page = ref<number>()
 	const page_size = ref<number>(15)
 
-	const product = ref<
-		Product & {
-			configurable_products: Product[]
-		}
-	>()
+	const product = ref<Product>()
 	const products = ref<Product[]>([])
 	const getProducts = async (query: ProductQuery) => {
 		const prods = await kennef_axios.get<{
@@ -30,10 +26,27 @@ export const productsStore = defineStore('products', () => {
 		})
 		const stocksArr = await stocks.getStocks(prods.data.items.map((prod) => prod.sku))
 		const prodsStock = _.groupBy(stocksArr, 'product_id')
-		products.value = prods.data.items.map((prod, i) => ({
-			...prod,
-			stock: prodsStock[prod.id]?.[0]
-		}))
+		products.value = prods.data.items.map((prod, i) => {
+			const promo_price = (prod?.custom_attributes || []).find(
+				(attr) => attr.attribute_code === 'special_price'
+			)?.value
+			let is_promo = false
+			const start_date = (prod?.custom_attributes || []).find(
+				(attr) => attr.attribute_code === 'special_from_date'
+			)?.value
+			const end_date = (prod?.custom_attributes || []).find(
+				(attr) => attr.attribute_code === 'special_to_date'
+			)?.value
+			if (end_date) is_promo = new Date(end_date as string) > new Date()
+			else if (start_date) is_promo = new Date(start_date as string) < new Date()
+
+			return {
+				...prod,
+				promo_price: promo_price ? Number(promo_price) : undefined,
+				is_promo,
+				stock: prodsStock[prod.id]?.[0]
+			}
+		})
 		total_count.value = prods.data.total_count
 		return products.value
 	}
@@ -45,21 +58,41 @@ export const productsStore = defineStore('products', () => {
 				'searchCriteria[filterGroups][0][filters][0][condition_type]': 'eq'
 			})
 		)[0]
-		const configurable_products = (
-			await Promise.allSettled(
-				prod.extension_attributes.configurable_product_links.map((id) =>
-					getProducts({
-						'searchCriteria[filterGroups][0][filters][0][value]': id,
-						'searchCriteria[filterGroups][0][filters][0][field]': 'entity_id',
-						'searchCriteria[filterGroups][0][filters][0][condition_type]': 'eq'
-					})
-				)
-			)
-		)
-			.filter((res) => res.status === 'fulfilled')
-			.map((res: any) => res.value[0])
+		const configurable_products = prod.extension_attributes.configurable_product_links
+			? (
+					await Promise.allSettled(
+						prod.extension_attributes.configurable_product_links.map((id) =>
+							getProducts({
+								'searchCriteria[filterGroups][0][filters][0][value]': id,
+								'searchCriteria[filterGroups][0][filters][0][field]': 'entity_id',
+								'searchCriteria[filterGroups][0][filters][0][condition_type]': 'eq'
+							})
+						)
+					)
+			  )
+					.filter((res) => res.status === 'fulfilled')
+					.map((res: any) => res.value[0])
+			: []
+
+		console.log()
+		const promo_price = (prod?.custom_attributes || []).find(
+			(attr) => attr.attribute_code === 'special_price'
+		)?.value
+		let is_promo = false
+
+		const start_date = (prod?.custom_attributes || []).find(
+			(attr) => attr.attribute_code === 'special_from_date'
+		)?.value
+		const end_date = (prod?.custom_attributes || []).find(
+			(attr) => attr.attribute_code === 'special_to_date'
+		)?.value
+		if (end_date) is_promo = new Date(end_date as string) > new Date()
+		else if (start_date) is_promo = new Date(start_date as string) < new Date()
+
 		product.value = {
 			...prod,
+			promo_price: promo_price ? Number(promo_price) : undefined,
+			is_promo,
 			configurable_products: sortBy(configurable_products, 'name')
 		}
 	}

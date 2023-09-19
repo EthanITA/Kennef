@@ -1,9 +1,17 @@
 <template>
-	<v-row no-gutters>
-		<v-col v-for="(product, index) in products" :key="index" class="pa-0" cols="12" md="4">
+	<div class="tw-grid tw-grid-cols-12">
+		<div
+			v-for="(product, index) in products"
+			:key="index"
+			:class="{
+				'tw-col-span-12': $vuetify.breakpoint.mdAndDown,
+				'tw-col-span-4': $vuetify.breakpoint.mdAndUp
+			}"
+			class="pa-0"
+		>
 			<ProductCard :key="product.id" :product="product" class="tw-h-full" />
-		</v-col>
-	</v-row>
+		</div>
+	</div>
 </template>
 
 <script lang="ts" setup>
