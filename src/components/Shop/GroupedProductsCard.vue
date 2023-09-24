@@ -4,7 +4,7 @@
 			v-for="(product, index) in products"
 			:key="index"
 			:class="{
-				'tw-col-span-12': $vuetify.breakpoint.mdAndDown,
+				'tw-col-span-6': $vuetify.breakpoint.smAndDown,
 				'tw-col-span-4': $vuetify.breakpoint.mdAndUp
 			}"
 			class="pa-0"
