@@ -21,6 +21,8 @@ export const useBrands = defineStore('brands', () => {
 
 	const getBrands = async () => {
 		kennef_axios.get<Brand[]>('mpbrand').then((res) => {
+			const image_base_url = process.env.VUE_APP_MAGENTO_MAGEPLAZA
+			res.data.forEach((brand) => (brand.image = `${image_base_url}/${brand.image}`))
 			brands.value = res.data
 		})
 	}
