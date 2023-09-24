@@ -4,6 +4,7 @@ import { kennef_axios } from '@/store/api'
 import { Product, ProductQuery } from '@/types/product'
 import { stocksStore } from '@/store/stocks'
 import _, { sortBy } from 'lodash'
+import { Brand } from '@/store/brands'
 
 export const productsStore = defineStore('products', () => {
 	const stocks = stocksStore()
@@ -134,6 +135,12 @@ export const productsStore = defineStore('products', () => {
 				'searchCriteria[filterGroups][1][filters][0][value]': `%${query}%`,
 				'searchCriteria[filterGroups][1][filters][0][condition_type]': 'like',
 				...args
+			}),
+		getByBrand: (brandId: Brand['option_id']) =>
+			getProducts({
+				'searchCriteria[filterGroups][0][filters][0][value]': brandId,
+				'searchCriteria[filterGroups][0][filters][0][conditionType]': 'eq',
+				'searchCriteria[filterGroups][0][filters][0][field]': 'manufacturer'
 			}),
 		getMedias
 	}

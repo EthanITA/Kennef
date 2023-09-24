@@ -88,7 +88,7 @@ interface CustomAttribute {
 	value: string | string[]
 }
 export interface ProductQuery {
-	'searchCriteria[filterGroups][0][filters][0][field]'?: keyof Product | 'entity_id'
+	'searchCriteria[filterGroups][0][filters][0][field]'?: keyof Product | 'entity_id' | 'manufacturer'
 
 	'searchCriteria[filterGroups][0][filters][0][value]'?: string | number
 
