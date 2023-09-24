@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { kennef_axios } from '@/store/api'
+import { sortBy } from 'lodash'
 
 export interface Brand {
 	id: number
@@ -23,7 +24,7 @@ export const useBrands = defineStore('brands', () => {
 		kennef_axios.get<Brand[]>('mpbrand').then((res) => {
 			const image_base_url = process.env.VUE_APP_MAGENTO_MAGEPLAZA
 			res.data.forEach((brand) => (brand.image = `${image_base_url}/${brand.image}`))
-			brands.value = res.data
+			brands.value = sortBy(res.data, 'page_title')
 		})
 	}
 
