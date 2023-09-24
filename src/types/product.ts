@@ -92,7 +92,15 @@ export interface ProductQuery {
 
 	'searchCriteria[filterGroups][0][filters][0][value]'?: string | number
 
-	'searchCriteria[filterGroups][0][filters][0][condition_type]'?: string
+	'searchCriteria[filterGroups][0][filters][0][condition_type]'?:
+		| 'eq'
+		| 'like'
+		| 'in'
+		| 'gt'
+		| 'gteq'
+		| 'lt'
+		| 'lteq'
+		| string
 
 	'searchCriteria[sortOrders][0][field]'?: keyof Product
 

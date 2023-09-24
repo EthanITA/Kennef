@@ -7,6 +7,7 @@
 		:outlined="outlined"
 		:small="small"
 		:x-large="!(medium || small)"
+		:x-small="xSmall"
 		class="rounded-0"
 		depressed
 		@click="$emit('click')"
@@ -20,6 +21,7 @@ const props = defineProps<{
 	outlined?: boolean
 	medium?: boolean
 	small?: boolean
+	xSmall?: boolean
 	loading?: boolean
 	disabled?: boolean
 	color?: string

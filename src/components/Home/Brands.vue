@@ -2,64 +2,32 @@
 	<div class="d-flex flex-column brand-list pt-16">
 		<h2 class="mb-11 text-h5 font-weight-regular align-self-center">Cerca tra i migliori brand</h2>
 		<v-row class="flex-child mb-16">
-			<v-col v-for="brand in brands" :key="brand.name" class="d-flex" cols="4" lg="2" md="2" xl="2">
-				<v-img :src="brand.img" class="mr-10" max-width="700"></v-img>
+			<v-col
+				v-for="brand in store.brands"
+				:key="brand.page_title"
+				v-ripple
+				class="d-flex selected tw-cursor-pointer"
+				cols="4"
+				lg="2"
+				md="2"
+				xl="2"
+				@click="$router.push(`/shop?brand=${brand.option_id}`)"
+			>
+				<v-img :src="brand.image" class="mr-10"></v-img>
 			</v-col>
 		</v-row>
 	</div>
 </template>
 
 <script lang="ts" setup>
-const brands = [
-	{
-		name: 'Autel',
-		img: require('@/assets/brand/Autel.svg')
-	},
-	{
-		name: 'Beta',
-		img: require('@/assets/brand/Beta.svg')
-	},
-	{
-		name: 'Comet',
-		img: require('@/assets/brand/Comet.svg')
-	},
-	{
-		name: 'Fasano',
-		img: require('@/assets/brand/Fasano.svg')
-	},
-	{
-		name: 'Fervi',
-		img: require('@/assets/brand/Fervi.svg')
-	},
-	{
-		name: 'Fiac',
-		img: require('@/assets/brand/Fiac.svg')
-	},
-	{
-		name: 'Lavor',
-		img: require('@/assets/brand/Lavor.svg')
-	},
-	{
-		name: 'Milwaukee',
-		img: require('@/assets/brand/Milwaukee.svg')
-	},
-	{
-		name: 'Omcn',
-		img: require('@/assets/brand/Omcn.svg')
-	},
-	{
-		name: 'Total',
-		img: require('@/assets/brand/Total.svg')
-	},
-	{
-		name: 'Upower',
-		img: require('@/assets/brand/Upower.svg')
-	},
-	{
-		name: 'Utility',
-		img: require('@/assets/brand/Utility.svg')
-	}
-]
+import { useBrands } from '@/store/brands'
+
+const store = useBrands()
+store.getBrands()
 </script>
 
-<style scoped></style>
+<style scoped>
+.selected:hover {
+	background-color: rgba(134, 134, 134, 0.1);
+}
+</style>

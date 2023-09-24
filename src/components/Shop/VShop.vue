@@ -6,9 +6,10 @@
 	>
 		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4 tw-px-2" expanded />
 
-		<v-row v-if="store.products.length">
+		<v-row>
 			<v-col :cols="12" class="d-flex mt-2" md="2">
 				<div
+					v-if="store.products.length || filters.some((f) => f.model)"
 					:class="{
 						'mx-auto': $vuetify.breakpoint.mdAndUp,
 						'tw-pl-2': $vuetify.breakpoint.smAndDown
@@ -22,19 +23,31 @@
 						v-if="filters.some((filter) => filter.model)"
 						class="text-sm-body-2 primary--text mt-2"
 						style="cursor: pointer"
-						@click="filters.forEach((filter) => (filter.model = ''))"
+						@click="
+							() => {
+								const newQuery = { ...queries }
+								filters.forEach((filter) => {
+									delete newQuery[filter.id]
+								})
+								enableFilter = false
+								$router.push({
+									name: 'shop',
+									query: newQuery
+								})
+							}
+						"
 					>
 						Rimuovi
 					</p>
 				</div>
 			</v-col>
 			<v-col cols="8">
-				<FilterBar v-if="enableFilter" :filters="filters" class="ma-2" />
-				<GroupedProductsCard :products="store.products" class="grow" />
+				<FilterBar v-if="enableFilter || hasFilters" :filters="filters" class="ma-2" />
+				<GroupedProductsCard v-if="store.products.length" :products="store.products" class="grow" />
+				<NotFoundContent v-else />
 			</v-col>
 			<v-col v-if="$vuetify.breakpoint.mdAndUp" :cols="2" />
 		</v-row>
-		<NotFoundContent v-else />
 		<v-row class="justify-center">
 			<v-col :cols="12" :md="4">
 				<v-pagination
@@ -59,20 +72,24 @@ import FilterBar from '@/components/Shop/FilterBar.vue'
 import { productsStore } from '@/store/products'
 import { categoriesStore } from '@/store/categories'
 import { debounce, differenceBy, sortBy, toNumber } from 'lodash'
-import { useRoute } from 'vue-router/composables'
+import { useRoute, useRouter } from 'vue-router/composables'
 import NotFoundContent from '@/components/Product/NoProducts.vue'
 import SearchButton from '@/components/kennef/SearchButton.vue'
 import { useFooter } from '@/store/footer'
 import { useVuetify } from '@/store/vuetify'
+import { useBrands } from '@/store/brands'
+import { ProductQuery } from '@/types/product'
 
 const store = productsStore()
 const footerStore = useFooter()
+const brandsStore = useBrands()
 const vuetify = useVuetify()
 const enableFilter = ref<boolean>(false)
 
 const route = useRoute()
-
+const router = useRouter()
 const queries = computed(() => route.query)
+const hasFilters = computed(() => filters.value.some((filter) => queries.value[filter.id]))
 
 const updateShop = debounce(() => {
 	if (queries.value.search) store.searchProducts((queries.value.search as string) || '')
@@ -88,35 +105,76 @@ const updateShop = debounce(() => {
 			'searchCriteria[filter_groups][0][filters][0][value]': '1',
 			'searchCriteria[filter_groups][0][filters][0][conditionType]': 'eq'
 		})
-	else store.getFirstPage()
+	else if (hasFilters.value) {
+		let productQueries: ProductQuery = {}
+		const addQuery = (query: {
+			field: ProductQuery['searchCriteria[filterGroups][0][filters][0][field]']
+			value: ProductQuery['searchCriteria[filterGroups][0][filters][0][value]']
+			conditionType: ProductQuery['searchCriteria[filterGroups][0][filters][0][condition_type]']
+		}) =>
+			(productQueries = {
+				...productQueries,
+				[`searchCriteria[filterGroups][${productQueries.length}][filters][0][field]`]: query.field,
+				[`searchCriteria[filterGroups][${productQueries.length}][filters][0][value]`]: query.value,
+				[`searchCriteria[filterGroups][${productQueries.length}][filters][0][conditionType]`]:
+					query.conditionType
+			})
+		if (toNumber(queries.value.brand))
+			addQuery({
+				field: 'manufacturer',
+				value: toNumber(queries.value.brand),
+				conditionType: 'eq'
+			})
+		store.getProducts(productQueries)
+	} else store.getFirstPage()
 }, 100)
 watch(queries, updateShop)
 
 const { categories, topLevelCategories, idCategories } = categoriesStore()
-
-const filters = computed<
+interface Filter {
+	id: string
+	name: string
+	model: any
+	placeholder?: string
+	options: string[] | any
+	handle?: (filter: Filter) => void
+}
+const filters = computed<Filter[]>(() => [
 	{
-		name: string
-		model: any
-		placeholder?: string
-		options: string[] | any
-	}[]
->(() => [
-	{
+		id: 'category',
 		name: 'Categoria',
-		model: idCategories[toNumber(useRoute().query.category)]?.name || '',
+		model: idCategories[toNumber(queries.value.category)]?.name || '',
 		placeholder: 'Categoria',
 		options: sortBy(differenceBy(categories, topLevelCategories, 'id').map((c) => c.name))
 	},
 	{
+		id: 'price_range',
 		name: 'Fascia di prezzo',
 		model: '',
 		placeholder: 'Fascia di prezzo',
 		options: []
+	},
+	{
+		id: 'brand',
+		name: 'Brand',
+		model: brandsStore.brands.find((b) => b.option_id === toNumber(queries.value.brand))?.page_title || '',
+		placeholder: 'Brand',
+		options: brandsStore.brands.map((b) => b.page_title),
+		handle: (filter) => {
+			const brand = brandsStore.brands.find((b) => b.page_title === filter.model)
+			if (brand) {
+				router.push({
+					name: 'shop',
+					query: {
+						brand: brand.option_id.toString()
+					}
+				})
+			}
+		}
 	}
 ])
 onMounted(updateShop)
-
+onMounted(brandsStore.getBrands)
 watch(
 	() => vuetify.breakpoint?.smAndDown,
 	(v) => (footerStore.show = !v)

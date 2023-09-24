@@ -26,4 +26,9 @@ export const useBrands = defineStore('brands', () => {
 			brands.value = res.data
 		})
 	}
+
+	return {
+		brands,
+		getBrands
+	}
 })

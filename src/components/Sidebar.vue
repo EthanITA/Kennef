@@ -75,13 +75,15 @@
 						</v-list-item>
 					</template>
 					<v-list-item
-						v-for="brand in headerStore.navigationDrawer.brands"
+						v-for="brand in brandsStore.brands"
 						ripple
-						@click="$router.push(brand.link)"
+						@click="$router.push(`/shop?brand=${brand.option_id}`)"
 					>
-						<v-list-item-avatar />
+						<v-list-item-avatar>
+							<v-img :src="brand.image" />
+						</v-list-item-avatar>
 						<v-list-item-title>
-							{{ brand.title }}
+							{{ brand.page_title }}
 						</v-list-item-title>
 					</v-list-item>
 				</v-list-group>
@@ -106,9 +108,12 @@
 <script lang="ts" setup>
 import { useHeader } from '@/store/header'
 import { categoriesStore } from '@/store/categories'
+import { useBrands } from '@/store/brands'
 
 const headerStore = useHeader()
 const store = categoriesStore()
+const brandsStore = useBrands()
+!brandsStore.brands.length && brandsStore.getBrands()
 </script>
 
 <style scoped>

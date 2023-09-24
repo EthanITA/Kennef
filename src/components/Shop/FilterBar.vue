@@ -8,7 +8,12 @@
 			:class="{ 'pr-4': idx !== filters.length - 1 }"
 			:options="filter.options"
 			:placeholder="filter.placeholder"
-			@input="$emit('input', filters)"
+			@input="
+				() => {
+					if (filter.handle) filter.handle(filter)
+					$emit('input', filters)
+				}
+			"
 		/>
 	</div>
 </template>
@@ -16,13 +21,15 @@
 <script lang="ts" setup>
 import Select from '@/components/kennef/Select.vue'
 
+interface Filter {
+	name: string
+	model: any
+	placeholder?: string
+	options: string[] | any
+	handle?: (filter: Filter) => void
+}
 const props = defineProps<{
-	filters: {
-		name: string
-		model: any
-		placeholder?: string
-		options: string[] | any
-	}[]
+	filters: Filter[]
 }>()
 </script>
 <style lang="sass" scoped>

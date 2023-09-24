@@ -121,10 +121,11 @@ export const productsStore = defineStore('products', () => {
 				(media_gallery) => `${process.env.VUE_APP_MAGENTO_MEDIA}/product/${media_gallery.file}`
 			)
 		},
-		getFirstPage: () => {
-			current_page.value = undefined
-			current_page.value = 1
-		},
+		getFirstPage: () =>
+			getProducts({
+				'searchCriteria[pageSize]': page_size.value,
+				'searchCriteria[currentPage]': 1
+			}),
 		getSize: (prod: Product): string => {
 			const size = prod.custom_attributes.find((attr) => attr.attribute_code === 'taglia')
 			return (size?.value as string) ?? ''

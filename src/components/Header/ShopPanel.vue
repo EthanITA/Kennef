@@ -17,33 +17,26 @@
 				</router-link>
 			</v-col>
 		</v-row>
-		<v-row v-if="false">
-			<v-col>
-				<p class="primary--text font-weight-bold">{{ brandsList.name }}</p>
-				<v-row>
-					<v-col
-						v-for="(subCat, index) in brandsList.subs"
-						:id="index"
-						:key="index"
-						:class="index > 3 ? 'py-0' : 'pb-0'"
-						:cols="3"
-					>
-						<router-link v-if="index % 4 != 3" :to="subCat.url" style="text-decoration: none">
-							<p style="line-height: 1.3">{{ subCat.name }}</p>
-						</router-link>
-					</v-col>
-				</v-row>
-			</v-col>
-		</v-row>
+		<div>
+			<p class="primary--text font-weight-bold">Brand</p>
+			<div class="tw-grid tw-grid-cols-5">
+				<div v-for="(brand, index) in brandsStore.brands" :id="index" :key="index">
+					<router-link :to="`/shop?brand=${brand.option_id}`" style="text-decoration: none">
+						<p style="line-height: 1.3">{{ brand.page_title }}</p>
+					</router-link>
+				</div>
+			</div>
+		</div>
 	</v-container>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { brands } from '@/global'
 import { categoriesStore } from '@/store/categories'
 import { sortBy } from 'lodash'
+import { useBrands } from '@/store/brands'
 
 const store = categoriesStore()
+const brandsStore = useBrands()
+!brandsStore.brands.length && brandsStore.getBrands()
 
 interface ShopPanelCategory {
 	name: string
@@ -52,14 +45,6 @@ interface ShopPanelCategory {
 		name: string
 	}[]
 }
-
-const brandsList = ref<ShopPanelCategory>({
-	name: 'Brands',
-	subs: brands.map((b) => ({
-		name: b,
-		url: `/shop?brand=${b}`
-	}))
-})
 </script>
 
 <style scoped></style>

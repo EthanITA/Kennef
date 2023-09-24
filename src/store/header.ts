@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useVuetify } from '@/store/vuetify'
-import { brands } from '@/global'
 
 interface NavigationDrawerItem {
 	title: string
@@ -13,7 +12,7 @@ interface NavigationDrawerItem {
 export const useHeader = defineStore('header', () => {
 	const vuetify = useVuetify()
 	const showNavigationDrawer = ref<boolean>(false)
-	const navigationDrawer: Record<'general' | 'brands' | 'info', NavigationDrawerItem[]> = {
+	const navigationDrawer: Record<'general' | 'info', NavigationDrawerItem[]> = {
 		general: [
 			{
 				title: 'Home',
@@ -26,10 +25,6 @@ export const useHeader = defineStore('header', () => {
 				link: '/account'
 			}
 		],
-		brands: brands.map((brand) => ({
-			title: brand,
-			link: `/shop?brand=${brand}`
-		})),
 		info: [
 			{
 				title: 'Chi Siamo',
@@ -69,7 +64,6 @@ export const useHeader = defineStore('header', () => {
 		showShopPanel,
 		navigationDrawer,
 		links,
-		brands,
 		setNavigationDrawerVisibility: (visibility: boolean) => (showNavigationDrawer.value = visibility),
 		setShopPanelVisibility: (visibility: boolean) => (showShopPanel.value = visibility)
 	}
