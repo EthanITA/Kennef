@@ -1,7 +1,13 @@
 <template>
 	<div class="d-flex flex-column brand-list pt-16">
 		<h2 class="mb-11 text-h5 font-weight-regular align-self-center">Cerca tra i migliori brand</h2>
-		<div class="tw-grid-cols-6 tw-grid flex-child mb-16">
+		<div
+			:class="{
+				'tw-grid-cols-6': $vuetify.breakpoint.smAndUp,
+				'tw-grid-cols-3': $vuetify.breakpoint.xsOnly
+			}"
+			class="tw-grid flex-child mb-16"
+		>
 			<router-link
 				v-for="brand in store.brands"
 				:key="brand.page_title"
