@@ -15,7 +15,7 @@
 				class="d-flex mt-2"
 			>
 				<div
-					v-if="store.products.length || filters.some((f) => f.model)"
+					v-if="store.products.length || hasFilters"
 					:class="{
 						'mx-auto': $vuetify.breakpoint.mdAndUp,
 						'tw-pl-2': $vuetify.breakpoint.smAndDown
@@ -53,7 +53,7 @@
 					'tw-col-span-8': $vuetify.breakpoint.mdAndUp
 				}"
 			>
-				<FilterBar v-if="enableFilter || hasFilters" :filters="filters" class="ma-2" />
+				<FilterBar v-if="enableFilter && hasFilters" :filters="filters" class="ma-2" />
 				<GroupedProductsCard v-if="store.products.length" :products="store.products" class="grow" />
 				<NotFoundContent v-else />
 			</div>
@@ -95,12 +95,49 @@ const store = productsStore()
 const footerStore = useFooter()
 const brandsStore = useBrands()
 const vuetify = useVuetify()
-const enableFilter = ref<boolean>(false)
 
 const route = useRoute()
 const router = useRouter()
 const queries = computed(() => route.query)
-const hasFilters = computed(() => filters.value.some((filter) => queries.value[filter.id]))
+const { categories, topLevelCategories, idCategories } = categoriesStore()
+
+const filters = computed<Filter[]>(() => [
+	{
+		id: 'category',
+		name: 'Categoria',
+		model: idCategories[toNumber(queries.value.category)]?.name || '',
+		placeholder: 'Categoria',
+		options: sortBy(differenceBy(categories, topLevelCategories, 'id').map((c) => c.name))
+	},
+	{
+		id: 'price_range',
+		name: 'Fascia di prezzo',
+		model: '',
+		placeholder: 'Fascia di prezzo',
+		options: []
+	},
+	{
+		id: 'brand',
+		name: 'Brand',
+		model: brandsStore.brands.find((b) => b.option_id === toNumber(queries.value.brand))?.page_title || '',
+		placeholder: 'Brand',
+		options: brandsStore.brands.map((b) => b.page_title),
+		handle: (filter) => {
+			const brand = brandsStore.brands.find((b) => b.page_title === filter.model)
+			if (brand) {
+				router.push({
+					name: 'shop',
+					query: {
+						brand: brand.option_id.toString()
+					}
+				})
+			}
+		}
+	}
+])
+
+const hasFilters = computed<boolean>(() => filters.value.some((filter) => queries.value[filter.id]))
+const enableFilter = ref<boolean>(hasFilters.value)
 
 const updateShop = debounce(() => {
 	if (queries.value.search) store.searchProducts((queries.value.search as string) || '')
@@ -141,7 +178,6 @@ const updateShop = debounce(() => {
 }, 100)
 watch(queries, updateShop)
 
-const { categories, topLevelCategories, idCategories } = categoriesStore()
 interface Filter {
 	id: string
 	name: string
@@ -150,40 +186,6 @@ interface Filter {
 	options: string[] | any
 	handle?: (filter: Filter) => void
 }
-const filters = computed<Filter[]>(() => [
-	{
-		id: 'category',
-		name: 'Categoria',
-		model: idCategories[toNumber(queries.value.category)]?.name || '',
-		placeholder: 'Categoria',
-		options: sortBy(differenceBy(categories, topLevelCategories, 'id').map((c) => c.name))
-	},
-	{
-		id: 'price_range',
-		name: 'Fascia di prezzo',
-		model: '',
-		placeholder: 'Fascia di prezzo',
-		options: []
-	},
-	{
-		id: 'brand',
-		name: 'Brand',
-		model: brandsStore.brands.find((b) => b.option_id === toNumber(queries.value.brand))?.page_title || '',
-		placeholder: 'Brand',
-		options: brandsStore.brands.map((b) => b.page_title),
-		handle: (filter) => {
-			const brand = brandsStore.brands.find((b) => b.page_title === filter.model)
-			if (brand) {
-				router.push({
-					name: 'shop',
-					query: {
-						brand: brand.option_id.toString()
-					}
-				})
-			}
-		}
-	}
-])
 onMounted(updateShop)
 onMounted(brandsStore.getBrands)
 watch(
