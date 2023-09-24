@@ -6,8 +6,14 @@
 	>
 		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4 tw-px-2" expanded />
 
-		<v-row>
-			<v-col :cols="12" class="d-flex mt-2" md="2">
+		<div class="tw-grid tw-grid-cols-12">
+			<div
+				:class="{
+					'tw-col-span-full': $vuetify.breakpoint.smAndDown,
+					'tw-col-span-2': $vuetify.breakpoint.mdAndUp
+				}"
+				class="d-flex mt-2"
+			>
 				<div
 					v-if="store.products.length || filters.some((f) => f.model)"
 					:class="{
@@ -40,14 +46,19 @@
 						Rimuovi
 					</p>
 				</div>
-			</v-col>
-			<v-col cols="8">
+			</div>
+			<div
+				:class="{
+					'tw-col-span-full': $vuetify.breakpoint.smAndDown,
+					'tw-col-span-8': $vuetify.breakpoint.mdAndUp
+				}"
+			>
 				<FilterBar v-if="enableFilter || hasFilters" :filters="filters" class="ma-2" />
 				<GroupedProductsCard v-if="store.products.length" :products="store.products" class="grow" />
 				<NotFoundContent v-else />
-			</v-col>
+			</div>
 			<v-col v-if="$vuetify.breakpoint.mdAndUp" :cols="2" />
-		</v-row>
+		</div>
 		<v-row class="justify-center">
 			<v-col :cols="12" :md="4">
 				<v-pagination
