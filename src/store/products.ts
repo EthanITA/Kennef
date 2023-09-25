@@ -5,23 +5,27 @@ import { Product, ProductQuery } from '@/types/product'
 import { stocksStore } from '@/store/stocks'
 import _, { sortBy } from 'lodash'
 import { Brand } from '@/store/brands'
+import { Category } from '@/store/categories'
 
 export const productsStore = defineStore('products', () => {
 	const stocks = stocksStore()
 	const total_count = ref<number>(0)
 	const current_page = ref<number>()
+	const skip_next = ref<boolean>(false)
 	const page_size = ref<number>(15)
 
 	const product = ref<Product>()
 	const products = ref<Product[]>([])
 	const getProducts = async (query: ProductQuery) => {
+		skip_next.value = true
+		current_page.value = Number(query['searchCriteria[currentPage]'])
 		const prods = await kennef_axios.get<{
 			items: Product[]
 			total_count: number
 		}>('products', {
 			params: {
-				'searchCriteria[filterGroups][0][filters][0][field]': 'type_id',
-				'searchCriteria[filterGroups][0][filters][0][value]': 'configurable',
+				//'searchCriteria[filterGroups][0][filters][0][field]': 'type_id',
+				//'searchCriteria[filterGroups][0][filters][0][value]': 'configurable',
 				...query
 			} as ProductQuery
 		})
@@ -49,6 +53,7 @@ export const productsStore = defineStore('products', () => {
 			}
 		})
 		total_count.value = prods.data.total_count
+		skip_next.value = false
 		return products.value
 	}
 	const getProduct = async (id: Product['id']) => {
@@ -101,7 +106,7 @@ export const productsStore = defineStore('products', () => {
 		kennef_axios.get<Product['media_gallery_entries']>(`products/${sku}/media`).then((res) => res.data)
 
 	watch(current_page, (val) => {
-		if (!val) return
+		if (!val || skip_next.value) return
 		getProducts({
 			'searchCriteria[pageSize]': page_size.value,
 			'searchCriteria[currentPage]': current_page.value
@@ -115,6 +120,7 @@ export const productsStore = defineStore('products', () => {
 		product,
 		total_count,
 		current_page,
+		page_size,
 		getImgUrl: (prod?: Product): string[] => {
 			if (!prod?.media_gallery_entries?.length) return []
 			return prod.media_gallery_entries.map(
@@ -135,13 +141,41 @@ export const productsStore = defineStore('products', () => {
 				'searchCriteria[filterGroups][1][filters][0][field]': 'name',
 				'searchCriteria[filterGroups][1][filters][0][value]': `%${query}%`,
 				'searchCriteria[filterGroups][1][filters][0][condition_type]': 'like',
+				'searchCriteria[pageSize]': page_size.value,
+				'searchCriteria[currentPage]': 1,
 				...args
 			}),
 		getByBrand: (brandId: Brand['option_id']) =>
 			getProducts({
-				'searchCriteria[filterGroups][0][filters][0][value]': brandId,
-				'searchCriteria[filterGroups][0][filters][0][conditionType]': 'eq',
-				'searchCriteria[filterGroups][0][filters][0][field]': 'manufacturer'
+				'searchCriteria[filterGroups][1][filters][0][value]': brandId,
+				'searchCriteria[filterGroups][1][filters][0][conditionType]': 'eq',
+				'searchCriteria[filterGroups][1][filters][0][field]': 'manufacturer',
+				'searchCriteria[pageSize]': page_size.value,
+				'searchCriteria[currentPage]': 1
+			}),
+		getByCategory: (categoryId: Category['id']) =>
+			getProducts({
+				'searchCriteria[filterGroups][1][filters][0][value]': categoryId,
+				'searchCriteria[filterGroups][1][filters][0][conditionType]': 'eq',
+				'searchCriteria[filterGroups][1][filters][0][field]': 'category_id',
+				'searchCriteria[pageSize]': page_size.value,
+				'searchCriteria[currentPage]': 1
+			}),
+		getTopSellers: () =>
+			getProducts({
+				'searchCriteria[filter_groups][0][filters][0][field]': 'top_seller',
+				'searchCriteria[filter_groups][0][filters][0][value]': '1',
+				'searchCriteria[filter_groups][0][filters][0][conditionType]': 'eq',
+				'searchCriteria[pageSize]': page_size.value,
+				'searchCriteria[currentPage]': 1
+			}),
+		getPromos: () =>
+			getProducts({
+				'searchCriteria[filter_groups][0][filters][0][field]': 'special_price',
+				'searchCriteria[filter_groups][0][filters][0][value]': '0',
+				'searchCriteria[filter_groups][0][filters][0][conditionType]': 'gt',
+				'searchCriteria[pageSize]': page_size.value,
+				'searchCriteria[currentPage]': 1
 			}),
 		getMedias
 	}

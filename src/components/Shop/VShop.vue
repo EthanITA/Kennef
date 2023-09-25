@@ -53,7 +53,7 @@
 					'tw-col-span-8': $vuetify.breakpoint.mdAndUp
 				}"
 			>
-				<FilterBar v-if="enableFilter && hasFilters" :filters="filters" class="ma-2" />
+				<FilterBar v-if="enableFilter || hasFilters" :filters="filters" class="ma-2" />
 				<GroupedProductsCard v-if="store.products.length" :products="store.products" class="grow" />
 				<NotFoundContent v-else />
 			</div>
@@ -99,15 +99,72 @@ const vuetify = useVuetify()
 const route = useRoute()
 const router = useRouter()
 const queries = computed(() => route.query)
-const { categories, topLevelCategories, idCategories } = categoriesStore()
+const categoryStore = categoriesStore()
+const getByFilters = () => {
+	let productQueries: ProductQuery = {
+		'searchCriteria[pageSize]': store.page_size,
+		'searchCriteria[currentPage]': 1
+	}
+	let counter = 0
+	const addQuery = (query: {
+		field: ProductQuery['searchCriteria[filterGroups][0][filters][0][field]']
+		value: ProductQuery['searchCriteria[filterGroups][0][filters][0][value]']
+		conditionType: ProductQuery['searchCriteria[filterGroups][0][filters][0][condition_type]']
+	}) => {
+		productQueries = {
+			...productQueries,
+			[`searchCriteria[filterGroups][${counter}][filters][0][field]`]: query.field,
+			[`searchCriteria[filterGroups][${counter}][filters][0][value]`]: query.value,
+			[`searchCriteria[filterGroups][${counter}][filters][0][conditionType]`]: query.conditionType
+		}
+		counter++
+	}
+	if (toNumber(queries.value.brand))
+		addQuery({
+			field: 'manufacturer',
+			value: toNumber(queries.value.brand),
+			conditionType: 'eq'
+		})
+	if (toNumber(queries.value.category))
+		addQuery({
+			field: 'category_id',
+			value: toNumber(queries.value.category),
+			conditionType: 'eq'
+		})
+	return store.getProducts(productQueries)
+}
+
+const getQueryFilters = () => {
+	const query: Record<string, any> = {}
+	filters.value
+		.map((f) => f.id)
+		.forEach((id) => {
+			if (queries.value[id]) query[id] = queries.value[id]
+		})
+	return query
+}
 
 const filters = computed<Filter[]>(() => [
 	{
 		id: 'category',
 		name: 'Categoria',
-		model: idCategories[toNumber(queries.value.category)]?.name || '',
+		model: categoryStore.idCategories[toNumber(queries.value.category)]?.name || '',
 		placeholder: 'Categoria',
-		options: sortBy(differenceBy(categories, topLevelCategories, 'id').map((c) => c.name))
+		options: sortBy(
+			differenceBy(categoryStore.categories, categoryStore.topLevelCategories, 'id').map((c) => c.name)
+		),
+		handle: (filter) => {
+			const category = categoryStore.categories.find((c) => c.name === filter.model)
+			if (category) {
+				router.push({
+					name: 'shop',
+					query: {
+						...getQueryFilters(),
+						category: category.id.toString()
+					}
+				})
+			}
+		}
 	},
 	{
 		id: 'price_range',
@@ -128,6 +185,7 @@ const filters = computed<Filter[]>(() => [
 				router.push({
 					name: 'shop',
 					query: {
+						...getQueryFilters(),
 						brand: brand.option_id.toString()
 					}
 				})
@@ -141,41 +199,11 @@ const enableFilter = ref<boolean>(hasFilters.value)
 
 const updateShop = debounce(() => {
 	if (queries.value.search) store.searchProducts((queries.value.search as string) || '')
-	else if (queries.value.promo)
-		store.getProducts({
-			'searchCriteria[filter_groups][0][filters][0][field]': 'special_price',
-			'searchCriteria[filter_groups][0][filters][0][value]': '0',
-			'searchCriteria[filter_groups][0][filters][0][conditionType]': 'gt'
-		})
-	else if (queries.value.top_seller)
-		store.getProducts({
-			'searchCriteria[filter_groups][0][filters][0][field]': 'top_seller',
-			'searchCriteria[filter_groups][0][filters][0][value]': '1',
-			'searchCriteria[filter_groups][0][filters][0][conditionType]': 'eq'
-		})
-	else if (hasFilters.value) {
-		let productQueries: ProductQuery = {}
-		const addQuery = (query: {
-			field: ProductQuery['searchCriteria[filterGroups][0][filters][0][field]']
-			value: ProductQuery['searchCriteria[filterGroups][0][filters][0][value]']
-			conditionType: ProductQuery['searchCriteria[filterGroups][0][filters][0][condition_type]']
-		}) =>
-			(productQueries = {
-				...productQueries,
-				[`searchCriteria[filterGroups][${productQueries.length}][filters][0][field]`]: query.field,
-				[`searchCriteria[filterGroups][${productQueries.length}][filters][0][value]`]: query.value,
-				[`searchCriteria[filterGroups][${productQueries.length}][filters][0][conditionType]`]:
-					query.conditionType
-			})
-		if (toNumber(queries.value.brand))
-			addQuery({
-				field: 'manufacturer',
-				value: toNumber(queries.value.brand),
-				conditionType: 'eq'
-			})
-		store.getProducts(productQueries)
-	} else store.getFirstPage()
-}, 100)
+	else if (queries.value.promo) store.getPromos()
+	else if (queries.value.top_seller) store.getTopSellers()
+	else if (hasFilters.value) getByFilters()
+	else store.getFirstPage()
+}, 50)
 watch(queries, updateShop)
 
 interface Filter {
@@ -188,6 +216,7 @@ interface Filter {
 }
 onMounted(updateShop)
 onMounted(brandsStore.getBrands)
+onMounted(categoryStore.getCategories)
 watch(
 	() => vuetify.breakpoint?.smAndDown,
 	(v) => (footerStore.show = !v)
