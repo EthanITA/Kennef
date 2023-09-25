@@ -8,35 +8,38 @@
 				class="pa-2 tw-h-full"
 				style="cursor: pointer"
 			>
-				<v-img
-					:alt="product.name"
-					:aspect-ratio="0.8"
-					:src="store.getImgUrl(product)[0]"
-					:style="{ 'display: none': !store.getImgUrl(product).length }"
-					style="background-color: #f6f6f6"
-				>
-					<v-container>
-						<v-row>
-							<ProductBadge v-if="!product.stock?.is_in_stock" class="blue-grey"> sold out </ProductBadge>
-							<ProductBadge v-else-if="product.is_promo" class="primary"> offerta </ProductBadge>
-						</v-row>
-					</v-container>
-				</v-img>
-				<p class="font-weight-medium text-h6" style="width: 70%">
-					<span>{{ product.name || '[-]' }}</span>
-				</p>
-				<v-container>
-					<v-row>
-						<p class="font-weight-semibold">{{ product.sku || '-' }}</p>
-						<v-spacer />
+				<div class="tw-h-full tw-flex tw-flex-col">
+					<v-img
+						:alt="product.name"
+						:aspect-ratio="0.8"
+						:src="store.getImgUrl(product)[0]"
+						:style="{ 'display: none': !store.getImgUrl(product).length }"
+						height="300px"
+						max-height="300px"
+						style="background-color: #f6f6f6"
+					>
+						<v-container>
+							<v-row>
+								<ProductBadge v-if="!product.stock?.is_in_stock" class="blue-grey">
+									sold out
+								</ProductBadge>
+								<ProductBadge v-else-if="product.is_promo" class="primary"> offerta </ProductBadge>
+							</v-row>
+						</v-container>
+					</v-img>
+					<p class="font-weight-medium text-h6" style="">
+						<span>{{ product.name || '[-]' }}</span>
+					</p>
+					<p class="font-weight-semibold">{{ product.sku || '-' }}</p>
+					<div class="tw-grow">
 						<Price
-							v-if="product.promo_price"
+							v-if="product.promo_price || product.price"
 							:class="{ 'primary--text': hover }"
-							:price="product.promo_price"
+							:price="product.promo_price || product.price"
+							class="tw-text-right"
 						/>
-						<Price v-else-if="product.price" :class="{ 'primary--text': hover }" :price="product.price" />
-					</v-row>
-				</v-container>
+					</div>
+				</div>
 			</HoverScale>
 		</v-hover>
 	</div>
