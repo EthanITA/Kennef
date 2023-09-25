@@ -1,11 +1,11 @@
 <template>
-	<div class="tw-grid tw-grid-cols-12">
+	<div class="tw-grid tw-gap-2 tw-grid-cols-6">
 		<div
 			v-for="(product, index) in products"
 			:key="index"
 			:class="{
-				'tw-col-span-6': $vuetify.breakpoint.smAndDown,
-				'tw-col-span-4': $vuetify.breakpoint.mdAndUp
+				'tw-col-span-3': $vuetify.breakpoint.smAndDown,
+				'tw-col-span-2': $vuetify.breakpoint.mdAndUp
 			}"
 			class="pa-0"
 		>
