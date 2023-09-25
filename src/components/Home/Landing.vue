@@ -31,6 +31,7 @@
 		<v-lazy v-if="topProducts.length && $vuetify.breakpoint.mdAndUp">
 			<TopSellerProducts :products="topProducts" class="mt-16" label="Top Seller" url="/shop?top_seller=true" />
 		</v-lazy>
+		<v-divider class="my-4" />
 		<v-lazy v-if="promoProducts.length && $vuetify.breakpoint.mdAndUp">
 			<TopSellerProducts :products="promoProducts" class="mt-16" label="Promozioni" url="/shop?promo=true" />
 		</v-lazy>

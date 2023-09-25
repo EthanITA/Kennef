@@ -1,5 +1,5 @@
 <template>
-	<v-container>
+	<v-container class="mt-auto">
 		<v-row>
 			<v-col class="text-h4"> {{ label }} </v-col>
 			<v-col class="text-right">
