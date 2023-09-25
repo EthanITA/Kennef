@@ -31,12 +31,12 @@
 						<span>{{ product.name || '[-]' }}</span>
 					</p>
 					<p class="font-weight-semibold">{{ product.sku || '-' }}</p>
-					<div class="tw-grow">
+					<div class="tw-grow tw-flex">
 						<Price
 							v-if="product.promo_price || product.price"
 							:class="{ 'primary--text': hover }"
 							:price="product.promo_price || product.price"
-							class="tw-text-right"
+							class="ml-auto mt-auto"
 						/>
 					</div>
 				</div>
