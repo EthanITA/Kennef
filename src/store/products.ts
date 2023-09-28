@@ -13,6 +13,40 @@ export const productsStore = defineStore('products', () => {
 	const current_page = ref<number>()
 	const skip_next = ref<boolean>(false)
 	const page_size = ref<number>(15)
+	const price_range: {
+		label: string
+		min?: number
+		max?: number
+	}[] = [
+		{
+			label: '< 50€',
+			max: 50
+		},
+		{
+			label: '50€ - 100€',
+			min: 50,
+			max: 100
+		},
+		{
+			label: '100€ - 200€',
+			min: 100,
+			max: 200
+		},
+		{
+			label: '200€ - 500€',
+			min: 200,
+			max: 500
+		},
+		{
+			label: '500€ - 1000€',
+			min: 500,
+			max: 1000
+		},
+		{
+			label: '> 1000€',
+			min: 1000
+		}
+	]
 
 	const product = ref<Product>()
 	const products = ref<Product[]>([])
@@ -117,6 +151,7 @@ export const productsStore = defineStore('products', () => {
 		products,
 		getProducts,
 		getProduct,
+		price_range,
 		product,
 		total_count,
 		current_page,
@@ -177,6 +212,15 @@ export const productsStore = defineStore('products', () => {
 				'searchCriteria[pageSize]': page_size.value,
 				'searchCriteria[currentPage]': 1
 			}),
-		getMedias
+		getMedias,
+		getByPriceRange: (min: number, max: number) =>
+			getProducts({
+				'searchCriteria[filter_groups][0][filters][0][field]': 'price',
+				'searchCriteria[filter_groups][0][filters][0][value]': min,
+				'searchCriteria[filter_groups][0][filters][0][conditionType]': 'gteq',
+				'searchCriteria[filter_groups][1][filters][0][field]': 'price',
+				'searchCriteria[filter_groups][1][filters][0][value]': max,
+				'searchCriteria[filter_groups][1][filters][0][conditionType]': 'lteq'
+			})
 	}
 })

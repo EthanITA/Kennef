@@ -131,6 +131,22 @@ const getByFilters = () => {
 			value: toNumber(queries.value.category),
 			conditionType: 'eq'
 		})
+	if (store.price_range[toNumber(queries.value.price_range)]) {
+		const priceRange = store.price_range[toNumber(queries.value.price_range)]
+		if (priceRange?.min)
+			addQuery({
+				field: 'price',
+				value: priceRange.min,
+				conditionType: 'gteq'
+			})
+		if (priceRange?.max)
+			addQuery({
+				field: 'price',
+				value: priceRange.max,
+				conditionType: 'lteq'
+			})
+	}
+
 	return store.getProducts(productQueries)
 }
 
@@ -169,9 +185,22 @@ const filters = computed<Filter[]>(() => [
 	{
 		id: 'price_range',
 		name: 'Fascia di prezzo',
-		model: '',
+		model: store.price_range[toNumber(queries.value.price_range)]?.label || '',
 		placeholder: 'Fascia di prezzo',
-		options: []
+		options: store.price_range.map((p) => p.label),
+		handle: (filter) => {
+			const price = store.price_range.findIndex((p) => p.label === filter.model)
+			console.log(price)
+			if (price !== -1) {
+				router.push({
+					name: 'shop',
+					query: {
+						...getQueryFilters(),
+						price_range: price.toString()
+					}
+				})
+			}
+		}
 	},
 	{
 		id: 'brand',
