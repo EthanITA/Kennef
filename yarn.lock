@@ -1064,6 +1064,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@paypal/paypal-js@^7.0.3":
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/@paypal/paypal-js/-/paypal-js-7.0.3.tgz#16844270029d8562e4cb326df52b6f0277ee71c4"
+  integrity sha512-Mpq0TGKzypi02Iw4p11eq5+dxVKcuJ+98UDrxLRbqZcr8pBRFPX+jqPFkVq6hzs3sHxwIuMPFCxnrckxxLSznw==
+  dependencies:
+    promise-polyfill "^8.3.0"
+
 "@polka/url@^1.0.0-next.20":
   version "1.0.0-next.21"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
@@ -1105,6 +1112,12 @@
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
+
+"@types/@paypal/paypal-js":
+  version "7.0.3"
+  resolved "https://codeload.github.com/paypal/paypal-js/tar.gz/101e59dd9245d1d49ef6c2e7bf912fc89d1ba394"
+  dependencies:
+    promise-polyfill "^8.3.0"
 
 "@types/axios@^0.14.0":
   version "0.14.0"
@@ -4687,6 +4700,11 @@ progress-webpack-plugin@^1.0.12:
     chalk "^2.1.0"
     figures "^2.0.0"
     log-update "^2.3.0"
+
+promise-polyfill@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-8.3.0.tgz#9284810268138d103807b11f4e23d5e945a4db63"
+  integrity sha512-H5oELycFml5yto/atYqmjyigJoAo3+OXwolYiH7OfQuYlAqhxNvTfiNMbV9hsC6Yp83yE5r2KTVmtrG6R9i6Pg==
 
 proxy-addr@~2.0.7:
   version "2.0.7"

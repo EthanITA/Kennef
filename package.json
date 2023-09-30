@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
+    "@paypal/paypal-js": "^7.0.3",
+    "@types/": "paypal/paypal-js",
     "@types/axios": "^0.14.0",
     "@vueuse/core": "5",
     "autoprefixer": "^10.4.14",
