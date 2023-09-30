@@ -1,5 +1,5 @@
 <template>
-	<Button class="darken-3" color="yellow">
+	<Button class="darken-3" color="yellow" @click="$emit('click')">
 		<div class="d-flex align-center">
 			<v-img class="mr-2" contain height="32" src="@/assets/payment/PaypalIcon.svg" width="32" />
 			<div v-if="instalment" class="text-lowercase">

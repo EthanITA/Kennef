@@ -1,20 +1,12 @@
 <template>
 	<div>
-		<ButtonList v-model="selected" :list="store.checkout.paymentMethods">
-			<template #left="{ item }">
-				{{ item.title }}
-			</template>
-			<!--			<template #right="{ item }">
-        <component :is="item.svg" />
-      </template>-->
-		</ButtonList>
-		<StepperActions :valid="!!store.paymentMethod" class="mt-8" final @cancel="$emit('cancel')" @submit="confirm" />
+		<PaypalButton class="tw-w-full" @click="paypalPayment" />
+		<StepperActions :valid="!!store.paymentMethod" class="mt-8" final @cancel="$emit('cancel')" />
 	</div>
 </template>
 
 <script lang="ts" setup>
 import StepperActions from '@/components/Checkout/Steps/StepperActions.vue'
-import ButtonList from '@/components/kennef/ButtonList.vue'
 import { ref, watch } from 'vue'
 import CreditCard from '@/components/Icons/CreditCard.vue'
 import Paypal from '@/components/Icons/Paypal.vue'
@@ -22,25 +14,22 @@ import Klarna from '@/components/Icons/Klarna.vue'
 import Bank from '@/components/Icons/Bank.vue'
 import Coins from '@/components/Icons/Coins.vue'
 import { useCart } from '@/store/cart'
+import PaypalButton from '@/components/Checkout/PaypalButton.vue'
+import { useKennefBE } from '@/store/be'
 
 const selected = ref<number>()
 
 const store = useCart()
-
+const beStore = useKennefBE()
+const paypalPayment = () => {
+	if (!store.cartId) return
+	beStore.paypal(store.cartId)
+}
 const emit = defineEmits<{
-	submit: void
 	cancel: void
 }>()
 
 watch(selected, (value) => (store.paymentMethod = store.checkout.paymentMethods[value ?? -1]))
-
-const confirm = () => {
-	if (!store.paymentMethod) return
-	store.placeOrder().then(() => {
-		// @ts-ignore
-		emit('submit')
-	})
-}
 
 const methods = ref<
 	{
