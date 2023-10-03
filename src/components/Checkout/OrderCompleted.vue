@@ -1,8 +1,3 @@
-<script lang="ts" setup>
-import CheckoutSummary from '@/components/Checkout/CheckoutSummary.vue'
-import OrderCompletedInfo from '@/components/Checkout/OrderCompletedInfo.vue'
-</script>
-
 <template>
 	<v-container class="px-0 mx-0" style="height: 100%; max-width: 100%">
 		<div
@@ -23,5 +18,17 @@ import OrderCompletedInfo from '@/components/Checkout/OrderCompletedInfo.vue'
 		</div>
 	</v-container>
 </template>
+<script lang="ts" setup>
+import CheckoutSummary from '@/components/Checkout/CheckoutSummary.vue'
+import OrderCompletedInfo from '@/components/Checkout/OrderCompletedInfo.vue'
 
+import { computed } from 'vue'
+import { useRoute } from 'vue-router/composables'
+import { useOrder } from '@/store/order'
+
+const orderId = computed<string>(() => useRoute().query.orderId as string)
+
+const store = useOrder()
+store.getOrder(orderId.value)
+</script>
 <style scoped></style>

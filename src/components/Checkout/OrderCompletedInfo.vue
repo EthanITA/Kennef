@@ -10,10 +10,10 @@
 </template>
 <script lang="ts" setup>
 import Cart from '@/components/Icons/Cart.vue'
-import { useCart } from '@/store/cart'
 import AddressInfo from '@/components/Checkout/AddressInfo.vue'
+import { useOrder } from '@/store/order'
 
-const store = useCart()
+const store = useOrder()
 </script>
 
 <style scoped>

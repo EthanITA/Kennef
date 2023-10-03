@@ -18,7 +18,11 @@
 			</div>
 		</div>
 		<div v-show="showSummary || $vuetify.breakpoint.mdAndUp || completed" class="flex-col gap-1">
-			<v-row v-for="product in store.cart?.items" :key="product.item_id" align="center">
+			<v-row
+				v-for="product in (completed ? orderStore.order : store.cart)?.items || []"
+				:key="product.item_id"
+				align="center"
+			>
 				<v-col class="flex-grow-0">
 					<div style="position: relative">
 						<v-img
@@ -30,7 +34,10 @@
 							style="background-color: #f6f6f6"
 							width="64"
 						/>
-						<v-badge :content="product.qty" style="position: absolute; top: 8px; right: 8px" />
+						<v-badge
+							:content="product?.qty_ordered || product?.qty"
+							style="position: absolute; top: 8px; right: 8px"
+						/>
 					</div>
 				</v-col>
 				<v-col>
@@ -51,18 +58,28 @@
 			<div class="flex-col gap-0.5">
 				<div class="d-flex justify-space-between align-center">
 					<p class="ma-0">Subtotale</p>
-					<Price :price="store.total?.subtotal_incl_tax || 0" no-underline />
+					<Price
+						:price="(!completed ? store.total : orderStore.order)?.subtotal_incl_tax || 0"
+						no-underline
+					/>
 				</div>
 				<div class="d-flex justify-space-between align-center">
 					<p class="ma-0">Spedizione</p>
-					<Price :price="store.total?.shipping_incl_tax || 0" no-underline />
+					<Price
+						:price="(!completed ? store.total : orderStore.order)?.shipping_incl_tax || 0"
+						no-underline
+					/>
 				</div>
 			</div>
 			<v-divider />
 			<div class="d-flex justify-space-between align-center">
 				<p class="ma-0">Totale</p>
 				<div class="d-flex align-baseline gap-0.5">
-					<Price :price="store.total?.grand_total || 0" class="text-h6" no-underline />
+					<Price
+						:price="(!completed ? store.total : orderStore.order)?.grand_total || 0"
+						class="text-h6"
+						no-underline
+					/>
 					<span v-if="completed" class="body-2 font-weight-light">IVA inclusa</span>
 				</div>
 			</div>
@@ -79,8 +96,10 @@ import Button from '@/components/kennef/Button.vue'
 import { useCart } from '@/store/cart'
 import { onMounted, ref } from 'vue'
 import AddressInfo from '@/components/Checkout/AddressInfo.vue'
+import { useOrder } from '@/store/order'
 
 const store = useCart()
+const orderStore = useOrder()
 const props = defineProps<{
 	completed?: boolean
 }>()
