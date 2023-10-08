@@ -114,29 +114,29 @@ const emailInput = ''
 const usefulLinks = [
 	{
 		name: 'Contatti',
-		link: '#'
+		link: '/#'
 	},
 	{
 		name: 'Termini e Condizioni',
-		link: '#'
+		link: '/#'
 	},
 	{
 		name: 'Spedizioni e Resi',
-		link: '#'
+		link: '/#'
 	},
 	{
 		name: 'FAQ',
-		link: '#'
+		link: '/#'
 	}
 ]
 const agencyLinks = [
 	{
 		name: 'Chi Siamo',
-		link: '#'
+		link: '/#'
 	},
 	{
 		name: 'Store',
-		link: '#'
+		link: '/#'
 	}
 ]
 const paymentsMethods = [
@@ -165,19 +165,19 @@ const shippingMethods = [
 ]
 const links = [
 	{
-		link: '#',
+		link: '/#',
 		title: 'IMPRINT'
 	},
 	{
-		link: '#',
+		link: '/#',
 		title: 'DATA PROTECTION'
 	},
 	{
-		link: '#',
+		link: '/#',
 		title: 'COOKIES'
 	},
 	{
-		link: '#',
+		link: '/#',
 		title: 'TAKE BACKS'
 	}
 ]

@@ -20,26 +20,37 @@ export const useHeader = defineStore('header', () => {
 				link: '/'
 			},
 			{
+				link: '/shop?top_seller=true',
+				icon: 'mdi-star-outline',
+				title: 'Top Seller'
+			},
+
+			{
+				link: '/shop?promo=true',
+				icon: 'mdi-tag-outline',
+				title: 'Promo'
+			}
+			/*{
 				title: 'Il mio account',
 				icon: 'mdi-account-outline',
 				link: '/account'
-			}
+			}*/
 		],
 		info: [
 			{
 				title: 'Chi Siamo',
 				img: require('@/assets/mobile/kennef_icon.svg'),
-				link: '#'
+				link: '/#'
 			},
 			{
 				title: "FAQ'S",
 				icon: 'mdi-help-circle-outline',
-				link: '#'
+				link: '/#'
 			},
 			{
 				title: 'Contatti',
 				icon: 'mdi-phone-outline',
-				link: '#'
+				link: '/#'
 			}
 		]
 	}
