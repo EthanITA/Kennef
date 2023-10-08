@@ -45,8 +45,7 @@ export const productsStore = defineStore('products', () => {
 		},
 		{
 			label: '> 1000€',
-			min: 1000,
-			max: 9999
+			min: 1000
 		}
 	]
 	const route = useRoute()
