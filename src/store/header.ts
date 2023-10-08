@@ -46,15 +46,24 @@ export const useHeader = defineStore('header', () => {
 	const showShopPanel = ref<boolean>(false)
 	const links = [
 		{
-			link: '#',
+			link: '/#',
 			title: 'Shop'
 		},
 		{
-			link: '#',
+			link: '/shop?top_seller=true',
+			title: 'Top Seller'
+		},
+
+		{
+			link: '/shop?promo=true',
+			title: 'Promo'
+		},
+		{
+			link: '/#',
 			title: 'Chi Siamo'
 		},
 		{
-			link: '#',
+			link: '/#',
 			title: 'Contatti'
 		}
 	]

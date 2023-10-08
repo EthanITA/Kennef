@@ -84,7 +84,7 @@
 import SearchButton from '@/components/kennef/SearchButton.vue'
 import { ref, watch } from 'vue'
 import ShopPanel from '@/components/Header/ShopPanel.vue'
-import { useRoute } from 'vue-router/composables'
+import { useRoute, useRouter } from 'vue-router/composables'
 import { useCart } from '@/store/cart'
 import { useHeader } from '@/store/header'
 import { categoriesStore } from '@/store/categories'
@@ -92,7 +92,7 @@ import { categoriesStore } from '@/store/categories'
 const store = useHeader()
 const cartStore = useCart()
 categoriesStore().getCategories()
-
+const router = useRouter()
 const showLogout = ref(false)
 const currentPath = ref(useRoute())
 const noIcons = ref(false)
@@ -116,9 +116,11 @@ watch(
 	{ deep: true, immediate: true }
 )
 
-const linkClicked = (link: any) => {
+const linkClicked = (link: { title: string; link: string }) => {
 	if (link.title === 'Shop') {
 		store.showShopPanel = !store.showShopPanel
+	} else {
+		router.push(link.link)
 	}
 }
 </script>
