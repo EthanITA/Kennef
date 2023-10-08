@@ -2,7 +2,7 @@
 	<v-container class="px-0 mx-0" style="height: 100%; max-width: 100%">
 		<div
 			:class="{
-				'tw-grid-cols-1': $vuetify.breakpoint.smAndDown
+				'!tw-grid-cols-1': $vuetify.breakpoint.smAndDown
 			}"
 			class="tw-h-full tw-grid tw-grid-cols-2"
 		>
