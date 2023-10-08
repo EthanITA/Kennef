@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { kennef_axios } from '@/store/api'
 import { Product, ProductQuery } from '@/types/product'
 import { stocksStore } from '@/store/stocks'
-import _, { sortBy } from 'lodash'
+import _, { sortBy, toNumber } from 'lodash'
 import { Brand } from '@/store/brands'
 import { Category } from '@/store/categories'
+import { useRoute } from 'vue-router/composables'
 
 export const productsStore = defineStore('products', () => {
 	const stocks = stocksStore()
@@ -44,9 +45,12 @@ export const productsStore = defineStore('products', () => {
 		},
 		{
 			label: '> 1000€',
-			min: 1000
+			min: 1000,
+			max: 9999
 		}
 	]
+	const route = useRoute()
+	const queries = computed(() => route.query)
 
 	const product = ref<Product>()
 	const products = ref<Product[]>([])
@@ -139,12 +143,64 @@ export const productsStore = defineStore('products', () => {
 	const getMedias = (sku: Product['sku']) =>
 		kennef_axios.get<Product['media_gallery_entries']>(`products/${sku}/media`).then((res) => res.data)
 
+	const getByFilters = (firstPage: boolean = false) => {
+		let productQueries: ProductQuery = {
+			'searchCriteria[pageSize]': page_size.value,
+			'searchCriteria[currentPage]': firstPage ? 1 : current_page.value
+		}
+		let counter = 0
+		const addQuery = (query: {
+			field: ProductQuery['searchCriteria[filterGroups][0][filters][0][field]']
+			value: ProductQuery['searchCriteria[filterGroups][0][filters][0][value]']
+			conditionType: ProductQuery['searchCriteria[filterGroups][0][filters][0][condition_type]']
+		}) => {
+			productQueries = {
+				...productQueries,
+				[`searchCriteria[filterGroups][${counter}][filters][0][field]`]: query.field,
+				[`searchCriteria[filterGroups][${counter}][filters][0][value]`]: query.value,
+				[`searchCriteria[filterGroups][${counter}][filters][0][conditionType]`]: query.conditionType
+			}
+			counter++
+		}
+		if (toNumber(queries.value.brand))
+			addQuery({
+				field: 'manufacturer',
+				value: toNumber(queries.value.brand),
+				conditionType: 'eq'
+			})
+		if (toNumber(queries.value.category))
+			addQuery({
+				field: 'category_id',
+				value: toNumber(queries.value.category),
+				conditionType: 'eq'
+			})
+		if (price_range[toNumber(queries.value.price_range)]) {
+			const priceRange = price_range[toNumber(queries.value.price_range)]
+			if (priceRange?.min)
+				addQuery({
+					field: 'price',
+					value: priceRange.min,
+					conditionType: 'gteq'
+				})
+			if (priceRange?.max)
+				addQuery({
+					field: 'price',
+					value: priceRange.max,
+					conditionType: 'lteq'
+				})
+		}
+
+		return getProducts(productQueries)
+	}
+
 	watch(current_page, (val) => {
 		if (!val || skip_next.value) return
-		getProducts({
-			'searchCriteria[pageSize]': page_size.value,
-			'searchCriteria[currentPage]': current_page.value
-		})
+		if (queries.value.brand || queries.value.category || queries.value.price_range) getByFilters()
+		else
+			getProducts({
+				'searchCriteria[pageSize]': page_size.value,
+				'searchCriteria[currentPage]': current_page.value
+			})
 	})
 
 	return {
@@ -221,6 +277,7 @@ export const productsStore = defineStore('products', () => {
 				'searchCriteria[filter_groups][1][filters][0][field]': 'price',
 				'searchCriteria[filter_groups][1][filters][0][value]': max,
 				'searchCriteria[filter_groups][1][filters][0][conditionType]': 'lteq'
-			})
+			}),
+		getByFilters
 	}
 })

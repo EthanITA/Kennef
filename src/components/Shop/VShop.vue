@@ -89,7 +89,6 @@ import SearchButton from '@/components/kennef/SearchButton.vue'
 import { useFooter } from '@/store/footer'
 import { useVuetify } from '@/store/vuetify'
 import { useBrands } from '@/store/brands'
-import { ProductQuery } from '@/types/product'
 
 const store = productsStore()
 const footerStore = useFooter()
@@ -100,55 +99,6 @@ const route = useRoute()
 const router = useRouter()
 const queries = computed(() => route.query)
 const categoryStore = categoriesStore()
-const getByFilters = () => {
-	let productQueries: ProductQuery = {
-		'searchCriteria[pageSize]': store.page_size,
-		'searchCriteria[currentPage]': 1
-	}
-	let counter = 0
-	const addQuery = (query: {
-		field: ProductQuery['searchCriteria[filterGroups][0][filters][0][field]']
-		value: ProductQuery['searchCriteria[filterGroups][0][filters][0][value]']
-		conditionType: ProductQuery['searchCriteria[filterGroups][0][filters][0][condition_type]']
-	}) => {
-		productQueries = {
-			...productQueries,
-			[`searchCriteria[filterGroups][${counter}][filters][0][field]`]: query.field,
-			[`searchCriteria[filterGroups][${counter}][filters][0][value]`]: query.value,
-			[`searchCriteria[filterGroups][${counter}][filters][0][conditionType]`]: query.conditionType
-		}
-		counter++
-	}
-	if (toNumber(queries.value.brand))
-		addQuery({
-			field: 'manufacturer',
-			value: toNumber(queries.value.brand),
-			conditionType: 'eq'
-		})
-	if (toNumber(queries.value.category))
-		addQuery({
-			field: 'category_id',
-			value: toNumber(queries.value.category),
-			conditionType: 'eq'
-		})
-	if (store.price_range[toNumber(queries.value.price_range)]) {
-		const priceRange = store.price_range[toNumber(queries.value.price_range)]
-		if (priceRange?.min)
-			addQuery({
-				field: 'price',
-				value: priceRange.min,
-				conditionType: 'gteq'
-			})
-		if (priceRange?.max)
-			addQuery({
-				field: 'price',
-				value: priceRange.max,
-				conditionType: 'lteq'
-			})
-	}
-
-	return store.getProducts(productQueries)
-}
 
 const getQueryFilters = () => {
 	const query: Record<string, any> = {}
@@ -230,7 +180,7 @@ const updateShop = debounce(() => {
 	if (queries.value.search) store.searchProducts((queries.value.search as string) || '')
 	else if (queries.value.promo) store.getPromos()
 	else if (queries.value.top_seller) store.getTopSellers()
-	else if (hasFilters.value) getByFilters()
+	else if (hasFilters.value) store.getByFilters(true)
 	else store.getFirstPage()
 }, 50)
 watch(queries, updateShop)
