@@ -83,4 +83,12 @@ const router = new VueRouter({
 	routes
 })
 
+router.beforeEach((to, _, next) => {
+	if (routes.find((route) => route.name === to.name)) {
+		next()
+	} else {
+		next({ name: 'not-found' })
+	}
+})
+
 export default router
