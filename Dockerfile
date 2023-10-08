@@ -1,8 +1,11 @@
-FROM node:18.16
+# Build Stage
+FROM node:18.16 AS build-env
 COPY . /app
 WORKDIR /app
 RUN yarn install
 RUN npm run build
-EXPOSE 8080
-WORKDIR /app/dist
-CMD ["serve", "-l", "8080"]
+
+FROM nginx:alpine
+COPY --from=build-env /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

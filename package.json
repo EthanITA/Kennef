@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "docker build --no-cache -t kennef-fe . && docker run -p 8080:8080 kennef-fe"
+    "deploy": "docker build --no-cache -t kennef-fe . && docker run -p 8080:80 kennef-fe"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
