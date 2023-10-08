@@ -50,14 +50,16 @@ import Brands from '@/components/Home/Brands.vue'
 import KennefCharacteristics from '@/components/Home/KennefCharacteristics.vue'
 import Button from '@/components/kennef/Button.vue'
 import LandingCardAction from '@/components/LandingCardAction.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import TopSellerProducts from '@/components/Home/TopSellerProducts.vue'
 import { Product } from '@/types/product'
 import { productsStore } from '@/store/products'
 import SearchButton from '@/components/kennef/SearchButton.vue'
+import { useFooter } from '@/store/footer'
 
 const topProducts = ref<Product[]>([])
 const promoProducts = ref<Product[]>([])
+const footerStore = useFooter()
 productsStore()
 	.getProducts({
 		'searchCriteria[pageSize]': 3,
@@ -80,4 +82,6 @@ productsStore()
 	.then((res: Product[]) => {
 		promoProducts.value = res
 	})
+
+onMounted(() => footerStore.setShow(true))
 </script>
