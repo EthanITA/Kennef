@@ -6,10 +6,10 @@
 		<Autocomplete
 			v-else
 			v-model="search"
+			:autofocus="$vuetify.breakpoint.mdAndUp"
 			:items="items"
 			:label="(value) => value?.name || value"
 			:loading="isLoading"
-			autofocus
 			custom-item
 			@clear="enableInput = !!expanded"
 			@input="searchProducts"
