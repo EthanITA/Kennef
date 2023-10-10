@@ -1,24 +1,32 @@
 <template>
 	<div class="d-flex flex-column info-list pt-16">
 		<h2 class="mb-11 text-h5 font-weight-regular align-self-center">Acquista utensili su Kennef</h2>
-		<v-sheet
-			v-for="card in info"
-			:key="card.title"
-			class="d-flex flex-column align-self-center justify-center mb-11"
-			elevation="0"
-			width="300"
+		<div
+			:class="{
+				'tw-grid-cols-1': $vuetify.breakpoint.xsOnly,
+				'tw-grid-cols-2': $vuetify.breakpoint.smAndUp,
+				'tw-grid-cols-3': $vuetify.breakpoint.mdAndUp,
+				'tw-grid-cols-5': $vuetify.breakpoint.lgAndUp
+			}"
+			class="tw-grid"
 		>
-			<v-icon class="mb-4" color="primary">
-				{{ card.icon }}
-			</v-icon>
+			<div
+				v-for="card in info"
+				:key="card.title"
+				class="d-flex flex-column align-self-start justify-center mb-11"
+			>
+				<v-icon class="mb-4" color="primary">
+					{{ card.icon }}
+				</v-icon>
 
-			<h5 class="mb-3 text-center text-h5 font-weight-semibold">
-				{{ card.title }}
-			</h5>
-			<p class="text-subtitle-1 text-center font-weight-thin">
-				{{ card.description }}
-			</p>
-		</v-sheet>
+				<h5 class="mb-3 text-center text-h5 font-weight-semibold">
+					{{ card.title }}
+				</h5>
+				<p class="text-subtitle-1 text-center font-weight-light">
+					{{ card.description }}
+				</p>
+			</div>
+		</div>
 	</div>
 </template>
 
