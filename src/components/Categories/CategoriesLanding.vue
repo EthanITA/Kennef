@@ -8,7 +8,9 @@
 						Lorem ipsum dolor sit amet, consectetur elit. Elit tristique habitasse consequat nisi, sit
 						aenean cursus purus bibendum.
 					</p>
-					<template #action> <Button>scopri di piu </Button></template>
+					<template #action>
+						<Button @click="$router.push('/shop?top_seller=true')">scopri di piu </Button></template
+					>
 				</LandingCardAction>
 			</v-col>
 		</v-row>
