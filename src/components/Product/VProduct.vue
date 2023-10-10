@@ -128,7 +128,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { productsStore } from '@/store/products'
 import { useRoute } from 'vue-router/composables'
 import { debounce, sortBy, toNumber } from 'lodash'
@@ -136,10 +136,13 @@ import { attributeStore } from '@/store/attributes'
 import Price from '@/components/kennef/Price.vue'
 import { Product } from '@/types/product'
 import { useCart } from '@/store/cart'
+import { useFooter } from '@/store/footer'
 
 const store = productsStore()
 const attributes = attributeStore()
 const cartStore = useCart()
+const footerStore = useFooter()
+onMounted(() => footerStore.setShow(true))
 store.getProduct(toNumber(useRoute().params.id as string))
 attributes.getSizes()
 attributes.getColors()
