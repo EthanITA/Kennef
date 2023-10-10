@@ -49,7 +49,7 @@
 			</v-col>
 		</v-row>
 		<v-divider dark></v-divider>
-		<v-row class="py-8" no-gutters>
+		<v-row class="py-8">
 			<v-col cols="12" lg="4" md="4" xl="4">
 				<h5 class="white--text text-subtitle-1 font-weight-regular">Spedizioni</h5>
 				<div class="d-flex mt-5">
@@ -58,7 +58,7 @@
 					</v-sheet>
 				</div>
 			</v-col>
-			<v-col cols="12" lg="4" md="4" xl="4">
+			<v-col>
 				<h5 class="white--text text-subtitle-1 font-weight-regular">Metodi di Pagamento</h5>
 				<div class="tw-flex tw-gap-1 tw-flex-wrap mt-5">
 					<v-sheet v-for="item in paymentsMethods" :key="item.name" color="secondary">
