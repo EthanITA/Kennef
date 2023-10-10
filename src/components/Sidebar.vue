@@ -34,7 +34,7 @@
 					v-for="item in headerStore.navigationDrawer.general"
 					:key="item.title"
 					ripple
-					@click="$router.push(item.link)"
+					@click="$router.push(item.link).catch(reload)"
 				>
 					<v-list-item-avatar>
 						<v-icon v-if="item.icon">{{ item.icon }}</v-icon>
@@ -55,7 +55,7 @@
 					<v-list-item
 						v-for="subCategory in store.parentCategories[category.id]"
 						ripple
-						@click="$router.push(`/shop?category=${subCategory.id}`)"
+						@click="$router.push(`/shop?category=${subCategory.id}`).catch(reload)"
 					>
 						<v-list-item-avatar />
 						<v-list-item-title>
@@ -77,7 +77,7 @@
 					<v-list-item
 						v-for="brand in brandsStore.brands"
 						ripple
-						@click="$router.push(`/shop?brand=${brand.option_id}`)"
+						@click="$router.push(`/shop?brand=${brand.option_id}`).catch(reload)"
 					>
 						<v-list-item-avatar>
 							<v-img :src="brand.image" />
@@ -110,6 +110,7 @@ import { useHeader } from '@/store/header'
 import { categoriesStore } from '@/store/categories'
 import { useBrands } from '@/store/brands'
 
+const reload = () => window.location.reload()
 const headerStore = useHeader()
 const store = categoriesStore()
 const brandsStore = useBrands()

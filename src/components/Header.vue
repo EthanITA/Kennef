@@ -21,7 +21,7 @@
 				'tw-mx-auto': $vuetify.breakpoint.smAndDown && cartHeader
 			}"
 			class="d-flex align-center"
-			@click="$router.push('/')"
+			@click="$router.push('/').catch(reload)"
 		>
 			<!--				:src="
                 $vuetify.breakpoint.smAndDown && !cartHeader
@@ -98,6 +98,8 @@ const cartHeader = ref(false)
 const logoutPaths = ['/account', '/account/security', '/account/profile', '/account/orders', '/cart']
 const noIconsPaths = ['/cart', '/checkout']
 const noHeaderPaths = ['/login', '/checkout']
+
+const reload = () => window.location.reload()
 
 const checkouts = ['/checkout', '/cart']
 watch(
