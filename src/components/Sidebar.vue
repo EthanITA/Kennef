@@ -45,7 +45,7 @@
 			<v-list>
 				<v-list-group v-for="category in store.topLevelCategories" color="secodary">
 					<template #prependIcon>
-						<v-icon class="tw-pl-2">mdi-fruit-cherries</v-icon>
+						<v-icon class="tw-pl-2"> mdi-format-list-bulleted</v-icon>
 					</template>
 					<template #activator>
 						<v-list-item>
