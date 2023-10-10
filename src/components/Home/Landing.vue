@@ -33,7 +33,7 @@
 		</v-lazy>
 		<v-divider class="my-4" />
 		<v-lazy v-if="promoProducts.length && $vuetify.breakpoint.mdAndUp">
-			<TopSellerProducts :products="promoProducts" class="mt-16" label="Promozioni" url="/shop?promo=true" />
+			<TopSellerProducts :products="promoProducts" class="mt-16" label="Promo" url="/shop?promo=true" />
 		</v-lazy>
 		<v-lazy class="mt-16">
 			<KennefCharacteristics />
