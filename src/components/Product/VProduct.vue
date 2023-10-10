@@ -32,7 +32,7 @@
 								flat
 								@click="setActiveImage(i)"
 							>
-								<v-img :aspect-ratio="1" :src="item" />
+								<v-img :aspect-ratio="1" :src="item" contain />
 							</v-card>
 						</v-col>
 						<v-spacer />
