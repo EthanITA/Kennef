@@ -1,20 +1,21 @@
 <template>
-	<v-parallax src="@/assets/categoriesBackground.png">
-		<v-row>
-			<v-col align-self="center" cols="12" lg="6" offset-md="1" xl="6">
-				<LandingCardAction class="transparent">
-					<template #title> <p class="white--text">I nostri prodotti</p></template>
-					<p class="white--text">
-						Lorem ipsum dolor sit amet, consectetur elit. Elit tristique habitasse consequat nisi, sit
-						aenean cursus purus bibendum.
-					</p>
-					<template #action>
-						<Button @click="$router.push('/shop?top_seller=true')">scopri di piu </Button></template
-					>
-				</LandingCardAction>
-			</v-col>
-		</v-row>
-	</v-parallax>
+	<div>
+		<LandingCardAction
+			:style="{
+				'background-image': 'url(' + require('@/assets/categoriesBackground.png') + ')'
+			}"
+			class="tw-p-4 tw-bg-cover tw-bg-center tw-bg-no-repeat tw-bg-fixed tw-h-[50vh] tw-w-screen"
+		>
+			<template #title><p class="white--text">I nostri prodotti</p></template>
+			<p class="white--text">
+				Lorem ipsum dolor sit amet, consectetur elit. Elit tristique habitasse consequat nisi, sit aenean cursus
+				purus bibendum.
+			</p>
+			<template #action>
+				<Button @click="$router.push('/shop?top_seller=true')">scopri di piu</Button>
+			</template>
+		</LandingCardAction>
+	</div>
 </template>
 
 <script lang="ts" setup>
