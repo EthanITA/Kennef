@@ -134,9 +134,9 @@ const filters = computed<Filter[]>(() => [
 	},
 	{
 		id: 'price_range',
-		name: 'Fascia di prezzo',
+		name: 'Prezzo',
 		model: store.price_range[toNumber(queries.value.price_range)]?.label || '',
-		placeholder: 'Fascia di prezzo',
+		placeholder: 'Prezzo',
 		options: store.price_range.map((p) => p.label),
 		handle: (filter) => {
 			const price = store.price_range.findIndex((p) => p.label === filter.model)
