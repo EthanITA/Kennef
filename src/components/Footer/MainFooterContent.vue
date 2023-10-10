@@ -60,7 +60,7 @@
 			</v-col>
 			<v-col cols="12" lg="4" md="4" xl="4">
 				<h5 class="white--text text-subtitle-1 font-weight-regular">Metodi di Pagamento</h5>
-				<div class="d-flex mt-5">
+				<div class="tw-flex tw-gap-1 tw-flex-wrap mt-5">
 					<v-sheet v-for="item in paymentsMethods" :key="item.name" color="secondary">
 						<v-img :src="item.src" class="mr-5" width="100"></v-img>
 					</v-sheet>
