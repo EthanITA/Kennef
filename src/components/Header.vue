@@ -23,16 +23,12 @@
 			class="d-flex align-center"
 			@click="$router.push('/')"
 		>
-			<v-img
-				:src="
-					$vuetify.breakpoint.smAndDown && !cartHeader
-						? require('../assets/mobile/Logo.svg')
-						: require('../assets/logotype.svg')
-				"
-				alt="Kennef Logotype"
-				contain
-				width="125"
-			/>
+			<!--				:src="
+                $vuetify.breakpoint.smAndDown && !cartHeader
+                  ? require('../assets/mobile/Logo.svg')
+                  : require('../assets/logotype.svg')
+              "-->
+			<v-img :src="require('../assets/logotype.svg')" alt="Kennef Logotype" contain width="125" />
 		</a>
 
 		<div
