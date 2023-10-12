@@ -10,9 +10,9 @@
 			<div
 				:class="{
 					'tw-col-span-full': $vuetify.breakpoint.smAndDown,
-					'tw-col-span-2': $vuetify.breakpoint.mdAndUp
+					'tw-col-span-2 tw-flex-col': $vuetify.breakpoint.mdAndUp
 				}"
-				class="d-flex mt-2"
+				class="d-flex tw-gap-2"
 			>
 				<div
 					v-if="store.products.length || hasFilters"
@@ -45,6 +45,54 @@
 					>
 						Rimuovi
 					</p>
+				</div>
+				<div
+					:class="{
+						'tw-flex-1 tw-justify-evenly tw-items-center': $vuetify.breakpoint.smAndDown,
+						'tw-flex-col tw-pl-4': $vuetify.breakpoint.mdAndUp
+					}"
+					class="tw-gap-2 tw-flex"
+				>
+					<div class="tw-flex tw-items-center tw-gap-4 tw-justify-between">
+						<p class="mb-0 tw-uppercase">Promo</p>
+						<v-switch
+							:value="isPromo"
+							class="mt-0"
+							color="primary"
+							flat
+							hide-details
+							inset
+							@change="
+								$router.push({
+									path: '/shop',
+									query: {
+										...queries,
+										promo: $event ? 'true' : undefined
+									}
+								})
+							"
+						/>
+					</div>
+					<div class="tw-flex tw-items-center tw-gap-4 tw-justify-between">
+						<p class="mb-0 tw-uppercase">Top Seller</p>
+						<v-switch
+							:value="isTopSeller"
+							class="mt-0"
+							color="primary"
+							flat
+							hide-details
+							inset
+							@change="
+								$router.push({
+									path: '/shop',
+									query: {
+										...queries,
+										top_seller: $event ? 'true' : undefined
+									}
+								})
+							"
+						/>
+					</div>
 				</div>
 			</div>
 			<div
@@ -98,17 +146,21 @@ const vuetify = useVuetify()
 const route = useRoute()
 const router = useRouter()
 const queries = computed(() => route.query)
-const categoryStore = categoriesStore()
+const isPromo = ref<boolean>()
+const isTopSeller = ref<boolean>()
+watch(
+	() => [queries.value.promo, queries.value.top_seller],
+	([promo, topSeller]) => {
+		isPromo.value = !!promo
+		isTopSeller.value = !!topSeller
+	}
+)
 
-const getQueryFilters = () => {
-	const query: Record<string, any> = {}
-	filters.value
-		.map((f) => f.id)
-		.forEach((id) => {
-			if (queries.value[id]) query[id] = queries.value[id]
-		})
-	return query
-}
+onMounted(() => {
+	isPromo.value = !!queries.value.promo
+	isTopSeller.value = !!queries.value.top_seller
+})
+const categoryStore = categoriesStore()
 
 const filters = computed<Filter[]>(() => [
 	{
@@ -125,7 +177,7 @@ const filters = computed<Filter[]>(() => [
 				router.push({
 					name: 'shop',
 					query: {
-						...getQueryFilters(),
+						...queries.value,
 						category: category.id.toString()
 					}
 				})
@@ -145,7 +197,7 @@ const filters = computed<Filter[]>(() => [
 				router.push({
 					name: 'shop',
 					query: {
-						...getQueryFilters(),
+						...queries.value,
 						price_range: price.toString()
 					}
 				})
@@ -164,7 +216,7 @@ const filters = computed<Filter[]>(() => [
 				router.push({
 					name: 'shop',
 					query: {
-						...getQueryFilters(),
+						...queries.value,
 						brand: brand.option_id.toString()
 					}
 				})
@@ -178,9 +230,7 @@ const enableFilter = ref<boolean>(hasFilters.value)
 
 const updateShop = debounce(() => {
 	if (queries.value.search) store.searchProducts((queries.value.search as string) || '')
-	else if (queries.value.promo) store.getPromos()
-	else if (queries.value.top_seller) store.getTopSellers()
-	else if (hasFilters.value) store.getByFilters(true)
+	else if (Object.keys(queries.value)) store.getByFilters(true)
 	else store.getFirstPage()
 }, 50)
 watch(queries, updateShop)

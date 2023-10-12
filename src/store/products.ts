@@ -188,7 +188,18 @@ export const productsStore = defineStore('products', () => {
 					conditionType: 'lteq'
 				})
 		}
-
+		if (queries.value.top_seller)
+			addQuery({
+				field: 'top_seller',
+				value: '1',
+				conditionType: 'eq'
+			})
+		if (queries.value.promo)
+			addQuery({
+				field: 'special_price',
+				value: '0',
+				conditionType: 'gt'
+			})
 		return getProducts(productQueries)
 	}
 
