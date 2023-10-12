@@ -5,11 +5,13 @@
 		fluid
 		style="min-height: 80vh"
 	>
-		<v-row class="mx-16">
-			<v-col cols="12" lg="12" md="12" xl="12">
-				<v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
-			</v-col>
-		</v-row>
+		<div class="mx-16 tw-items-center tw-flex">
+			<v-btn elevation="0" rounded small @click="returnBack">
+				<v-icon v-ripple> mdi-arrow-left</v-icon>
+			</v-btn>
+
+			<v-breadcrumbs :items="items" class="mb-0" divider=">"></v-breadcrumbs>
+		</div>
 		<v-row
 			v-if="store.cart?.items.length || $vuetify.breakpoint.mdAndUp"
 			:class="{ 'mx-16': $vuetify.breakpoint.mdAndUp }"
@@ -72,11 +74,22 @@ import { useCart } from '@/store/cart'
 import { onMounted, onUnmounted, watch } from 'vue'
 import { useFooter } from '@/store/footer'
 import { useVuetify } from '@/store/vuetify'
+import { useRouter } from 'vue-router/composables'
 
 const store = useCart()
 const footer = useFooter()
 const vuetify = useVuetify()
 
+const router = useRouter()
+
+function returnBack() {
+	// If last visited page before this page is in your domain
+	if (document.referrer.indexOf(window.location.host) >= 0) {
+		router.back()
+	} else {
+		window.location.replace(window.location.origin)
+	}
+}
 const items = [
 	{
 		text: 'Carrello',
