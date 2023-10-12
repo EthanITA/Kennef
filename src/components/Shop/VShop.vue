@@ -116,6 +116,7 @@
 					:length="Math.ceil(store.total_count / 15)"
 					circle
 					class="mt-2"
+					@input="scrollToTop"
 				></v-pagination>
 			</v-col>
 		</v-row>
@@ -142,6 +143,13 @@ const store = productsStore()
 const footerStore = useFooter()
 const brandsStore = useBrands()
 const vuetify = useVuetify()
+
+const scrollToTop = () => {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	})
+}
 
 const route = useRoute()
 const router = useRouter()
