@@ -40,7 +40,7 @@ export const useHeader = defineStore('header', () => {
 			{
 				title: 'Chi Siamo',
 				img: require('@/assets/mobile/kennef_icon.svg'),
-				link: '/#'
+				link: '/about-us'
 			},
 			{
 				title: "FAQ'S",
@@ -70,7 +70,7 @@ export const useHeader = defineStore('header', () => {
 			title: 'Promo'
 		},
 		{
-			link: '/#',
+			link: '/about-us',
 			title: 'Chi Siamo'
 		},
 		{
