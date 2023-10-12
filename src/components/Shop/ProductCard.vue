@@ -35,7 +35,8 @@
 						<Price
 							v-if="product.promo_price || product.price"
 							:class="{ 'primary--text': hover }"
-							:price="product.promo_price || product.price"
+							:price="product.price"
+							:promo_price="product.promo_price"
 							class="ml-auto mt-auto"
 						/>
 					</div>

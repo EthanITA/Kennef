@@ -53,11 +53,10 @@
 				<v-divider class="my-5" />
 				<div class="d-flex align-center">
 					<Price
-						v-if="selectedProduct?.promo_price"
-						:price="selectedProduct?.promo_price || 0"
+						:price="selectedProduct?.price || 0"
+						:promo_price="selectedProduct?.promo_price"
 						class="py-0 text-h6"
 					/>
-					<Price v-else :price="selectedProduct?.price || 0" class="py-0 text-h6" />
 					<span class="ml-4 text-caption grey--text font-weight-semibold">IVA INCLUSA</span>
 				</div>
 				<v-divider class="my-5" />
