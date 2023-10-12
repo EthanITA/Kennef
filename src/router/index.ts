@@ -91,4 +91,9 @@ router.beforeEach((to, _, next) => {
 	}
 })
 
+router.afterEach((to, from) => {
+	if (to.name === from.name) return
+	window.scrollTo(0, 0)
+})
+
 export default router
