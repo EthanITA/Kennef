@@ -34,8 +34,8 @@
 		<div
 			v-if="!$vuetify.breakpoint.smAndDown"
 			:class="{ 'border-bottom': store.showShopPanel }"
-			class="d-flex ml-4 flex-grow-1 align-center fill-height"
-			style="position: relative"
+			class="d-flex ml-4 flex-grow-1 align-center fill-height tw-relative"
+			@mouseleave="store.showShopPanel = false"
 		>
 			<v-btn
 				v-for="link in store.links"
@@ -44,11 +44,18 @@
 				color="secondary"
 				text
 				@click="linkClicked(link)"
+				@mouseover="
+					() => {
+						if (link.title === 'Shop') {
+							store.showShopPanel = true
+						}
+					}
+				"
 			>
 				<span>{{ link.title }}</span>
 			</v-btn>
 			<SearchButton />
-			<ShopPanel v-show="store.showShopPanel" class="navigation-container" />
+			<ShopPanel v-show="store.showShopPanel" class="tw-absolute tw-z-[100] tw-mt-[1px] tw-top-[100%]" />
 		</div>
 
 		<div v-if="!noIcons" class="tw-ml-auto">
@@ -116,7 +123,7 @@ watch(
 
 const linkClicked = (link: { title: string; link: string }) => {
 	if (link.title === 'Shop') {
-		store.showShopPanel = !store.showShopPanel
+		//store.showShopPanel = !store.showShopPanel
 	} else {
 		router.push(link.link)
 	}
@@ -125,12 +132,6 @@ const linkClicked = (link: { title: string; link: string }) => {
 
 <style lang="sass" scoped>
 @import '@/assets/variables.sass'
-.navigation-container
-  position: absolute
-  top: 95px
-  left: 0
-  padding-top: 25px
-  z-index: 100
 
 .border-bottom
   @include borderBottom()
