@@ -131,7 +131,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import FilterBar from '@/components/Shop/FilterBar.vue'
 import { productsStore } from '@/store/products'
 import { categoriesStore } from '@/store/categories'
-import { debounce, differenceBy, sortBy, toNumber } from 'lodash'
+import { debounce, toNumber } from 'lodash'
 import { useRoute, useRouter } from 'vue-router/composables'
 import NotFoundContent from '@/components/Product/NoProducts.vue'
 import SearchButton from '@/components/kennef/SearchButton.vue'
@@ -174,9 +174,21 @@ const filters = computed<Filter[]>(() => [
 		name: 'Categoria',
 		model: categoryStore.idCategories[toNumber(queries.value.category)]?.name || '',
 		placeholder: 'Categoria',
-		options: sortBy(
-			differenceBy(categoryStore.categories, categoryStore.topLevelCategories, 'id').map((c) => c.name)
-		),
+		options: (() => {
+			const items: string[] = []
+			categoryStore.topLevelCategories.forEach((c) => {
+				items.push(c.name)
+				categoryStore.parentCategories[c.id]?.forEach((c) => {
+					items.push(c.name)
+				})
+			})
+			return items
+		})(),
+		grouped: true,
+		groupFn: (item: string) => {
+			const category = categoryStore.categories.find((c) => c.name === item)
+			return category?.parent_id !== 1 ? '— ' + item : item
+		},
 		handle: (filter) => {
 			const category = categoryStore.categories.find((c) => c.name === filter.model)
 			if (category) {

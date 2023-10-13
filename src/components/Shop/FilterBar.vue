@@ -1,32 +1,40 @@
 <template>
 	<div class="d-flex">
-		<Select
+		<v-combobox
 			v-for="(filter, idx) in filters"
 			:key="idx"
 			v-model="filter.model"
 			:background-color="filter.model ? 'secondary' : ''"
 			:class="{ 'pr-4': idx !== filters.length - 1 }"
-			:options="filter.options"
+			:items="filter.options"
 			:placeholder="filter.placeholder"
+			color="secondary"
+			dense
+			outlined
+			style="border-radius: 0"
 			@input="
 				() => {
 					if (filter.handle) filter.handle(filter)
 					$emit('input', filters)
 				}
 			"
-		/>
+		>
+			<template v-if="filter.groupFn" v-slot:item="data">
+				{{ filter.groupFn(data.item) }}
+			</template>
+		</v-combobox>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import Select from '@/components/kennef/Select.vue'
-
 interface Filter {
 	name: string
 	model: any
 	placeholder?: string
 	options: string[] | any
 	handle?: (filter: Filter) => void
+	grouped?: boolean
+	groupFn?: (item: string) => string
 }
 const props = defineProps<{
 	filters: Filter[]

@@ -52,7 +52,7 @@ export const categoriesStore = defineStore('categories', () => {
 				}
 			})
 			.then((res) => {
-				categories.value = res.data.items
+				categories.value = res.data.items.filter((cat) => cat.level >= 1)
 			})
 	}
 	return {
