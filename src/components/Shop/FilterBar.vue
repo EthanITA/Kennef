@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex">
-		<v-select
+		<v-combobox
 			v-for="(filter, idx) in filters"
 			:key="idx"
 			v-model="filter.model"
@@ -23,7 +23,7 @@
 			<template v-if="filter.groupFn" v-slot:item="data">
 				{{ filter.groupFn(data.item) }}
 			</template>
-		</v-select>
+		</v-combobox>
 	</div>
 </template>
 
@@ -42,6 +42,7 @@ const props = defineProps<{
 }>()
 </script>
 <style lang="sass" scoped>
-::v-deep .v-select__selection.v-select__selection--comma
+::v-deep .v-input__slot
+	input[type="text"]
 		color: white
 </style>
