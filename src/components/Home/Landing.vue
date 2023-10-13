@@ -12,8 +12,8 @@
 						'tw-w-[80%]': $vuetify.breakpoint.mdAndUp
 					}"
 				>
-					<template #title> Dal bullone in su </template>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In etiam adipiscing ac congue.</p>
+					<template #title> Lavora con precisione. </template>
+					<p>La soluzione perfetta per chi non ha tempo da perdere: acquista i tuoi attrezzi online</p>
 					<template #action>
 						<Button @click="$router.push('/categories')"> Vai allo shop </Button>
 					</template>
@@ -21,7 +21,10 @@
 			</v-col>
 			<v-col class="d-flex justify-end tw-ml-auto tw-pointer-events-none">
 				<v-img
-					:class="{ 'tw-left-[50%]': $vuetify.breakpoint.smAndDown }"
+					:class="{
+						'tw-left-[50%]': $vuetify.breakpoint.smOnly,
+						'tw-left-[70%]': $vuetify.breakpoint.xsOnly
+					}"
 					max-width="700"
 					src="@/assets/BigClaw.png"
 				/>
