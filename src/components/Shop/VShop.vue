@@ -1,7 +1,7 @@
 <template>
 	<div
 		:class="{
-			'tw-grid tw-justify-center': store.products.length
+			'tw-justify-center': store.products.length
 		}"
 	>
 		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4 tw-px-2" expanded />

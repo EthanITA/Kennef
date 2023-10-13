@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex">
-		<v-combobox
+		<v-select
 			v-for="(filter, idx) in filters"
 			:key="idx"
 			v-model="filter.model"
@@ -8,6 +8,7 @@
 			:class="{ 'pr-4': idx !== filters.length - 1 }"
 			:items="filter.options"
 			:placeholder="filter.placeholder"
+			class="tw-flex-1"
 			color="secondary"
 			dense
 			outlined
@@ -22,7 +23,7 @@
 			<template v-if="filter.groupFn" v-slot:item="data">
 				{{ filter.groupFn(data.item) }}
 			</template>
-		</v-combobox>
+		</v-select>
 	</div>
 </template>
 
@@ -41,7 +42,6 @@ const props = defineProps<{
 }>()
 </script>
 <style lang="sass" scoped>
-::v-deep .v-input__slot
-	input[type="text"]
+::v-deep .v-select__selection.v-select__selection--comma
 		color: white
 </style>
