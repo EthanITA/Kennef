@@ -16,16 +16,7 @@
 				<v-icon large>mdi-menu</v-icon>
 			</v-app-bar-nav-icon>
 			<a class="d-flex align-center" @click="$router.push('/')">
-				<v-img
-					:src="
-						$vuetify.breakpoint.smAndDown
-							? require('../assets/mobile/Logo.svg')
-							: require('../assets/logotype.svg')
-					"
-					alt="Kennef Logotype"
-					contain
-					width="125"
-				/>
+				<v-img :src="require('../assets/logotype.svg')" alt="Kennef Logotype" contain width="125" />
 			</a>
 		</v-app-bar>
 		<div class="px-4 tw-mt-[80px] tw-grid tw-divide-y-[1px] tw-divide-primary">
