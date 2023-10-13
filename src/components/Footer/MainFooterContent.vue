@@ -97,13 +97,16 @@
 				<v-spacer></v-spacer>
 
 				<div class="btns-r">
-					<v-btn color="white" text x-small>
-						<v-icon>$ig</v-icon>
-					</v-btn>
-
-					<v-btn color="white" text x-small>
-						<v-icon color="transparent">$fb</v-icon>
-					</v-btn>
+					<a href="https://www.instagram.com/kennef_shoputensili/" target="_blank">
+						<v-btn color="white" text x-small>
+							<v-icon>$ig</v-icon>
+						</v-btn>
+					</a>
+					<a href="https://www.facebook.com/kennefshoputensilipuglia" target="_blank">
+						<v-btn color="white" text x-small>
+							<v-icon color="transparent">$fb</v-icon>
+						</v-btn>
+					</a>
 				</div>
 			</v-toolbar>
 		</v-row>
