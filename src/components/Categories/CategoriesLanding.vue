@@ -8,8 +8,7 @@
 		>
 			<template #title><p class="white--text">I nostri prodotti</p></template>
 			<p class="white--text">
-				Lorem ipsum dolor sit amet, consectetur elit. Elit tristique habitasse consequat nisi, sit aenean cursus
-				purus bibendum.
+				La soluzione perfetta per chi non ha tempo da perdere: acquista i tuoi attrezzi online
 			</p>
 			<template #action>
 				<Button @click="$router.push('/shop?top_seller=true')">scopri di piu</Button>
