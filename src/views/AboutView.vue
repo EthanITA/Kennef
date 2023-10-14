@@ -36,7 +36,12 @@
 				</p>
 			</div>
 		</div>
-		<div class="tw-grid tw-grid-cols-12 tw-gap-8 tw-mt-8">
+		<div
+			:class="{
+				'!tw-grid-cols-1': $vuetify.breakpoint.smAndDown
+			}"
+			class="tw-grid tw-grid-cols-12 tw-gap-8 tw-mt-8"
+		>
 			<div
 				:class="{
 					'!tw-col-span-full': $vuetify.breakpoint.smAndDown
