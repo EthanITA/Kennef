@@ -26,7 +26,7 @@
 			<v-col cols="12" lg="4" md="4" xl="4">
 				<h5 class="white--text text-h5 font-weight-semibold">Link Utili</h5>
 				<v-list color="secondary" dark>
-					<v-list-item v-for="item in usefulLinks" :key="item.name" link>
+					<v-list-item v-for="item in usefulLinks" :key="item.name" @click="$router.push(item.link)">
 						<v-list-item-content>
 							<v-list-item-title class="text-h6 font-weight-thin white--text"
 								>{{ item.name }}
@@ -117,7 +117,7 @@ const emailInput = ''
 const usefulLinks = [
 	{
 		name: 'Contatti',
-		link: '/#'
+		link: '/contacts'
 	},
 	{
 		name: 'Termini e Condizioni',

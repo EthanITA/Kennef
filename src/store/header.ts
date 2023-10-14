@@ -50,7 +50,7 @@ export const useHeader = defineStore('header', () => {
 			{
 				title: 'Contatti',
 				icon: 'mdi-phone-outline',
-				link: '/#'
+				link: '/contacts'
 			}
 		]
 	}
@@ -74,7 +74,7 @@ export const useHeader = defineStore('header', () => {
 			title: 'Chi Siamo'
 		},
 		{
-			link: '/#',
+			link: '/contacts',
 			title: 'Contatti'
 		}
 	]
