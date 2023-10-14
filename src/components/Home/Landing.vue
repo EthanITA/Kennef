@@ -25,7 +25,7 @@
 						'tw-left-[50%]': $vuetify.breakpoint.smOnly,
 						'tw-left-[70%]': $vuetify.breakpoint.xsOnly
 					}"
-					max-width="700"
+					:max-width="$vuetify.breakpoint.xsOnly ? '600' : '700'"
 					src="@/assets/BigClaw.png"
 				/>
 			</v-col>
