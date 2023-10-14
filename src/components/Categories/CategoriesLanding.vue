@@ -11,7 +11,7 @@
 				La soluzione perfetta per chi non ha tempo da perdere. Acquista i tuoi attrezzi online!
 			</p>
 			<template #action>
-				<Button @click="$router.push('/shop?top_seller=true')">scopri di piu</Button>
+				<Button @click="$router.push('/shop')">scopri di piu</Button>
 			</template>
 		</LandingCardAction>
 	</div>
