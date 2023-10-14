@@ -1,16 +1,21 @@
 <template>
-	<div class="d-flex">
+	<div
+		:class="{
+			'tw-flex-col': $vuetify.breakpoint.xsOnly
+		}"
+		class="d-flex tw-gap-2"
+	>
 		<v-combobox
 			v-for="(filter, idx) in filters"
 			:key="idx"
 			v-model="filter.model"
 			:background-color="filter.model ? 'secondary' : ''"
-			:class="{ 'pr-4': idx !== filters.length - 1 }"
 			:items="filter.options"
 			:placeholder="filter.placeholder"
 			class="tw-flex-1"
 			color="secondary"
 			dense
+			hide-details
 			outlined
 			style="border-radius: 0"
 			@input="
