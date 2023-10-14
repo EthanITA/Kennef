@@ -23,7 +23,7 @@
 				<v-img
 					:class="{
 						'tw-left-[50%]': $vuetify.breakpoint.smOnly,
-						'tw-left-[70%]': $vuetify.breakpoint.xsOnly
+						'tw-left-[75%]': $vuetify.breakpoint.xsOnly
 					}"
 					:max-width="$vuetify.breakpoint.xsOnly ? '600' : '700'"
 					src="@/assets/BigClaw.png"
