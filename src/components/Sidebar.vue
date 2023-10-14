@@ -15,7 +15,15 @@
 			<v-app-bar-nav-icon class="tw-mr-4" @click="headerStore.showNavigationDrawer = false">
 				<v-icon large>mdi-menu</v-icon>
 			</v-app-bar-nav-icon>
-			<a class="d-flex align-center" @click="$router.push('/')">
+			<a
+				class="d-flex align-center"
+				@click="
+					() => {
+						headerStore.showNavigationDrawer = false
+						$router.push('/')
+					}
+				"
+			>
 				<v-img :src="require('../assets/logotype.svg')" alt="Kennef Logotype" contain width="125" />
 			</a>
 		</v-app-bar>
@@ -25,7 +33,12 @@
 					v-for="item in headerStore.navigationDrawer.general"
 					:key="item.title"
 					ripple
-					@click="$router.push(item.link).catch(reload)"
+					@click="
+						() => {
+							headerStore.showNavigationDrawer = false
+							$router.push(item.link)
+						}
+					"
 				>
 					<v-list-item-avatar>
 						<v-icon v-if="item.icon">{{ item.icon }}</v-icon>
@@ -46,7 +59,12 @@
 					<v-list-item
 						v-for="subCategory in store.parentCategories[category.id]"
 						ripple
-						@click="$router.push(`/shop?category=${subCategory.id}`).catch(reload)"
+						@click="
+							() => {
+								headerStore.showNavigationDrawer = false
+								$router.push(`/shop?category=${subCategory.id}`)
+							}
+						"
 					>
 						<v-list-item-avatar />
 						<v-list-item-title>
@@ -68,7 +86,12 @@
 					<v-list-item
 						v-for="brand in brandsStore.brands"
 						ripple
-						@click="$router.push(`/shop?brand=${brand.option_id}`).catch(reload)"
+						@click="
+							() => {
+								headerStore.showNavigationDrawer = false
+								$router.push(`/shop?brand=${brand.option_id}`)
+							}
+						"
 					>
 						<v-list-item-avatar>
 							<v-img :src="brand.image" />
@@ -84,7 +107,12 @@
 					v-for="item in headerStore.navigationDrawer.info"
 					:key="item.title"
 					ripple
-					@click="$router.push(item.link)"
+					@click="
+						() => {
+							headerStore.showNavigationDrawer = false
+							$router.push(item.link)
+						}
+					"
 				>
 					<v-list-item-avatar>
 						<v-icon v-if="item.icon">{{ item.icon }}</v-icon>

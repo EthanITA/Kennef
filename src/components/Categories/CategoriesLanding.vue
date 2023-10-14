@@ -8,7 +8,7 @@
 		>
 			<template #title><p class="white--text">I nostri prodotti</p></template>
 			<p class="white--text">
-				La soluzione perfetta per chi non ha tempo da perdere: acquista i tuoi attrezzi online
+				La soluzione perfetta per chi non ha tempo da perdere. Acquista i tuoi attrezzi online!
 			</p>
 			<template #action>
 				<Button @click="$router.push('/shop?top_seller=true')">scopri di piu</Button>

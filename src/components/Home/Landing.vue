@@ -9,13 +9,16 @@
 			<v-col :md="4" class="d-flex pt-16 tw-absolute tw-z-[1]" cols="8">
 				<LandingCardAction
 					:class="{
-						'tw-w-[80%]': $vuetify.breakpoint.mdAndUp
+						'tw-w-[80%]': $vuetify.breakpoint.mdAndUp,
+						'tw-w-[60%]': $vuetify.breakpoint.xsOnly
 					}"
 				>
 					<template #title> Lavora con precisione. </template>
 					<p>La soluzione perfetta per chi non ha tempo da perdere: acquista i tuoi attrezzi online</p>
 					<template #action>
-						<Button @click="$router.push('/categories')"> Vai allo shop </Button>
+						<Button :medium="$vuetify.breakpoint.xsOnly" @click="$router.push('/categories')">
+							Vai allo shop
+						</Button>
 					</template>
 				</LandingCardAction>
 			</v-col>
