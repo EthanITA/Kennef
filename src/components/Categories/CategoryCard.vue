@@ -1,6 +1,6 @@
 <template>
 	<HoverScale class="tw-flex-col tw-flex">
-		<v-img :src="store.getMediaUrl(category)" class="tw-grow" />
+		<v-img :src="store.getMediaUrl(category)" class="tw-grow" contain />
 
 		<div class="text-center text-subtitle-1 mt-4">
 			{{ category.name }}

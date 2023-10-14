@@ -4,40 +4,40 @@
 
 		<v-row>
 			<v-col cols="12" lg="6" md="6" xl="6">
-				<v-container class="grey lighten-3" fluid>
-					<v-row style="height: 100%">
-						<v-col :cols="12">
-							<v-carousel v-model="activeImage" hide-delimiters show-arrows>
-								<v-carousel-item
-									v-for="(item, i) in store.getImgUrl(selectedProduct)"
-									:key="i"
-									:src="item"
-								/>
-							</v-carousel>
-						</v-col>
-					</v-row>
-					<v-row>
-						<v-spacer />
-						<v-col
-							v-for="(item, i) in store.getImgUrl((store.product?.configurable_products || [])[0])"
-							:key="i"
-							cols="2"
-						>
-							<v-card
-								:class="{
-									'mx-2': $vuetify.breakpoint.mdAndUp
-								}"
-								:style="activeImage === i && 'border-bottom: 3px #003f4b solid;'"
-								class="rounded-0"
-								flat
-								@click="setActiveImage(i)"
+				<v-row>
+					<v-col :cols="12">
+						<v-carousel v-model="activeImage" height="100%" hide-delimiters show-arrows>
+							<v-carousel-item
+								v-for="(item, i) in store.getImgUrl(selectedProduct)"
+								:key="i"
+								class="tw-h-full"
 							>
-								<v-img :aspect-ratio="1" :src="item" contain />
-							</v-card>
-						</v-col>
-						<v-spacer />
-					</v-row>
-				</v-container>
+								<v-img :src="item" aspect-ratio="1" class="tw-h-full" contain />
+							</v-carousel-item>
+						</v-carousel>
+					</v-col>
+				</v-row>
+				<v-row>
+					<v-spacer />
+					<v-col
+						v-for="(item, i) in store.getImgUrl((store.product?.configurable_products || [])[0])"
+						:key="i"
+						cols="2"
+					>
+						<v-card
+							:class="{
+								'mx-2': $vuetify.breakpoint.mdAndUp
+							}"
+							:style="activeImage === i && 'border-bottom: 3px #003f4b solid;'"
+							class="rounded-0"
+							flat
+							@click="setActiveImage(i)"
+						>
+							<v-img :aspect-ratio="1" :src="item" contain />
+						</v-card>
+					</v-col>
+					<v-spacer />
+				</v-row>
 			</v-col>
 			<v-col
 				:class="{ 'pl-16': $vuetify.breakpoint.mdAndUp, 'tw-px-8': $vuetify.breakpoint.mdAndDown }"

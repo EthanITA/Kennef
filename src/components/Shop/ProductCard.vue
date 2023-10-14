@@ -14,9 +14,10 @@
 						:aspect-ratio="0.8"
 						:src="store.getImgUrl(product)[0]"
 						:style="{ 'display: none': !store.getImgUrl(product).length }"
+						contain
 						height="300px"
 						max-height="300px"
-						style="background-color: #f6f6f6"
+						style="background-color: white"
 					>
 						<v-container>
 							<v-row>
