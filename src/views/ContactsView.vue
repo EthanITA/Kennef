@@ -2,9 +2,11 @@
 
 <template>
 	<v-container class="tw-gap-4 text-center tw-uppercase tw-h-[70vh] tw-flex tw-flex-col tw-justify-center">
-		<p>KENNEF SHOP UTENSILI</p>
-		<p>VIA VITTORIO VENETO, 13</p>
-		<p>72020 - ERCHIE (BR)</p>
+		<a href="https://maps.app.goo.gl/uShe9VNot4cVBPz69" target="_blank">
+			<p>KENNEF SHOP UTENSILI</p>
+			<p>VIA VITTORIO VENETO, 13</p>
+			<p>72020 - ERCHIE (BR)</p>
+		</a>
 		<div class="tw-flex tw-justify-center tw-gap-2">
 			<a href="https://www.instagram.com/kennef_shoputensili/" target="_blank">
 				<v-btn color="primary" text x-small>
@@ -28,7 +30,7 @@
 					</svg>
 				</v-btn>
 			</a>
-			<a target="_blank">
+			<a href="mailto:info@kennef.it">
 				<v-btn color="primary" text x-small>
 					<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 						<path
@@ -40,8 +42,12 @@
 			</a>
 		</div>
 		<div class="tw-justify-center tw-flex tw-gap-4">
-			<p>3489744416</p>
-			<p>3482490316</p>
+			<a href="tel:3489744416">
+				<p>3489744416</p>
+			</a>
+			<a href="tel:3482490316">
+				<p>3482490316</p>
+			</a>
 		</div>
 	</v-container>
 </template>
