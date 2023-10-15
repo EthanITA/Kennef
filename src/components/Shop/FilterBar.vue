@@ -5,7 +5,7 @@
 		}"
 		class="d-flex tw-gap-2"
 	>
-		<v-combobox
+		<v-select
 			v-for="(filter, idx) in filters"
 			:key="idx"
 			v-model="filter.model"
@@ -28,7 +28,7 @@
 			<template v-if="filter.groupFn" v-slot:item="data">
 				{{ filter.groupFn(data.item) }}
 			</template>
-		</v-combobox>
+		</v-select>
 	</div>
 </template>
 
@@ -42,12 +42,16 @@ interface Filter {
 	grouped?: boolean
 	groupFn?: (item: string) => string
 }
+
 const props = defineProps<{
 	filters: Filter[]
 }>()
 </script>
 <style lang="sass" scoped>
 ::v-deep .v-input__slot
-	input[type="text"]
-		color: white
+  input[type="text"]
+    color: white
+
+::v-deep .v-select__selections .v-select__selection.v-select__selection--comma
+  color: white
 </style>
