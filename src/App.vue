@@ -1,9 +1,9 @@
 <template>
-	<v-app class="px-16">
+	<v-app>
 		<Sidebar />
 		<Header />
 		<v-main class="!tw-pt-[80px]">
-			<v-container :class="''" class="px-0" fluid style="height: 100%">
+			<v-container class="px-0" style="height: 100%">
 				<router-view />
 			</v-container>
 		</v-main>

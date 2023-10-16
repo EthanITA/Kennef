@@ -1,8 +1,10 @@
 <template>
-	<v-container
+	<div
 		:class="{
-			'px-16 pt-10 tw-w-[80%]': $vuetify.breakpoint.mdAndUp
+			'px-16 pt-10 tw-w-[80%]': $vuetify.breakpoint.mdAndUp,
+			'px-2 tw-w-[100vw]': $vuetify.breakpoint.smAndDown
 		}"
+		class="overflow-x-hidden"
 	>
 		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4" expanded />
 		<v-row class="tw-relative overflow-x-hidden">
@@ -48,7 +50,7 @@
 		<v-lazy>
 			<Brands />
 		</v-lazy>
-	</v-container>
+	</div>
 </template>
 
 <script lang="ts" setup>
