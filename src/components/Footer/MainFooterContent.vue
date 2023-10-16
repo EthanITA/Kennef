@@ -7,12 +7,13 @@
 				</h3>
 			</v-col>
 			<v-col cols="12" lg="6" md="6" xl="6">
-				<div class="d-flex align-baseline">
+				<div class="tw-flex tw-items-center">
 					<v-text-field
 						v-model="emailInput"
 						class="rounded-0"
 						clearable
 						color="primary"
+						hide-details
 						label="Indirizzo email"
 						outlined
 						solo
