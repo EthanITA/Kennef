@@ -1,10 +1,9 @@
 <template>
 	<div
 		:class="{
-			'px-16 pt-10 tw-w-[80%]': $vuetify.breakpoint.mdAndUp,
+			'px-16 pt-10': $vuetify.breakpoint.mdAndUp,
 			'px-2 tw-w-[100vw]': $vuetify.breakpoint.smAndDown
 		}"
-		class="overflow-x-hidden"
 	>
 		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4" expanded />
 		<v-row class="tw-relative overflow-x-hidden">
@@ -27,10 +26,9 @@
 			<v-col class="d-flex justify-end tw-ml-auto tw-pointer-events-none">
 				<v-img
 					:class="{
-						'tw-left-[50%]': $vuetify.breakpoint.smOnly,
-						'tw-left-[75%]': $vuetify.breakpoint.xsOnly
+						'tw-mr-[-60%]': $vuetify.breakpoint.smAndDown
 					}"
-					:max-width="$vuetify.breakpoint.xsOnly ? '600' : '700'"
+					:max-width="$vuetify.breakpoint.xsOnly ? undefined : '700'"
 					src="@/assets/BigClaw.png"
 				/>
 			</v-col>
