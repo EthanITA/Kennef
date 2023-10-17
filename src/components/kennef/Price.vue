@@ -1,5 +1,5 @@
 <template>
-	<div class="tw-flex tw-gap-2">
+	<div class="tw-flex tw-gap-2 tw-whitespace-nowrap">
 		<p
 			v-if="promo_price || promo_price === 0"
 			:class="{ 'text-decoration-underline': !noUnderline }"

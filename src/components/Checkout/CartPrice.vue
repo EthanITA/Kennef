@@ -5,15 +5,10 @@
 				<v-col class="mt-4 mb-2 flex-col">
 					<!-- PRICE COL -->
 					<div>
-						<v-row no-gutters>
-							<v-col cols="3" lg="3" md="3" xl="3">
-								<p class="text-h6 secondary--text font-weight-semibold text-uppercase">subtotale</p>
-							</v-col>
-							<v-spacer></v-spacer>
-							<v-col class="text-end" cols="8" lg="8" md="8" xl="8">
-								<Price :price="price" class="text-h6" />
-							</v-col>
-						</v-row>
+						<div class="tw-flex tw-justify-between">
+							<p class="text-h6 secondary--text font-weight-semibold text-uppercase">subtotale</p>
+							<Price :price="price" class="text-h6" />
+						</div>
 						<v-row v-if="discount" no-gutters>
 							<v-col cols="3" lg="3" md="3" xl="3">
 								<p class="text-h6 secondary--text font-weight-semibold text-uppercase">sconto</p>
