@@ -49,7 +49,9 @@
 			<v-list>
 				<v-list-group v-for="category in store.topLevelCategories" color="secodary">
 					<template #prependIcon>
-						<v-icon class="tw-pl-2"> mdi-format-list-bulleted</v-icon>
+						<div class="tw-pl-2 white--text">
+							<component :is="categoryIcon[category.name]" />
+						</div>
 					</template>
 					<template #activator>
 						<v-list-item>
@@ -128,12 +130,25 @@
 import { useHeader } from '@/store/header'
 import { categoriesStore } from '@/store/categories'
 import { useBrands } from '@/store/brands'
+import Shoe from '@/components/Icons/Shoe.vue'
+import Furniture from '@/components/Icons/Furniture.vue'
+import LucideCar from '@/components/Icons/LucideCar.vue'
+import HammerAnvil from '@/components/Icons/HammerAnvil.vue'
+import Screwdriver from '@/components/Icons/Screwdriver.vue'
 
 const reload = () => window.location.reload()
 const headerStore = useHeader()
 const store = categoriesStore()
 const brandsStore = useBrands()
 !brandsStore.brands.length && brandsStore.getBrands()
+
+const categoryIcon = {
+	Abbigliamento: Shoe,
+	Arredamento: Furniture,
+	Automotive: LucideCar,
+	'Lavorazione metallo': HammerAnvil,
+	Utensili: Screwdriver
+}
 </script>
 
 <style scoped>
