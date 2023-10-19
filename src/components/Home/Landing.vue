@@ -6,33 +6,26 @@
 		}"
 	>
 		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4" expanded />
-		<v-row class="tw-relative overflow-x-hidden">
-			<v-col :md="4" class="d-flex pt-16 tw-absolute tw-z-[1]" cols="8">
-				<LandingCardAction
-					:class="{
-						'tw-w-[80%]': $vuetify.breakpoint.mdAndUp,
-						'tw-w-[60%]': $vuetify.breakpoint.xsOnly
-					}"
-				>
-					<template #title> Lavora con precisione. </template>
-					<p>La soluzione perfetta per chi non ha tempo da perdere: acquista i tuoi attrezzi online</p>
-					<template #action>
-						<Button :medium="$vuetify.breakpoint.xsOnly" @click="$router.push('/categories')">
-							Vai allo shop
-						</Button>
-					</template>
-				</LandingCardAction>
-			</v-col>
-			<v-col class="d-flex justify-end tw-ml-auto tw-pointer-events-none">
-				<v-img
-					:class="{
-						'tw-mr-[-60%]': $vuetify.breakpoint.smAndDown
-					}"
-					:max-width="$vuetify.breakpoint.xsOnly ? undefined : '700'"
-					src="@/assets/BigClaw.png"
-				/>
-			</v-col>
-		</v-row>
+		<div class="tw-flex">
+			<LandingCardAction
+				:class="{
+					'': $vuetify.breakpoint.mdAndUp,
+					'tw-w-[50%]': $vuetify.breakpoint.xsOnly
+				}"
+				class="tw-w-[50%] tw-flex-1"
+			>
+				<template #title> Lavora con precisione. </template>
+				<p>La soluzione perfetta per chi non ha tempo da perdere: acquista i tuoi attrezzi online</p>
+				<template #action>
+					<Button :medium="$vuetify.breakpoint.xsOnly" @click="$router.push('/categories')">
+						Vai allo shop
+					</Button>
+				</template>
+			</LandingCardAction>
+			<div class="tw-flex-[2]">
+				<v-img class="" src="@/assets/BigClaw.png" width="637"></v-img>
+			</div>
+		</div>
 
 		<v-lazy v-if="topProducts.length && $vuetify.breakpoint.mdAndUp">
 			<TopSellerProducts :products="topProducts" class="mt-16" label="Top Seller" url="/shop?top_seller=true" />

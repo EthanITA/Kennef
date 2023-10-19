@@ -5,9 +5,9 @@
 				:class="{
 					'tw-ml-16': $vuetify.breakpoint.mdAndUp
 				}"
-				class="tw-ml-8 tw-my-auto"
+				class="tw-ml-4 tw-my-auto"
 			>
-				<h1 class="text-h3 font-weight-regular">
+				<h1 class="text-h4 font-weight-regular">
 					<slot name="title" />
 				</h1>
 				<p class="font-weight-bold mt-6">
