@@ -2,7 +2,7 @@
 	<v-app>
 		<Sidebar />
 		<Header />
-		<v-main class="!tw-pt-[80px] overflow-x-hidden">
+		<v-main class="!tw-pt-[80px] overflow-x-hidden tw-relative">
 			<v-container class="px-0" style="height: 100%">
 				<router-view />
 			</v-container>

@@ -1,5 +1,5 @@
 <template>
-	<v-container fluid>
+	<div>
 		<h3 class="text-center text-h4 font-weight-regular">Categorie</h3>
 		<v-row v-if="$vuetify.breakpoint.mdAndUp" class="py-8" justify="center">
 			<v-col v-for="category in store.topLevelCategories" :key="category.id" :cols="2">
@@ -17,7 +17,7 @@
 				<CategoryCard :category="item" class="tw-h-full" />
 			</v-carousel-item>
 		</v-carousel>
-	</v-container>
+	</div>
 </template>
 
 <script lang="ts" setup>

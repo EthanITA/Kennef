@@ -1,7 +1,7 @@
 <template>
-	<div>
+	<div class="tw-w-full">
 		<CategoriesLanding />
-		<VCategories class="main-container tw-mt-8" />
+		<VCategories class="tw-my-16" />
 	</div>
 </template>
 

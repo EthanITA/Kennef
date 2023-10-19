@@ -1,10 +1,11 @@
 <template>
-	<div>
+	<div class="secondary tw-mx-auto tw-ml-[calc(-50vw+50%)] tw-mr-[calc(-50vw+50%)]">
 		<LandingCardAction
-			:style="{
-				'background-image': 'url(' + require('@/assets/categoriesBackground.png') + ')'
+			:class="{
+				'tw-h-[30vh]': $vuetify.breakpoint.smAndDown,
+				'tw-h-[40vh]': $vuetify.breakpoint.mdAndUp
 			}"
-			class="tw-p-4 tw-bg-cover tw-bg-center tw-bg-no-repeat tw-bg-fixed tw-h-[50vh] tw-w-screen"
+			class="tw-p-4"
 		>
 			<template #title><p class="white--text">I nostri prodotti</p></template>
 			<p class="white--text">
