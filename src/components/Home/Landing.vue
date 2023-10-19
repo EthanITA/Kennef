@@ -6,7 +6,12 @@
 		}"
 	>
 		<SearchButton v-if="$vuetify.breakpoint.smAndDown" class="tw-mb-4" expanded />
-		<div class="tw-flex">
+		<div
+			:class="{
+				'tw-items-start tw-mt-16': $vuetify.breakpoint.smAndDown
+			}"
+			class="tw-flex"
+		>
 			<LandingCardAction
 				:class="{
 					'': $vuetify.breakpoint.mdAndUp,
@@ -15,7 +20,7 @@
 				class="tw-w-[50%] tw-flex-1"
 			>
 				<template #title> Lavora con precisione. </template>
-				<p>La soluzione perfetta per chi non ha tempo da perdere: acquista i tuoi attrezzi online</p>
+				<p>La soluzione perfetta per chi non ha tempo da perdere: acquista i tuoi attrezzi online!</p>
 				<template #action>
 					<Button :medium="$vuetify.breakpoint.xsOnly" @click="$router.push('/categories')">
 						Vai allo shop
